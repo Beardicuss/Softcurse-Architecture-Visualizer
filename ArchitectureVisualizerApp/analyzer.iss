@@ -1,6 +1,6 @@
 [Setup]
 AppName=Softcurse Architecture Visualizer
-AppVersion=1.0.0
+AppVersion=1.0.1
 DefaultDirName={autopf}\Softcurse Architecture Visualizer
 DefaultGroupName=Softcurse Architecture Visualizer
 OutputDir=d:\Projects\In progress\UniversalAnalyzer\ArchitectureVisualizerApp\output
