@@ -1,0 +1,81 @@
+        private async Task<string> AnalyzeProjectAsync(string projectPath)
+        {
+            var outputFile = Path.Combine(Path.GetTempPath(), $"analysis_{Guid.NewGuid()}.json");
+            var exportScript = Path.Combine(pythonScriptsPath, "export_json.py");
+            var useCache = useCacheCheckbox.IsChecked == true ? "--cache" : "";
+
+            var arguments = pythonPath == "py" 
+                ? $"-3 \"{exportScript}\" \"{projectPath}\" -o \"{outputFile}\" {useCache}"
+                : $"\"{exportScript}\" \"{projectPath}\" -o \"{outputFile}\" {useCache}";
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = pythonPath,
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                WorkingDirectory = pythonScriptsPath
+            };
+
+            using var process = new Process { StartInfo = startInfo };
+            var stderrBuilder = new StringBuilder();
+            
+            // Stream stderr for progress updates AND capture for error reporting
+            process.ErrorDataReceived += (s, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    stderrBuilder.AppendLine(e.Data);
+                    Dispatcher.Invoke(() =>
+                    {
+                        if (e.Data.Contains("[INFO]"))
+                            UpdateAnalysisLog(e.Data.Replace("[INFO]", "").Trim());
+                        else if (e.Data.Contains("[GPU]"))
+                            UpdateAnalysisLog("🎮 " + e.Data.Replace("[GPU]", "").Trim());
+                    });
+                }
+            };
+            
+            process.Start();
+            process.BeginErrorReadLine();
+
+            // Read stdout to prevent buffer deadlock
+            var outputTask = process.StandardOutput.ReadToEndAsync();
+            
+            // Add 5-minute timeout
+            var timeoutTask = Task.Delay(TimeSpan.FromMinutes(5));
+            var processTask = process.WaitForExitAsync();
+            
+            var completedTask = await Task.WhenAny(processTask, timeoutTask);
+            if (completedTask == timeoutTask)
+            {
+                process.Kill();
+                throw new TimeoutException("Analysis timed out after 5 minutes. Try reducing max_depth or excluding more directories.");
+            }
+
+            await processTask;
+            var output = await outputTask;
+
+            if (process.ExitCode != 0)
+            {
+                var stderr = stderrBuilder.ToString();
+                var errorMsg = !string.IsNullOrWhiteSpace(stderr) ? stderr : output;
+                
+                // Filter for relevant error lines if too long
+                if (errorMsg.Length > 1000)
+                {
+                    var lines = errorMsg.Split('\n');
+                    var relevantLines = lines.Where(l => !l.Contains("[INFO]") && !l.Contains("[GPU]")).TakeLast(20);
+                    errorMsg = string.Join("\n", relevantLines);
+                }
+                
+                throw new Exception($"Python failed (Exit Code {process.ExitCode}):\n{errorMsg}");
+            }
+
+            if (!File.Exists(outputFile))
+                throw new Exception("Output file not created");
+
+            return await File.ReadAllTextAsync(outputFile);
+        }

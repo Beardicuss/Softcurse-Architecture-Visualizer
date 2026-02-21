@@ -1,0 +1,122 @@
+<Window x:Class="ArchitectureVisualizerApp.PreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="Softcurse · PREVIEW MONITOR" 
+        Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#000000"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResize">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" ResizeBorderThickness="5" GlassFrameThickness="0" CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <!-- Softcurse themed styles -->
+        <Style x:Key="GlowBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#00F6FF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#00F6FF" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Outer glow frame -->
+        <Border Style="{StaticResource GlowBorder}" Margin="6">
+            <Grid Background="#0A0412">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" 
+                        BorderBrush="#00F6FF" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="15,10"
+                        Background="#140524">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="SOFTCURSE · PREVIEW MONITOR" 
+                                       FontFamily="Consolas"
+                                       FontSize="14" 
+                                       FontWeight="Bold" 
+                                       Foreground="#F7F2FF">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect Color="#00F6FF" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <!-- Status indicator and Window Controls -->
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                            
+                            <!-- Status -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
+                                <Ellipse x:Name="statusDot" 
+                                         Width="10" 
+                                         Height="10" 
+                                         Fill="#00F6FF"
+                                         Margin="0,0,8,0">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect Color="#00F6FF" BlurRadius="8" ShadowDepth="0" Opacity="1"/>
+                                    </Ellipse.Effect>
+                                </Ellipse>
+                                <TextBlock x:Name="statusText"
+                                           Text="RENDER: ACTIVE" 
+                                           FontFamily="Consolas"
+                                           FontSize="10" 
+                                           Foreground="#E8DCFF"/>
+                            </StackPanel>
+
+                            <!-- Window Controls -->
+                            <StackPanel Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
+                                <Button Content="_" Click="Minimize_Click" Width="30" Height="25" Margin="0,0,5,0" 
+                                        Background="Transparent" BorderThickness="0" Foreground="#00F6FF" FontFamily="Consolas" FontSize="14"/>
+                                <Button Content="□" Click="Maximize_Click" Width="30" Height="25" Margin="0,0,5,0" 
+                                        Background="Transparent" BorderThickness="0" Foreground="#00F6FF" FontFamily="Consolas" FontSize="14"/>
+                                <Button Content="X" Click="Close_Click" Width="30" Height="25" 
+                                        Background="Transparent" BorderThickness="0" Foreground="#FF0055" FontFamily="Consolas" FontSize="14"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- WebView2 Content -->
+                <Border Grid.Row="1" 
+                        Margin="1"
+                        Background="#050308">
+                    <wv2:WebView2 x:Name="webView" 
+                                  Source="about:blank"/>
+                </Border>
+
+                <!-- Footer -->
+                <Border Grid.Row="2" 
+                        BorderBrush="#9D4EDD" 
+                        BorderThickness="0,1,0,0" 
+                        Padding="15,8"
+                        Background="#140524">
+                    <TextBlock HorizontalAlignment="Center"
+                               FontFamily="Consolas"
+                               FontSize="9"
+                               Foreground="#E8DCFF">
+                        <Run Text="Created by "/>
+                        <Run Text="Dante Berezinsky" Foreground="#FFE8A4"/>
+                        <Run Text=" · "/>
+                        <Run Text="Softcurse Corp." Foreground="#00F6FF"/>
+                    </TextBlock>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

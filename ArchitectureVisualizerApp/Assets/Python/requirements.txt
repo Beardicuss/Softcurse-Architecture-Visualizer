@@ -1,0 +1,9 @@
+tqdm>=4.65.0
+colorama
+pyyaml
+javalang
+phply
+flask
+flask-cors
+flask-limiterpytest
+pytest-cov

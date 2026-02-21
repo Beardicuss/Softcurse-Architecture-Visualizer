@@ -1,0 +1,5669 @@
+{
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\add_settings_button.py": {
+    "hash": "50811b26a475196b34d7063d8c1c8b6a",
+    "result": [
+      [],
+      [],
+      [],
+      "Add Settings button to MainWindow.xaml properly",
+      {
+        "calls": [
+          "write",
+          "read",
+          "open",
+          "find",
+          "len",
+          "print"
+        ],
+        "variables": [
+          "xaml_path",
+          "content",
+          "visualize_end",
+          "settings_button",
+          "insert_pos",
+          "content"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\check_corruption.py": {
+    "hash": "aa1edb3091ee39c7666c2e773c0ee80b",
+    "result": [
+      [],
+      [],
+      [],
+      "Restore MainWindow.xaml.cs from backup and remove visualizeButton reference",
+      {
+        "calls": [
+          "count",
+          "read",
+          "open",
+          "chr",
+          "len",
+          "print"
+        ],
+        "variables": [
+          "cs_file",
+          "content"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\check_pytorch.py": {
+    "hash": "005300347c5c9932e4827b890c8dc7dc",
+    "result": [
+      [],
+      [],
+      [
+        "torch"
+      ],
+      null,
+      {
+        "calls": [
+          "is_available",
+          "get_device_name",
+          "print"
+        ],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\complete_fix_xaml.py": {
+    "hash": "0e4f92cb37c3e8e37d935d04a6843e66",
+    "result": [
+      [],
+      [],
+      [],
+      "Complete fix for MainWindow.xaml - restore missing button section",
+      {
+        "calls": [
+          "readlines",
+          "enumerate",
+          "writelines",
+          "open",
+          "len",
+          "print"
+        ],
+        "variables": [
+          "xaml_path",
+          "lines",
+          "correct_section",
+          "start_line",
+          "end_line",
+          "new_lines"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\fix_mainwindow.py": {
+    "hash": "d6b071b17f0aca09373f3e7eac5a3a11",
+    "result": [
+      [],
+      [],
+      [],
+      "Carefully fix MainWindow.xaml.cs by removing visualizeButton reference",
+      {
+        "calls": [
+          "readlines",
+          "enumerate",
+          "writelines",
+          "append",
+          "open",
+          "len",
+          "strip",
+          "print"
+        ],
+        "variables": [
+          "cs_file",
+          "lines",
+          "new_lines",
+          "removed_count"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\fix_mainwindow_final.py": {
+    "hash": "5734d3c33f886cbc6ed5ea3baebdb12a",
+    "result": [
+      [],
+      [],
+      [],
+      "Fix MainWindow.xaml.cs lines 193-195 corruption",
+      {
+        "calls": [
+          "readlines",
+          "writelines",
+          "open",
+          "len",
+          "print"
+        ],
+        "variables": [
+          "cs_file",
+          "lines",
+          "correct_lines",
+          "new_lines"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\fix_settings.py": {
+    "hash": "d2aaedbeedbfe2ff91670f004f75dd46",
+    "result": [
+      [],
+      [],
+      [],
+      "Fix MainWindow.xaml by restoring from backup and adding Settings button",
+      {
+        "calls": [
+          "count",
+          "write",
+          "read",
+          "open",
+          "rfind",
+          "print"
+        ],
+        "variables": [
+          "xaml_path",
+          "content",
+          "cs_path",
+          "cs_content",
+          "insert_pos",
+          "settings_method",
+          "cs_content"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\fix_updatepreview.py": {
+    "hash": "440b7d3f3889dfca939598355f3d1e3b",
+    "result": [
+      [],
+      [],
+      [],
+      "Fix UpdatePreviewWindow method completion",
+      {
+        "calls": [
+          "readlines",
+          "writelines",
+          "open",
+          "len",
+          "print"
+        ],
+        "variables": [
+          "cs_file",
+          "lines",
+          "correct_lines",
+          "new_lines"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\fix_visualizer.py": {
+    "hash": "8ec6504e4f2c13e727c75d444f7cd500",
+    "result": [
+      [],
+      [],
+      [],
+      "Quick fix for visualizer.js - change data.stats to data.metrics",
+      {
+        "calls": [
+          "write",
+          "read",
+          "open",
+          "print",
+          "replace"
+        ],
+        "variables": [
+          "file_path",
+          "content",
+          "content",
+          "content",
+          "content"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\App.xaml": {
+    "hash": "fa0070993fd86a133332367f8b8ca32c",
+    "result": [
+      [],
+      [],
+      [],
+      null,
+      {
+        "x_class": "ArchitectureVisualizerApp.App"
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\App.xaml.cs": {
+    "hash": "f1146b304ee298927f499bc572e5c0c0",
+    "result": [
+      [],
+      [
+        {
+          "name": "App",
+          "methods": []
+        },
+        {
+          "name": "StartupArgs",
+          "methods": []
+        }
+      ],
+      [
+        "System.Data",
+        "System.Windows"
+      ],
+      "<summary>",
+      {
+        "namespace": "ArchitectureVisualizerApp",
+        "calls": [
+          "OnStartup",
+          "ToLower"
+        ]
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\AssemblyInfo.cs": {
+    "hash": "ab620c0dcb1ef4bc35ed75d4e2bfef89",
+    "result": [
+      [],
+      [],
+      [
+        "System.Windows"
+      ],
+      "(used if a resource is not found in the page,",
+      {
+        "calls": [
+          "ThemeInfo"
+        ]
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\MainWindow.xaml": {
+    "hash": "31e6a399ac8bac9f7e3dc9a874fd3379",
+    "result": [
+      [],
+      [],
+      [],
+      null,
+      {
+        "x_class": "ArchitectureVisualizerApp.MainWindow"
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\MainWindow.xaml.cs": {
+    "hash": "818bea89387a831e97c155289391ccf3",
+    "result": [
+      [
+        "Initialize",
+        "ApplyStartupArgs",
+        "MainWindow_Closed",
+        "SelectProject_Click",
+        "Analyze_Click",
+        "AnalyzeProjectAsync",
+        "DisplayResults",
+        "GenerateVisualization",
+        "UpdatePreviewWindow",
+        "ShowPreviewWindow",
+        "Preview_Click",
+        "UpdateAnalysisLog",
+        "CreateFallbackHTML",
+        "FindPythonExecutable",
+        "StartApiServer",
+        "StopApiServer",
+        "ApiServer_Click",
+        "Settings_Click",
+        "Minimize_Click",
+        "Maximize_Click",
+        "Close_Click"
+      ],
+      [
+        {
+          "name": "MainWindow",
+          "methods": [
+            "Initialize",
+            "ApplyStartupArgs",
+            "MainWindow_Closed",
+            "SelectProject_Click",
+            "Analyze_Click",
+            "AnalyzeProjectAsync",
+            "DisplayResults",
+            "GenerateVisualization",
+            "UpdatePreviewWindow",
+            "ShowPreviewWindow",
+            "Preview_Click",
+            "UpdateAnalysisLog",
+            "CreateFallbackHTML",
+            "FindPythonExecutable",
+            "StartApiServer",
+            "StopApiServer",
+            "ApiServer_Click",
+            "Settings_Click",
+            "Minimize_Click",
+            "Maximize_Click",
+            "Close_Click"
+          ]
+        }
+      ],
+      [
+        "System",
+        "System.IO",
+        "System.Windows",
+        "System.Diagnostics",
+        "System.Threading.Tasks",
+        "System.Linq",
+        "Newtonsoft.Json.Linq",
+        "System.Text"
+      ],
+      null,
+      {
+        "namespace": "ArchitectureVisualizerApp",
+        "calls": [
+          "Activate",
+          "AnalyzeProjectAsync",
+          "Analyze_Click",
+          "AppendLine",
+          "ApplyStartupArgs",
+          "BeginErrorReadLine",
+          "Close",
+          "Combine",
+          "Contains",
+          "ConvertFromString",
+          "CreateFallbackHTML",
+          "Delay",
+          "DisplayResults",
+          "Exception",
+          "Exists",
+          "Exit",
+          "FindPythonExecutable",
+          "FromMinutes",
+          "GenerateVisualization",
+          "GetFileName",
+          "GetTempPath",
+          "Initialize",
+          "InitializeComponent",
+          "Invoke",
+          "IsNullOrEmpty",
+          "IsNullOrWhiteSpace",
+          "Join",
+          "Kill",
+          "NewGuid",
+          "Parse",
+          "PreviewWindow",
+          "ReadAllText",
+          "ReadAllTextAsync",
+          "ReadToEnd",
+          "ReadToEndAsync",
+          "Replace",
+          "RoutedEventArgs",
+          "SettingsWindow",
+          "Show",
+          "ShowDialog",
+          "ShowPreviewWindow",
+          "SolidColorBrush",
+          "Split",
+          "Start",
+          "StartApiServer",
+          "StopApiServer",
+          "StringBuilder",
+          "TakeLast",
+          "TimeoutException",
+          "ToString",
+          "Trim",
+          "TryParse",
+          "UpdateAnalysisLog",
+          "UpdateContent",
+          "UpdatePreviewWindow",
+          "WaitForExit",
+          "WaitForExitAsync",
+          "WhenAny",
+          "Where",
+          "WriteAllText",
+          "WriteLine",
+          "addEventListener",
+          "alpha",
+          "append",
+          "attr",
+          "call",
+          "cycle",
+          "data",
+          "failed",
+          "fetch",
+          "force",
+          "forceCenter",
+          "forceLink",
+          "forceManyBody",
+          "forceSimulation",
+          "id",
+          "json",
+          "module",
+          "on",
+          "restart",
+          "selectAll",
+          "strength",
+          "then",
+          "zoom"
+        ]
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\PreviewWindow.xaml": {
+    "hash": "41d418f98a86ebab827ff033a039afe4",
+    "result": [
+      [],
+      [],
+      [],
+      null,
+      {
+        "x_class": "ArchitectureVisualizerApp.PreviewWindow"
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\PreviewWindow.xaml.cs": {
+    "hash": "fe43e87fd8d93c4afd9265a0f4c9ee75",
+    "result": [
+      [
+        "InitializeAsync",
+        "LoadPreviewTemplate",
+        "OnWebMessageReceived",
+        "UpdateContent",
+        "SendEditorHover",
+        "Minimize_Click",
+        "Maximize_Click",
+        "Close_Click"
+      ],
+      [
+        {
+          "name": "PreviewWindow",
+          "methods": [
+            "InitializeAsync",
+            "LoadPreviewTemplate",
+            "OnWebMessageReceived",
+            "UpdateContent",
+            "SendEditorHover",
+            "Minimize_Click",
+            "Maximize_Click",
+            "Close_Click"
+          ]
+        }
+      ],
+      [
+        "System",
+        "System.IO",
+        "System.Text",
+        "System.Windows",
+        "System.Windows.Media.Animation",
+        "Microsoft.Web.WebView2.Core",
+        "Newtonsoft.Json",
+        "Newtonsoft.Json.Linq"
+      ],
+      "Pulsing animation for status dot",
+      {
+        "namespace": "ArchitectureVisualizerApp",
+        "calls": [
+          "BeginAnimation",
+          "Close",
+          "Combine",
+          "EnsureCoreWebView2Async",
+          "ExecuteScriptAsync",
+          "FromSeconds",
+          "GetTempPath",
+          "InitializeAsync",
+          "InitializeComponent",
+          "Invoke",
+          "LoadPreviewTemplate",
+          "MessageEvent",
+          "NewGuid",
+          "Parse",
+          "SerializeObject",
+          "Show",
+          "ToString",
+          "Uri",
+          "WriteAllText",
+          "WriteLine",
+          "dispatchEvent"
+        ]
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\SettingsWindow.xaml": {
+    "hash": "1216a50cf14f2e93cf924e01a4f19d98",
+    "result": [
+      [],
+      [],
+      [],
+      null,
+      {
+        "x_class": "ArchitectureVisualizerApp.SettingsWindow"
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\SettingsWindow.xaml.cs": {
+    "hash": "313d120546a4785c0600c5e99197c229",
+    "result": [
+      [
+        "LoadDefaultSettings",
+        "EnableLanguageFilter_Checked",
+        "EnableLanguageFilter_Unchecked",
+        "LoadConfig_Click",
+        "LoadConfigFromFile",
+        "Save_Click",
+        "SaveConfigToFile",
+        "Cancel_Click"
+      ],
+      [
+        {
+          "name": "SettingsWindow",
+          "methods": [
+            "LoadDefaultSettings",
+            "EnableLanguageFilter_Checked",
+            "EnableLanguageFilter_Unchecked",
+            "LoadConfig_Click",
+            "LoadConfigFromFile",
+            "Save_Click",
+            "SaveConfigToFile",
+            "Cancel_Click"
+          ]
+        }
+      ],
+      [
+        "System",
+        "System.IO",
+        "System.Linq",
+        "System.Windows",
+        "System.Collections.Generic",
+        "Microsoft.Win32"
+      ],
+      "Default exclude directories",
+      {
+        "namespace": "ArchitectureVisualizerApp",
+        "calls": [
+          "Add",
+          "Any",
+          "Close",
+          "Contains",
+          "Files",
+          "InitializeComponent",
+          "IsNullOrWhiteSpace",
+          "Join",
+          "LoadConfigFromFile",
+          "LoadDefaultSettings",
+          "ReadAllLines",
+          "SaveConfigToFile",
+          "Select",
+          "Show",
+          "ShowDialog",
+          "Split",
+          "StartsWith",
+          "StreamWriter",
+          "Substring",
+          "ToLower",
+          "ToString",
+          "Trim",
+          "TryParse",
+          "Where",
+          "WriteLine",
+          "analyze",
+          "level"
+        ]
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\api_server.py": {
+    "hash": "b2866beef9b796218a503e6ecd1ab9b6",
+    "result": [
+      [
+        "status",
+        "analyze",
+        "run_analysis",
+        "get_graph"
+      ],
+      [],
+      [
+        "flask",
+        "flask_cors",
+        "core.architecture_analyzer",
+        "core.layout_engine",
+        "core.graph"
+      ],
+      null,
+      {
+        "calls": [
+          "analyze_architecture",
+          "set",
+          "dirname",
+          "route",
+          "Path",
+          "Thread",
+          "resolve",
+          "compute_layout_gpu",
+          "run",
+          "float",
+          "len",
+          "start",
+          "basicConfig",
+          "list",
+          "build_graph",
+          "info",
+          "CORS",
+          "jsonify",
+          "join",
+          "abspath",
+          "getLogger",
+          "insert",
+          "Flask",
+          "exists",
+          "get",
+          "error"
+        ],
+        "variables": [
+          "current_dir",
+          "app",
+          "logger",
+          "current_project_path",
+          "last_analysis_result",
+          "is_analyzing",
+          "data",
+          "project_path",
+          "use_cache",
+          "current_project_path",
+          "is_analyzing",
+          "project_path_obj",
+          "config_path",
+          "config_path",
+          "analysis_results",
+          "layout_positions",
+          "pos",
+          "result",
+          "last_analysis_result",
+          "is_analyzing",
+          "thread",
+          "port"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\export_json.py": {
+    "hash": "234e9546313574bdea5fce02aa6ff4d8",
+    "result": [
+      [
+        "export_project_json"
+      ],
+      [],
+      [
+        "core.graph",
+        "core.json_exporter",
+        "core.architecture_analyzer",
+        "core.gpu_utils",
+        "core.layout_engine"
+      ],
+      "JSON Export Wrapper\nProvides simple interface for exporting graph data to JSON",
+      {
+        "calls": [
+          "build_graph",
+          "ArgumentParser",
+          "resolve",
+          "len",
+          "save_to_file",
+          "insert",
+          "print",
+          "str",
+          "JSONExporter",
+          "detect_gpu",
+          "add_argument",
+          "to_string",
+          "compute_layout_gpu",
+          "Path",
+          "export_graph",
+          "analyze_architecture",
+          "get",
+          "parse_args",
+          "export_project_json",
+          "absolute"
+        ],
+        "variables": [
+          "project_path",
+          "analysis_results",
+          "gpu_info",
+          "layout",
+          "exporter",
+          "json_data",
+          "output_path",
+          "node_map",
+          "src",
+          "parser",
+          "args"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\cpp_analyzer.py": {
+    "hash": "da6670429f10a1e8ecbbc6d5d5b81516",
+    "result": [
+      [
+        "analyze_file_cpp"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced C++ analyzer using regex patterns.\nProvides 75-80% accuracy for C++ code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "startswith",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "include_pattern",
+          "namespace_pattern",
+          "class_pattern",
+          "struct_pattern",
+          "function_pattern",
+          "method_pattern",
+          "template_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "include_match",
+          "inc",
+          "ns_match",
+          "template_match",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "struct_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\csharp_analyzer.py": {
+    "hash": "1b0f72b1e770e2d216dab8f82775db4c",
+    "result": [
+      [
+        "analyze_file_csharp_advanced"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "C# file analyzer with advanced pattern matching and framework detection.",
+      {
+        "calls": [
+          "len",
+          "strip",
+          "upper",
+          "append",
+          "search",
+          "sorted",
+          "max",
+          "print",
+          "read_text",
+          "str",
+          "enumerate",
+          "split",
+          "set",
+          "isinstance",
+          "group",
+          "range",
+          "match",
+          "items",
+          "startswith",
+          "lstrip",
+          "add",
+          "get_compiled_pattern",
+          "finditer"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "ns_re",
+          "using_re",
+          "class_re",
+          "method_decl_re",
+          "call_re",
+          "controller_re",
+          "mediatr_request_handler_re",
+          "mediatr_notification_handler_re",
+          "http_attribute_re",
+          "route_attribute_re",
+          "dbcontext_re",
+          "dbset_re",
+          "constructor_re",
+          "ns",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "calls",
+          "framework_patterns",
+          "m",
+          "ns",
+          "um",
+          "docstring",
+          "current_class",
+          "current_class_type",
+          "current_controller",
+          "current_route_prefix",
+          "classes_map",
+          "i",
+          "line",
+          "stripped",
+          "controller_match",
+          "controller_name",
+          "current_class",
+          "current_class_type",
+          "current_controller",
+          "route_match",
+          "current_route_prefix",
+          "dbcontext_match",
+          "dbcontext_name",
+          "current_class",
+          "current_class_type",
+          "class_match",
+          "handler_name",
+          "current_class",
+          "current_class_type",
+          "request_match",
+          "notification_match",
+          "request_type",
+          "response_type",
+          "notification_type",
+          "cm",
+          "cname",
+          "current_class",
+          "dbset_match",
+          "entity_type",
+          "ctor_match",
+          "ctor_name",
+          "params",
+          "param_list",
+          "param",
+          "parts",
+          "dep_type",
+          "http_method",
+          "route_template",
+          "http_match",
+          "http_method",
+          "route_template",
+          "mm",
+          "mname",
+          "full_route",
+          "full_route",
+          "action",
+          "mm",
+          "mname",
+          "KEYWORDS",
+          "EXCLUSIONS",
+          "s",
+          "name",
+          "meta"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\dart_analyzer.py": {
+    "hash": "5d59f30db6d5806c16bd733cceccee57",
+    "result": [
+      [
+        "analyze_file_dart"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Dart analyzer using regex patterns.\nProvides 80-85% accuracy for Dart code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "library_pattern",
+          "import_pattern",
+          "class_pattern",
+          "mixin_pattern",
+          "function_pattern",
+          "method_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "lib_match",
+          "import_match",
+          "imp",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "mixin_match",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\dispatcher.py": {
+    "hash": "004a1c89a382eee3c45ba13aa2bdd222",
+    "result": [
+      [
+        "analyze_file_dispatch"
+      ],
+      [],
+      [
+        "core.config",
+        "python_analyzer",
+        "csharp_analyzer",
+        "xaml_analyzer",
+        "java_analyzer",
+        "javascript_analyzer",
+        "typescript_analyzer",
+        "php_analyzer",
+        "go_analyzer",
+        "rust_analyzer",
+        "ruby_analyzer",
+        "swift_analyzer",
+        "kotlin_analyzer",
+        "dart_analyzer",
+        "cpp_analyzer",
+        "generic_analyzer"
+      ],
+      "Analysis dispatcher that routes files to appropriate analyzers.",
+      {
+        "calls": [
+          "analyze_file_typescript",
+          "analyze_file_rust",
+          "analyze_file_go",
+          "analyze_file_csharp_advanced",
+          "analyze_file_javascript",
+          "analyze_file_python",
+          "analyze_file_swift",
+          "analyze_file_dart",
+          "analyze_file_cpp",
+          "analyze_file_kotlin",
+          "analyze_file_generic",
+          "get",
+          "analyze_file_java",
+          "analyze_file_php",
+          "print",
+          "analyze_file_xaml",
+          "analyze_file_ruby",
+          "str"
+        ],
+        "variables": [
+          "config"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\generic_analyzer.py": {
+    "hash": "e6623eb8b67bd451d9fa07d215c7be56",
+    "result": [
+      [
+        "analyze_file_generic"
+      ],
+      [],
+      [
+        "core.utils",
+        "python_analyzer",
+        "core.config"
+      ],
+      "Generic file analyzer using regex patterns for multiple languages.",
+      {
+        "calls": [
+          "next",
+          "len",
+          "strip",
+          "append",
+          "search",
+          "sorted",
+          "min",
+          "print",
+          "read_text",
+          "str",
+          "enumerate",
+          "split",
+          "set",
+          "isinstance",
+          "analyze_file_python",
+          "group",
+          "range",
+          "match",
+          "startswith",
+          "lstrip",
+          "add",
+          "get_compiled_pattern",
+          "finditer",
+          "groups",
+          "get"
+        ],
+        "variables": [
+          "LANGUAGE_KEYWORDS",
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_patterns",
+          "func_pattern",
+          "class_pattern",
+          "comment_patterns",
+          "call_pattern",
+          "docstring",
+          "stdlib_exclusions",
+          "match",
+          "import_name",
+          "is_stdlib",
+          "is_stdlib",
+          "is_stdlib",
+          "KEYWORDS",
+          "match",
+          "func_name",
+          "match",
+          "class_name",
+          "methods",
+          "indent_level",
+          "next_line",
+          "next_indent",
+          "method_match",
+          "method_name",
+          "EXCLUSIONS",
+          "calls",
+          "s",
+          "skip_line",
+          "skip_line",
+          "name",
+          "ns_pattern",
+          "m",
+          "exports",
+          "export_default",
+          "export_func",
+          "export_class",
+          "m",
+          "m"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\go_analyzer.py": {
+    "hash": "e509fb32f55950996340870662c6dee8",
+    "result": [
+      [
+        "analyze_file_go"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Go analyzer using regex patterns (no Go compiler required).\nProvides 80-85% accuracy for Go code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "split",
+          "startswith",
+          "append",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "items",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "package_pattern",
+          "import_pattern",
+          "import_multi_pattern",
+          "func_pattern",
+          "method_pattern",
+          "struct_pattern",
+          "interface_pattern",
+          "struct_methods",
+          "current_struct",
+          "in_import_block",
+          "pkg_match",
+          "in_import_block",
+          "in_import_block",
+          "import_match",
+          "imp",
+          "import_match",
+          "imp",
+          "struct_match",
+          "struct_name",
+          "current_struct",
+          "interface_match",
+          "interface_name",
+          "method_match",
+          "receiver_type",
+          "method_name",
+          "func_match",
+          "func_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\javascript_analyzer.py": {
+    "hash": "3a10d82c12cbbda998230d4a06ad9845",
+    "result": [
+      [
+        "analyze_file_javascript"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced JavaScript analyzer with better pattern matching.\nHandles modern JavaScript features: arrow functions, async/await, classes, etc.\nProvides 85%+ accuracy.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "find",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "func_pattern",
+          "arrow_pattern",
+          "class_pattern",
+          "method_pattern",
+          "import_pattern1",
+          "import_pattern2",
+          "export_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name",
+          "arrow_match",
+          "func_name",
+          "import_match",
+          "import_match",
+          "module",
+          "export_match",
+          "export_name",
+          "doc_end",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\java_analyzer.py": {
+    "hash": "c2073fc6229a10c8933a2fddd875c74b",
+    "result": [
+      [
+        "analyze_file_java"
+      ],
+      [],
+      [
+        "javalang"
+      ],
+      "Deep Java analyzer using javalang library for AST-based parsing.\nProvides 95%+ accuracy for Java code analysis.",
+      {
+        "calls": [
+          "hasattr",
+          "startswith",
+          "append",
+          "isinstance",
+          "parse",
+          "filter",
+          "print",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "tree",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_path",
+          "class_info",
+          "interface_info",
+          "enum_info"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\kotlin_analyzer.py": {
+    "hash": "d011aa322eeef4012c92663cfed03c65",
+    "result": [
+      [
+        "analyze_file_kotlin"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Kotlin analyzer using regex patterns.\nProvides 80-85% accuracy for Kotlin code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "package_pattern",
+          "import_pattern",
+          "class_pattern",
+          "interface_pattern",
+          "object_pattern",
+          "fun_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "pkg_match",
+          "import_match",
+          "imp",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "object_match",
+          "object_name",
+          "fun_match",
+          "fun_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\php_analyzer.py": {
+    "hash": "a7bcec3fd4642c7e7088daad9707a219",
+    "result": [
+      [
+        "analyze_file_php"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Deep PHP analyzer using phply library for parser-based analysis.\nProvides 90%+ accuracy for PHP code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "find",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "namespace_pattern",
+          "use_pattern",
+          "class_pattern",
+          "interface_pattern",
+          "trait_pattern",
+          "function_pattern",
+          "method_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "namespace_match",
+          "use_match",
+          "use_path",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "trait_match",
+          "trait_name",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name",
+          "doc_start",
+          "doc_end",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\python_analyzer.py": {
+    "hash": "a8227e4b2457d536e3a71c07f966a207",
+    "result": [
+      [
+        "analyze_file_python",
+        "visit_Import",
+        "visit_ImportFrom",
+        "visit_ClassDef",
+        "visit_FunctionDef",
+        "visit_AsyncFunctionDef",
+        "visit_Call",
+        "visit_Assign"
+      ],
+      [
+        {
+          "name": "Visitor",
+          "methods": [
+            "visit_Import",
+            "visit_ImportFrom",
+            "visit_ClassDef",
+            "visit_FunctionDef",
+            "visit_AsyncFunctionDef",
+            "visit_Call",
+            "visit_Assign"
+          ]
+        }
+      ],
+      [
+        "ast",
+        "core.config"
+      ],
+      null,
+      {
+        "calls": [
+          "list",
+          "set",
+          "append",
+          "generic_visit",
+          "isinstance",
+          "add",
+          "Visitor",
+          "visit",
+          "split",
+          "parse",
+          "print",
+          "get",
+          "read_text",
+          "get_docstring",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "tree",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "prefix",
+          "methods",
+          "visitor",
+          "stdlib_py",
+          "filtered_imports",
+          "is_stdlib",
+          "is_stdlib",
+          "base_module",
+          "is_stdlib",
+          "imports"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\ruby_analyzer.py": {
+    "hash": "43a1861136482b9a750dfe9d84fe5b89",
+    "result": [
+      [
+        "analyze_file_ruby"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Ruby analyzer using regex patterns.\nProvides 80-85% accuracy for Ruby code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "split",
+          "startswith",
+          "append",
+          "lstrip",
+          "copy",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "len",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "require_pattern",
+          "class_pattern",
+          "module_pattern",
+          "def_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "indent_level",
+          "current_indent",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "indent_level",
+          "require_match",
+          "req",
+          "class_match",
+          "current_class",
+          "in_class",
+          "indent_level",
+          "module_match",
+          "module_name",
+          "def_match",
+          "method_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\rust_analyzer.py": {
+    "hash": "9d8359b53ace005311ec44ce9873e5f6",
+    "result": [
+      [
+        "analyze_file_rust"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Rust analyzer using regex patterns (no Rust compiler required).\nProvides 80-85% accuracy for Rust code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "startswith",
+          "append",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "items",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "use_pattern",
+          "fn_pattern",
+          "struct_pattern",
+          "impl_pattern",
+          "trait_pattern",
+          "enum_pattern",
+          "method_pattern",
+          "struct_methods",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "use_match",
+          "use_path",
+          "struct_match",
+          "struct_name",
+          "impl_match",
+          "impl_name",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "trait_match",
+          "trait_name",
+          "enum_match",
+          "enum_name",
+          "method_match",
+          "method_name",
+          "fn_match",
+          "func_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\swift_analyzer.py": {
+    "hash": "0341057ed99bef1d1a3b5c676d330caf",
+    "result": [
+      [
+        "analyze_file_swift"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Swift analyzer using regex patterns.\nProvides 80-85% accuracy for Swift code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_pattern",
+          "class_pattern",
+          "struct_pattern",
+          "protocol_pattern",
+          "extension_pattern",
+          "func_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "import_match",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "struct_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "protocol_match",
+          "protocol_name",
+          "extension_match",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\typescript_analyzer.py": {
+    "hash": "347c6862e6332ea45b393016de7dca02",
+    "result": [
+      [
+        "analyze_file_typescript"
+      ],
+      [],
+      [
+        "core.utils",
+        "javascript_analyzer"
+      ],
+      "Enhanced TypeScript analyzer extending JavaScript analyzer.\nHandles TypeScript-specific features: interfaces, types, generics, decorators.\nProvides 85%+ accuracy.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "search",
+          "analyze_file_javascript",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "interface_pattern",
+          "type_pattern",
+          "decorator_pattern",
+          "generic_pattern",
+          "current_interface",
+          "interface_methods",
+          "in_interface",
+          "brace_count",
+          "current_interface",
+          "interface_methods",
+          "in_interface",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "current_interface",
+          "in_interface",
+          "brace_count",
+          "method_match",
+          "type_match",
+          "decorator_match",
+          "decorator_name",
+          "generic_match",
+          "generic_params",
+          "param"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\xaml_analyzer.py": {
+    "hash": "a123c61d3e11b5f706aed9f4838a59d3",
+    "result": [
+      [
+        "analyze_file_xaml"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "XAML file analyzer for code-behind linking.",
+      {
+        "calls": [
+          "search",
+          "get_compiled_pattern",
+          "group",
+          "print",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "text",
+          "pattern",
+          "x_class",
+          "match",
+          "x_class",
+          "meta"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\analyzers\\__init__.py": {
+    "hash": "8f9f5858af1c136893fa3c9a8b136d49",
+    "result": [
+      [],
+      [],
+      [],
+      "Analyzers package for language-specific file analysis.\n\nThis package contains analyzers for different programming languages\nincluding Python, C#, XAML, and a generic analyzer for other languages.",
+      {
+        "calls": [],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\architecture_analyzer.py": {
+    "hash": "4fa91c156f90539574ad3a9481e77f1f",
+    "result": [
+      [
+        "find_cycles_tarjan",
+        "strongconnect",
+        "detect_god_modules",
+        "detect_cross_language_edges",
+        "calculate_language_metrics",
+        "calculate_health_score",
+        "analyze_architecture"
+      ],
+      [],
+      [],
+      "Architecture analysis module for detecting cycles, god modules, and calculating health metrics.\nLanguage-agnostic - works on any dependency graph.",
+      {
+        "calls": [
+          "next",
+          "detect_cross_language_edges",
+          "strongconnect",
+          "pop",
+          "len",
+          "sum",
+          "append",
+          "round",
+          "max",
+          "min",
+          "sort",
+          "isinstance",
+          "detect_god_modules",
+          "items",
+          "calculate_health_score",
+          "calculate_language_metrics",
+          "find_cycles_tarjan",
+          "int",
+          "get"
+        ],
+        "variables": [
+          "nodes",
+          "adjacency",
+          "source",
+          "target",
+          "index_counter",
+          "stack",
+          "lowlinks",
+          "index",
+          "on_stack",
+          "cycles",
+          "scc",
+          "w",
+          "nodes",
+          "in_degree",
+          "out_degree",
+          "source",
+          "target",
+          "god_modules",
+          "total_connections",
+          "nodes",
+          "cross_language_edges",
+          "source_id",
+          "target_id",
+          "source_lang",
+          "target_lang",
+          "language_stats",
+          "lang",
+          "source_id",
+          "source_node",
+          "lang",
+          "score",
+          "god_ratio",
+          "orphan_ratio",
+          "cycles",
+          "cycles_flat",
+          "god_modules",
+          "orphan_count",
+          "cross_language_edges",
+          "language_metrics",
+          "total_modules",
+          "health_score",
+          "total_connections",
+          "avg_connections",
+          "most_complex"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\cache.py": {
+    "hash": "23b32e27c5e2244f50cfa85492749b66",
+    "result": [
+      [
+        "__init__",
+        "_load_cache",
+        "_save_cache",
+        "_file_hash",
+        "analyze_with_cache",
+        "save",
+        "print_stats"
+      ],
+      [
+        {
+          "name": "IncrementalAnalyzer",
+          "methods": [
+            "__init__",
+            "_load_cache",
+            "_save_cache",
+            "_file_hash",
+            "analyze_with_cache",
+            "save",
+            "print_stats"
+          ]
+        }
+      ],
+      [
+        "core.config"
+      ],
+      "Incremental caching functionality for file analysis.",
+      {
+        "calls": [
+          "list",
+          "_load_cache",
+          "Path",
+          "dumps",
+          "write_text",
+          "tuple",
+          "exists",
+          "hexdigest",
+          "_file_hash",
+          "analyze_func",
+          "print",
+          "md5",
+          "read_bytes",
+          "read_text",
+          "loads",
+          "get",
+          "str",
+          "_save_cache"
+        ],
+        "variables": [
+          "file_key",
+          "current_hash",
+          "cached",
+          "result",
+          "total",
+          "hit_rate"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\config.py": {
+    "hash": "fd48fa6f1cc800f27f4fb44a5b942c37",
+    "result": [
+      [],
+      [],
+      [],
+      "Configuration data for language-specific patterns and settings.",
+      {
+        "calls": [
+          "getenv",
+          "lower"
+        ],
+        "variables": [
+          "DEBUG_MODE",
+          "LANGUAGE_CONFIG",
+          "EXTERNAL_PREFIXES",
+          "STDLIB_EXCLUSIONS"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\config_loader.py": {
+    "hash": "d47339637076751477ddabbade7f08c1",
+    "result": [
+      [
+        "load_config",
+        "get_default_config",
+        "save_example_config"
+      ],
+      [],
+      [
+        "yaml"
+      ],
+      "Configuration file loader for YAML-based settings.",
+      {
+        "calls": [
+          "safe_load",
+          "get_default_config",
+          "Path",
+          "open",
+          "exists",
+          "dump",
+          "print",
+          "update"
+        ],
+        "variables": [
+          "config_path",
+          "user_config",
+          "config",
+          "example_config"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\discovery.py": {
+    "hash": "cce841a46e6b4156618620a725b00749",
+    "result": [
+      [
+        "detect_language",
+        "discover_source_files_lazy",
+        "is_trash_dir",
+        "get_depth",
+        "module_name_from_path"
+      ],
+      [],
+      [
+        "config"
+      ],
+      "File discovery and language detection functionality.",
+      {
+        "calls": [
+          "relative_to",
+          "list",
+          "detect_language",
+          "set",
+          "Path",
+          "join",
+          "rsplit",
+          "walk",
+          "get_depth",
+          "is_trash_dir",
+          "len",
+          "print",
+          "items",
+          "clear",
+          "lower",
+          "startswith"
+        ],
+        "variables": [
+          "ext",
+          "SKIP_EXT",
+          "exclude_dirs",
+          "KNOWN_TRASH_DIRS",
+          "rel",
+          "current_path",
+          "file_path",
+          "ext",
+          "rel",
+          "parts",
+          "parts"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\gpu_utils.py": {
+    "hash": "11b003d84852b7fad82ececbb9f368d9",
+    "result": [
+      [
+        "detect_gpu",
+        "get_optimal_device",
+        "log_gpu_status"
+      ],
+      [],
+      [
+        "torch",
+        "torch"
+      ],
+      "GPU detection and configuration utilities",
+      {
+        "calls": [
+          "get_device_name",
+          "detect_gpu",
+          "is_available",
+          "print",
+          "hasattr"
+        ],
+        "variables": [
+          "gpu_info",
+          "gpu",
+          "gpu"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\graph.py": {
+    "hash": "4fb6998dc881e8cf9c5f28342b26a4a8",
+    "result": [
+      [
+        "build_dependency_links",
+        "build_graph"
+      ],
+      [],
+      [
+        "models",
+        "cache",
+        "discovery",
+        "matching",
+        "utils",
+        "analyzers.dispatcher",
+        "config_loader",
+        "architecture_analyzer"
+      ],
+      "Graph building functionality for dependency analysis.",
+      {
+        "calls": [
+          "relative_to",
+          "join",
+          "defaultdict",
+          "build_dependency_links",
+          "len",
+          "sum",
+          "load_config",
+          "dict",
+          "append",
+          "save",
+          "print_stats",
+          "exists",
+          "sorted",
+          "max",
+          "rsplit",
+          "min",
+          "print",
+          "to_dict",
+          "discover_source_files_lazy",
+          "values",
+          "str",
+          "tqdm",
+          "match_import_cached",
+          "set",
+          "split",
+          "tuple",
+          "ModuleInfo",
+          "range",
+          "replace",
+          "items",
+          "keys",
+          "basename",
+          "IncrementalAnalyzer",
+          "list",
+          "analyze_with_cache",
+          "Path",
+          "add",
+          "module_name_from_path",
+          "analyze_file_dispatch",
+          "analyze_architecture",
+          "get"
+        ],
+        "variables": [
+          "module_names_tuple",
+          "links",
+          "link_set",
+          "connected_nodes",
+          "symbol_index",
+          "lang",
+          "meta",
+          "ns",
+          "cname",
+          "base",
+          "targets",
+          "key",
+          "ns_map",
+          "lang",
+          "meta",
+          "ns",
+          "mids",
+          "src",
+          "target",
+          "key",
+          "meta",
+          "xcls",
+          "cands",
+          "short",
+          "key",
+          "meta",
+          "calls",
+          "ns",
+          "targets",
+          "full",
+          "key",
+          "config",
+          "project_config",
+          "config",
+          "config",
+          "exclude_dirs",
+          "max_depth",
+          "language_filter",
+          "cache_enabled",
+          "cache_enabled",
+          "analyzer",
+          "source_files_list",
+          "source_files_list",
+          "lang_counts",
+          "modules",
+          "imports_by_module",
+          "stats",
+          "modules_by_file",
+          "file_index",
+          "base_path",
+          "project_name",
+          "iterator",
+          "mname",
+          "config",
+          "parts",
+          "top_group",
+          "top_group",
+          "top_group",
+          "size",
+          "file_rel",
+          "mod_info",
+          "file_no_ext",
+          "graph",
+          "architecture_metrics"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\json_exporter.py": {
+    "hash": "03f937df374c82b9af01381cb8c85e5b",
+    "result": [
+      [
+        "__init__",
+        "export_graph",
+        "export_analysis",
+        "export_metrics",
+        "export_filtered",
+        "save_to_file",
+        "to_string",
+        "_generate_metadata",
+        "_export_nodes",
+        "_export_links",
+        "_calculate_metrics",
+        "_detect_circular_dependencies",
+        "has_cycle",
+        "_filter_nodes"
+      ],
+      [
+        {
+          "name": "JSONExporter",
+          "methods": [
+            "__init__",
+            "export_graph",
+            "export_analysis",
+            "export_metrics",
+            "export_filtered",
+            "save_to_file",
+            "to_string",
+            "_generate_metadata",
+            "_export_nodes",
+            "_export_links",
+            "_calculate_metrics",
+            "_detect_circular_dependencies",
+            "_filter_nodes"
+          ]
+        }
+      ],
+      [],
+      "JSON Exporter for Architecture Visualizer\nExports graph data, analysis results, and metrics in JSON format.",
+      {
+        "calls": [
+          "remove",
+          "utcnow",
+          "len",
+          "_detect_circular_dependencies",
+          "_filter_nodes",
+          "append",
+          "round",
+          "isoformat",
+          "has_cycle",
+          "_export_nodes",
+          "str",
+          "split",
+          "isinstance",
+          "open",
+          "set",
+          "_generate_metadata",
+          "_calculate_metrics",
+          "keys",
+          "list",
+          "dumps",
+          "export_graph",
+          "add",
+          "dump",
+          "get",
+          "_export_links"
+        ],
+        "variables": [
+          "result",
+          "filtered_nodes",
+          "node_ids",
+          "filtered_links",
+          "filtered_data",
+          "nodes",
+          "languages",
+          "lang",
+          "exported",
+          "node_id",
+          "parts",
+          "group",
+          "group",
+          "exported_node",
+          "exported",
+          "exported_link",
+          "nodes",
+          "links",
+          "total_nodes",
+          "total_links",
+          "total_functions",
+          "total_classes",
+          "funcs",
+          "classes",
+          "avg_dependencies",
+          "avg_dependencies",
+          "circular_count",
+          "complexity",
+          "graph",
+          "source",
+          "target",
+          "visited",
+          "rec_stack",
+          "cycles",
+          "filtered",
+          "lang_filter",
+          "lang_filter",
+          "filtered",
+          "type_filter",
+          "filtered",
+          "pattern",
+          "filtered"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\layout_engine.py": {
+    "hash": "ccd02b6167fbe18e429b843f3a02a022",
+    "result": [
+      [
+        "compute_layout_gpu"
+      ],
+      [],
+      [
+        "torch"
+      ],
+      "GPU-accelerated graph layout engine using PyTorch.\nCalculates force-directed layout on the GPU to speed up visualization.",
+      {
+        "calls": [
+          "cpu",
+          "is_available",
+          "index_add_",
+          "len",
+          "zeros_like",
+          "sum",
+          "numpy",
+          "rand",
+          "append",
+          "tensor",
+          "print",
+          "enumerate",
+          "isinstance",
+          "sqrt",
+          "range",
+          "float",
+          "norm",
+          "device",
+          "get_device_name",
+          "unsqueeze",
+          "clamp",
+          "time"
+        ],
+        "variables": [
+          "torch",
+          "node_count",
+          "start_time",
+          "node_id_to_idx",
+          "src_indices",
+          "tgt_indices",
+          "s",
+          "t",
+          "s_id",
+          "t_id",
+          "device",
+          "scale",
+          "pos",
+          "src",
+          "tgt",
+          "src",
+          "tgt",
+          "k",
+          "repulsion_strength",
+          "spring_strength",
+          "center_strength",
+          "dt",
+          "decay",
+          "vel",
+          "delta",
+          "dist_sq",
+          "dist_sq",
+          "dist",
+          "force",
+          "displacement",
+          "repulsion",
+          "p_src",
+          "p_tgt",
+          "delta_link",
+          "dist_link",
+          "force_mag",
+          "direction",
+          "attraction",
+          "attraction_force",
+          "attraction_force",
+          "center_force",
+          "total_force",
+          "vel",
+          "pos_cpu",
+          "layout",
+          "node_id",
+          "elapsed"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\logger.py": {
+    "hash": "ac62604d9d12cfc09144b0f99388943f",
+    "result": [
+      [
+        "setup_logger"
+      ],
+      [],
+      [],
+      "Logging configuration for the project.",
+      {
+        "calls": [
+          "setLevel",
+          "Formatter",
+          "setup_logger",
+          "StreamHandler",
+          "setFormatter",
+          "getLogger",
+          "addHandler"
+        ],
+        "variables": [
+          "logger",
+          "handler",
+          "formatter",
+          "default_logger"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\main.py": {
+    "hash": "eadd85ed284c903da837d54bdf608d86",
+    "result": [
+      [
+        "main",
+        "build_with_profile"
+      ],
+      [],
+      [
+        "webbrowser",
+        "core.utils",
+        "core.graph",
+        "ui.folder_selection",
+        "ui.visualizer",
+        "traceback",
+        "traceback"
+      ],
+      "Main entry point for the project architecture visualizer.",
+      {
+        "calls": [
+          "validate_environment",
+          "Path",
+          "build_graph",
+          "open",
+          "as_uri",
+          "resolve",
+          "exists",
+          "write_html",
+          "print_exc",
+          "print",
+          "get",
+          "build_with_profile",
+          "is_dir",
+          "save_recent_project",
+          "select_folder_console"
+        ],
+        "variables": [
+          "input_dir",
+          "source_path",
+          "output_path"
+        ],
+        "decorators": [
+          "profile_function"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\matching.py": {
+    "hash": "3fd3d6716594472e16cdbf5896d47661",
+    "result": [
+      [
+        "match_import_cached",
+        "match_import"
+      ],
+      [],
+      [
+        "config"
+      ],
+      "Import matching functionality with caching.",
+      {
+        "calls": [
+          "list",
+          "set",
+          "split",
+          "append",
+          "tuple",
+          "any",
+          "lru_cache",
+          "endswith",
+          "strip",
+          "get",
+          "replace",
+          "startswith",
+          "match_import"
+        ],
+        "variables": [
+          "candidates",
+          "clean",
+          "clean",
+          "clean",
+          "clean",
+          "clean",
+          "prefixed",
+          "clean_last"
+        ],
+        "decorators": [
+          "lru_cache"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\models.py": {
+    "hash": "9d3f027cdde34fd5702071208902f0ef",
+    "result": [
+      [
+        "__init__",
+        "to_dict"
+      ],
+      [
+        {
+          "name": "ModuleInfo",
+          "methods": [
+            "__init__",
+            "to_dict"
+          ]
+        }
+      ],
+      [],
+      "Data models for module information.",
+      {
+        "calls": [],
+        "variables": [
+          "__slots__"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\utils.py": {
+    "hash": "6c012bd6b2d31c3beea4fbeb44308f4a",
+    "result": [
+      [
+        "tqdm",
+        "get_compiled_pattern",
+        "profile_function",
+        "wrapper",
+        "validate_environment",
+        "is_safe_path"
+      ],
+      [],
+      [
+        "cProfile",
+        "pstats",
+        "tqdm"
+      ],
+      "Utility functions for regex caching, profiling, and validation.",
+      {
+        "calls": [
+          "enable",
+          "append",
+          "Stats",
+          "Path",
+          "print_stats",
+          "resolve",
+          "func",
+          "compile",
+          "is_relative_to",
+          "sort_stats",
+          "wraps",
+          "print",
+          "disable",
+          "Profile"
+        ],
+        "variables": [
+          "TQDM_AVAILABLE",
+          "TQDM_AVAILABLE",
+          "COMPILED_PATTERNS",
+          "key",
+          "profiler",
+          "result",
+          "stats",
+          "issues",
+          "base",
+          "target"
+        ],
+        "decorators": [
+          "wraps"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\core\\__init__.py": {
+    "hash": "81162eeb016ca532983c409b7dafe537",
+    "result": [
+      [],
+      [],
+      [],
+      "Core package for the project architecture visualizer.\n\nThis package contains the core functionality including utilities, models,\ncaching, discovery, matching, and graph building.",
+      {
+        "calls": [],
+        "variables": [
+          "__version__"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\ui\\folder_selection.py": {
+    "hash": "3a52eabff16518a8483f511763e3ee2a",
+    "result": [
+      [
+        "select_folder_gui",
+        "select_folder_console",
+        "save_recent_project"
+      ],
+      [],
+      [
+        "tkinter",
+        "tkinter"
+      ],
+      "Folder selection UI components for GUI and console.",
+      {
+        "calls": [
+          "askdirectory",
+          "len",
+          "strip",
+          "input",
+          "withdraw",
+          "load",
+          "exists",
+          "Tk",
+          "min",
+          "insert",
+          "print",
+          "str",
+          "enumerate",
+          "open",
+          "attributes",
+          "dump",
+          "int",
+          "home",
+          "select_folder_gui",
+          "remove",
+          "destroy"
+        ],
+        "variables": [
+          "root",
+          "folder_path",
+          "recent_file",
+          "recent_projects",
+          "recent_projects",
+          "choice",
+          "path",
+          "proj_choice",
+          "idx",
+          "recent_file",
+          "recent_projects",
+          "recent_projects",
+          "project_path",
+          "recent_projects"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\ui\\visualizer.py": {
+    "hash": "50038888cc1de8b19fd1d07c1a323eb7",
+    "result": [
+      [
+        "write_html"
+      ],
+      [],
+      [],
+      null,
+      {
+        "calls": [
+          "Path",
+          "join",
+          "dumps",
+          "write_text",
+          "len",
+          "print",
+          "get",
+          "replace",
+          "read_text"
+        ],
+        "variables": [
+          "project_name",
+          "languages",
+          "lang_badges",
+          "base_dir",
+          "css_path",
+          "js_path",
+          "template_path",
+          "css_content",
+          "js_content",
+          "template_content",
+          "json_data",
+          "html",
+          "html",
+          "html",
+          "html",
+          "html",
+          "node_count"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\ui\\__init__.py": {
+    "hash": "b03af56771a1a8b30f18c8f4be04111b",
+    "result": [
+      [],
+      [],
+      [],
+      "UI package for user interface components.\n\nThis package contains folder selection interfaces for both GUI and console.",
+      {
+        "calls": [],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\ArchitectureVisualizerApp\\Assets\\Python\\ui\\static\\js\\visualizer.js": {
+    "hash": "a03ddc8ef4f84ae2ff171289f20e6ef8",
+    "result": [
+      [
+        "updateLOD",
+        "showLoadingOverlay",
+        "hideLoadingOverlay",
+        "updateLoadingProgress",
+        "renderNodesProgressively",
+        "renderBatch",
+        "getAdaptiveForceConfig",
+        "computeDAGLayout",
+        "forceCluster",
+        "force",
+        "findNeighbors",
+        "updatePerformanceDisplay",
+        "initStats",
+        "buildAdjacency",
+        "computeCentrality",
+        "getLangIndicator",
+        "updateDetails",
+        "updateMiniCard",
+        "updateAnalysisPanel",
+        "initFilters",
+        "getActiveFilters",
+        "applyFilters",
+        "getActivePreset",
+        "renderGraph",
+        "continueRenderGraph",
+        "dragStart",
+        "dragged",
+        "dragEnd",
+        "applyFocusMode",
+        "applyMultiSelectFocus",
+        "updateMultiSelectDetails",
+        "resetFocusMode",
+        "saveFocusState",
+        "restoreFocusState",
+        "exportFocusSubgraph",
+        "showNotification",
+        "init",
+        "restartSimulation",
+        "checkApiStatus",
+        "updateApiUI",
+        "refreshData",
+        "initContextMenu",
+        "showContextMenu"
+      ],
+      [],
+      [],
+      null,
+      {
+        "exports": [],
+        "async_functions": [
+          "checkApiStatus",
+          "refreshData"
+        ],
+        "arrow_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\export_json.py": {
+    "hash": "89fa8d7de396423be30b2c1f0890af41",
+    "result": [
+      [
+        "export_project_json"
+      ],
+      [],
+      [
+        "core.graph",
+        "core.json_exporter"
+      ],
+      "JSON Export Wrapper\nProvides simple interface for exporting graph data to JSON",
+      {
+        "calls": [
+          "JSONExporter",
+          "Path",
+          "build_graph",
+          "ArgumentParser",
+          "export_graph",
+          "resolve",
+          "save_to_file",
+          "len",
+          "add_argument",
+          "insert",
+          "print",
+          "to_string",
+          "parse_args",
+          "export_project_json",
+          "absolute",
+          "str"
+        ],
+        "variables": [
+          "project_path",
+          "exporter",
+          "json_data",
+          "output_path",
+          "parser",
+          "args"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\run.py": {
+    "hash": "46f9074cf83428a26f147b009e1bd405",
+    "result": [
+      [],
+      [],
+      [
+        "core.main"
+      ],
+      "Simple run script for the project architecture visualizer.\n\nThis is the main entry point that users should run to analyze their projects.",
+      {
+        "calls": [
+          "main",
+          "add_argument",
+          "parse_args",
+          "ArgumentParser"
+        ],
+        "variables": [
+          "parser",
+          "args"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\test_real_world.py": {
+    "hash": "2a550469af23374f4ed808855dd65dde",
+    "result": [
+      [
+        "to_dict",
+        "__init__",
+        "add_result",
+        "finalize",
+        "to_dict",
+        "__init__",
+        "_discover_projects",
+        "_analyze_project",
+        "run_all_tests",
+        "_test_discovered_projects",
+        "_test_projects_sequential",
+        "_test_projects_parallel",
+        "_test_single_project",
+        "_run_synthetic_tests",
+        "_get_memory_usage",
+        "_save_baseline",
+        "_load_baseline",
+        "log",
+        "test_stress_scenarios",
+        "_run_synthetic_stress_test",
+        "_compare_with_baseline",
+        "_add_result",
+        "print_summary",
+        "export_html_report",
+        "main"
+      ],
+      [
+        {
+          "name": "TestResult",
+          "methods": [
+            "to_dict"
+          ]
+        },
+        {
+          "name": "ProjectTestData",
+          "methods": []
+        },
+        {
+          "name": "TestMetrics",
+          "methods": [
+            "__init__",
+            "add_result",
+            "finalize",
+            "to_dict"
+          ]
+        },
+        {
+          "name": "EnhancedRealWorldTester",
+          "methods": [
+            "__init__",
+            "_discover_projects",
+            "_analyze_project",
+            "run_all_tests",
+            "_test_discovered_projects",
+            "_test_projects_sequential",
+            "_test_projects_parallel",
+            "_test_single_project",
+            "_run_synthetic_tests",
+            "_get_memory_usage",
+            "_save_baseline",
+            "_load_baseline",
+            "log",
+            "test_stress_scenarios",
+            "_run_synthetic_stress_test",
+            "_compare_with_baseline",
+            "_add_result",
+            "print_summary",
+            "export_html_report"
+          ]
+        }
+      ],
+      [
+        "traceback",
+        "dataclasses",
+        "concurrent.futures",
+        "core.graph",
+        "core.config",
+        "tempfile",
+        "psutil",
+        "gc",
+        "tempfile"
+      ],
+      "Enhanced Real-World Test Suite for Universal Project Architecture Visualizer\n\nMajor Upgrades:\n\n1. Multi-project parallel testing\n2. Advanced metrics & benchmarking\n3. Regression testing with baselines\n4. Memory profiling & leak detection\n5. Comprehensive edge case coverage\n6. CI/CD integration support\n7. Detailed HTML reporting\n8. Auto-discovery of test projects\n9. Comparative analysis across languages\n10. Stress testing for large codebases\n\nUsage:\n\npython test_real_world.py # Run all tests\npython test_real_world.py --parallel 4 # Parallel execution\npython test_real_world.py --profile # Memory profiling\npython test_real_world.py --baseline # Create baseline\npython test_real_world.py --compare # Compare with baseline\npython test_real_world.py --stress # Stress test\npython test_real_world.py --export-html # Generate HTML report",
+      {
+        "calls": [
+          "write_text",
+          "len",
+          "_compare_with_baseline",
+          "append",
+          "stat",
+          "_test_single_project",
+          "insert",
+          "print",
+          "open",
+          "add_argument",
+          "_run_synthetic_stress_test",
+          "time",
+          "splitlines",
+          "log",
+          "format_exc",
+          "dump",
+          "strftime",
+          "absolute",
+          "field",
+          "join",
+          "cwd",
+          "_discover_projects",
+          "endswith",
+          "sum",
+          "is_dir",
+          "load",
+          "run_all_tests",
+          "_get_memory_usage",
+          "rglob",
+          "finalize",
+          "result",
+          "_test_discovered_projects",
+          "range",
+          "submit",
+          "list",
+          "add",
+          "TestMetrics",
+          "main",
+          "build_graph",
+          "defaultdict",
+          "any",
+          "ProjectTestData",
+          "_save_baseline",
+          "_test_projects_parallel",
+          "dict",
+          "collect",
+          "add_result",
+          "str",
+          "iterdir",
+          "_load_baseline",
+          "as_completed",
+          "TemporaryDirectory",
+          "_test_projects_sequential",
+          "Process",
+          "EnhancedRealWorldTester",
+          "get",
+          "parse_args",
+          "ThreadPoolExecutor",
+          "ArgumentParser",
+          "_analyze_project",
+          "_add_result",
+          "test_stress_scenarios",
+          "_run_synthetic_tests",
+          "export_html_report",
+          "exists",
+          "sorted",
+          "max",
+          "exit",
+          "abs",
+          "to_dict",
+          "print_summary",
+          "ValueError",
+          "enumerate",
+          "set",
+          "is_file",
+          "TestResult",
+          "items",
+          "startswith",
+          "Path",
+          "mkdir",
+          "memory_info",
+          "home",
+          "lower",
+          "asdict"
+        ],
+        "variables": [
+          "search_locations",
+          "search_locations",
+          "discovered",
+          "project_data",
+          "languages",
+          "file_count",
+          "total_size",
+          "size",
+          "complexity",
+          "projects",
+          "projects",
+          "futures",
+          "project",
+          "start_time",
+          "mem_before",
+          "nodes",
+          "links",
+          "node_count",
+          "edge_count",
+          "duration",
+          "mem_after",
+          "mem_used",
+          "files_per_sec",
+          "duration",
+          "base",
+          "start_time",
+          "duration",
+          "nodes",
+          "node_count",
+          "duration",
+          "process",
+          "baseline_path",
+          "baseline_data",
+          "baseline_path",
+          "data",
+          "timestamp",
+          "colors",
+          "color",
+          "reset",
+          "largest_project",
+          "initial_mem",
+          "peaks",
+          "start_time",
+          "cycle_start_mem",
+          "cycle_peak",
+          "final_mem",
+          "leak_size",
+          "passed",
+          "base",
+          "start",
+          "folder",
+          "content",
+          "gen_time",
+          "s_test",
+          "duration",
+          "current_avg",
+          "base_metrics",
+          "base_duration",
+          "base_count",
+          "base_avg",
+          "diff",
+          "percent",
+          "status",
+          "color",
+          "result",
+          "status",
+          "level",
+          "passed",
+          "total",
+          "m",
+          "peaks",
+          "html_path",
+          "css",
+          "rows",
+          "status_class",
+          "m",
+          "success_rate",
+          "color",
+          "html",
+          "parser",
+          "args",
+          "tester",
+          "success"
+        ],
+        "decorators": [
+          "dataclass"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\cpp_analyzer.py": {
+    "hash": "da6670429f10a1e8ecbbc6d5d5b81516",
+    "result": [
+      [
+        "analyze_file_cpp"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced C++ analyzer using regex patterns.\nProvides 75-80% accuracy for C++ code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "startswith",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "include_pattern",
+          "namespace_pattern",
+          "class_pattern",
+          "struct_pattern",
+          "function_pattern",
+          "method_pattern",
+          "template_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "include_match",
+          "inc",
+          "ns_match",
+          "template_match",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "struct_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\csharp_analyzer.py": {
+    "hash": "1b0f72b1e770e2d216dab8f82775db4c",
+    "result": [
+      [
+        "analyze_file_csharp_advanced"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "C# file analyzer with advanced pattern matching and framework detection.",
+      {
+        "calls": [
+          "len",
+          "strip",
+          "upper",
+          "append",
+          "search",
+          "sorted",
+          "max",
+          "print",
+          "read_text",
+          "str",
+          "enumerate",
+          "split",
+          "set",
+          "isinstance",
+          "group",
+          "range",
+          "match",
+          "items",
+          "startswith",
+          "lstrip",
+          "add",
+          "get_compiled_pattern",
+          "finditer"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "ns_re",
+          "using_re",
+          "class_re",
+          "method_decl_re",
+          "call_re",
+          "controller_re",
+          "mediatr_request_handler_re",
+          "mediatr_notification_handler_re",
+          "http_attribute_re",
+          "route_attribute_re",
+          "dbcontext_re",
+          "dbset_re",
+          "constructor_re",
+          "ns",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "calls",
+          "framework_patterns",
+          "m",
+          "ns",
+          "um",
+          "docstring",
+          "current_class",
+          "current_class_type",
+          "current_controller",
+          "current_route_prefix",
+          "classes_map",
+          "i",
+          "line",
+          "stripped",
+          "controller_match",
+          "controller_name",
+          "current_class",
+          "current_class_type",
+          "current_controller",
+          "route_match",
+          "current_route_prefix",
+          "dbcontext_match",
+          "dbcontext_name",
+          "current_class",
+          "current_class_type",
+          "class_match",
+          "handler_name",
+          "current_class",
+          "current_class_type",
+          "request_match",
+          "notification_match",
+          "request_type",
+          "response_type",
+          "notification_type",
+          "cm",
+          "cname",
+          "current_class",
+          "dbset_match",
+          "entity_type",
+          "ctor_match",
+          "ctor_name",
+          "params",
+          "param_list",
+          "param",
+          "parts",
+          "dep_type",
+          "http_method",
+          "route_template",
+          "http_match",
+          "http_method",
+          "route_template",
+          "mm",
+          "mname",
+          "full_route",
+          "full_route",
+          "action",
+          "mm",
+          "mname",
+          "KEYWORDS",
+          "EXCLUSIONS",
+          "s",
+          "name",
+          "meta"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\dart_analyzer.py": {
+    "hash": "5d59f30db6d5806c16bd733cceccee57",
+    "result": [
+      [
+        "analyze_file_dart"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Dart analyzer using regex patterns.\nProvides 80-85% accuracy for Dart code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "library_pattern",
+          "import_pattern",
+          "class_pattern",
+          "mixin_pattern",
+          "function_pattern",
+          "method_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "lib_match",
+          "import_match",
+          "imp",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "mixin_match",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\dispatcher.py": {
+    "hash": "004a1c89a382eee3c45ba13aa2bdd222",
+    "result": [
+      [
+        "analyze_file_dispatch"
+      ],
+      [],
+      [
+        "core.config",
+        "python_analyzer",
+        "csharp_analyzer",
+        "xaml_analyzer",
+        "java_analyzer",
+        "javascript_analyzer",
+        "typescript_analyzer",
+        "php_analyzer",
+        "go_analyzer",
+        "rust_analyzer",
+        "ruby_analyzer",
+        "swift_analyzer",
+        "kotlin_analyzer",
+        "dart_analyzer",
+        "cpp_analyzer",
+        "generic_analyzer"
+      ],
+      "Analysis dispatcher that routes files to appropriate analyzers.",
+      {
+        "calls": [
+          "analyze_file_typescript",
+          "analyze_file_rust",
+          "analyze_file_go",
+          "analyze_file_csharp_advanced",
+          "analyze_file_javascript",
+          "analyze_file_python",
+          "analyze_file_swift",
+          "analyze_file_dart",
+          "analyze_file_cpp",
+          "analyze_file_kotlin",
+          "analyze_file_generic",
+          "get",
+          "analyze_file_java",
+          "analyze_file_php",
+          "print",
+          "analyze_file_xaml",
+          "analyze_file_ruby",
+          "str"
+        ],
+        "variables": [
+          "config"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\generic_analyzer.py": {
+    "hash": "e6623eb8b67bd451d9fa07d215c7be56",
+    "result": [
+      [
+        "analyze_file_generic"
+      ],
+      [],
+      [
+        "core.utils",
+        "python_analyzer",
+        "core.config"
+      ],
+      "Generic file analyzer using regex patterns for multiple languages.",
+      {
+        "calls": [
+          "next",
+          "len",
+          "strip",
+          "append",
+          "search",
+          "sorted",
+          "min",
+          "print",
+          "read_text",
+          "str",
+          "enumerate",
+          "split",
+          "set",
+          "isinstance",
+          "analyze_file_python",
+          "group",
+          "range",
+          "match",
+          "startswith",
+          "lstrip",
+          "add",
+          "get_compiled_pattern",
+          "finditer",
+          "groups",
+          "get"
+        ],
+        "variables": [
+          "LANGUAGE_KEYWORDS",
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_patterns",
+          "func_pattern",
+          "class_pattern",
+          "comment_patterns",
+          "call_pattern",
+          "docstring",
+          "stdlib_exclusions",
+          "match",
+          "import_name",
+          "is_stdlib",
+          "is_stdlib",
+          "is_stdlib",
+          "KEYWORDS",
+          "match",
+          "func_name",
+          "match",
+          "class_name",
+          "methods",
+          "indent_level",
+          "next_line",
+          "next_indent",
+          "method_match",
+          "method_name",
+          "EXCLUSIONS",
+          "calls",
+          "s",
+          "skip_line",
+          "skip_line",
+          "name",
+          "ns_pattern",
+          "m",
+          "exports",
+          "export_default",
+          "export_func",
+          "export_class",
+          "m",
+          "m"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\go_analyzer.py": {
+    "hash": "e509fb32f55950996340870662c6dee8",
+    "result": [
+      [
+        "analyze_file_go"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Go analyzer using regex patterns (no Go compiler required).\nProvides 80-85% accuracy for Go code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "split",
+          "startswith",
+          "append",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "items",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "package_pattern",
+          "import_pattern",
+          "import_multi_pattern",
+          "func_pattern",
+          "method_pattern",
+          "struct_pattern",
+          "interface_pattern",
+          "struct_methods",
+          "current_struct",
+          "in_import_block",
+          "pkg_match",
+          "in_import_block",
+          "in_import_block",
+          "import_match",
+          "imp",
+          "import_match",
+          "imp",
+          "struct_match",
+          "struct_name",
+          "current_struct",
+          "interface_match",
+          "interface_name",
+          "method_match",
+          "receiver_type",
+          "method_name",
+          "func_match",
+          "func_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\javascript_analyzer.py": {
+    "hash": "3a10d82c12cbbda998230d4a06ad9845",
+    "result": [
+      [
+        "analyze_file_javascript"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced JavaScript analyzer with better pattern matching.\nHandles modern JavaScript features: arrow functions, async/await, classes, etc.\nProvides 85%+ accuracy.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "find",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "func_pattern",
+          "arrow_pattern",
+          "class_pattern",
+          "method_pattern",
+          "import_pattern1",
+          "import_pattern2",
+          "export_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name",
+          "arrow_match",
+          "func_name",
+          "import_match",
+          "import_match",
+          "module",
+          "export_match",
+          "export_name",
+          "doc_end",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\java_analyzer.py": {
+    "hash": "c2073fc6229a10c8933a2fddd875c74b",
+    "result": [
+      [
+        "analyze_file_java"
+      ],
+      [],
+      [
+        "javalang"
+      ],
+      "Deep Java analyzer using javalang library for AST-based parsing.\nProvides 95%+ accuracy for Java code analysis.",
+      {
+        "calls": [
+          "hasattr",
+          "startswith",
+          "append",
+          "isinstance",
+          "parse",
+          "filter",
+          "print",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "tree",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_path",
+          "class_info",
+          "interface_info",
+          "enum_info"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\kotlin_analyzer.py": {
+    "hash": "d011aa322eeef4012c92663cfed03c65",
+    "result": [
+      [
+        "analyze_file_kotlin"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Kotlin analyzer using regex patterns.\nProvides 80-85% accuracy for Kotlin code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "startswith",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "package_pattern",
+          "import_pattern",
+          "class_pattern",
+          "interface_pattern",
+          "object_pattern",
+          "fun_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "pkg_match",
+          "import_match",
+          "imp",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "object_match",
+          "object_name",
+          "fun_match",
+          "fun_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\php_analyzer.py": {
+    "hash": "a7bcec3fd4642c7e7088daad9707a219",
+    "result": [
+      [
+        "analyze_file_php"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Deep PHP analyzer using phply library for parser-based analysis.\nProvides 90%+ accuracy for PHP code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "find",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "namespace_pattern",
+          "use_pattern",
+          "class_pattern",
+          "interface_pattern",
+          "trait_pattern",
+          "function_pattern",
+          "method_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "namespace_match",
+          "use_match",
+          "use_path",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "trait_match",
+          "trait_name",
+          "method_match",
+          "method_name",
+          "func_match",
+          "func_name",
+          "doc_start",
+          "doc_end",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\python_analyzer.py": {
+    "hash": "a8227e4b2457d536e3a71c07f966a207",
+    "result": [
+      [
+        "analyze_file_python",
+        "visit_Import",
+        "visit_ImportFrom",
+        "visit_ClassDef",
+        "visit_FunctionDef",
+        "visit_AsyncFunctionDef",
+        "visit_Call",
+        "visit_Assign"
+      ],
+      [
+        {
+          "name": "Visitor",
+          "methods": [
+            "visit_Import",
+            "visit_ImportFrom",
+            "visit_ClassDef",
+            "visit_FunctionDef",
+            "visit_AsyncFunctionDef",
+            "visit_Call",
+            "visit_Assign"
+          ]
+        }
+      ],
+      [
+        "ast",
+        "core.config"
+      ],
+      null,
+      {
+        "calls": [
+          "list",
+          "set",
+          "append",
+          "generic_visit",
+          "isinstance",
+          "add",
+          "Visitor",
+          "visit",
+          "split",
+          "parse",
+          "print",
+          "get",
+          "read_text",
+          "get_docstring",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "tree",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "prefix",
+          "methods",
+          "visitor",
+          "stdlib_py",
+          "filtered_imports",
+          "is_stdlib",
+          "is_stdlib",
+          "base_module",
+          "is_stdlib",
+          "imports"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\ruby_analyzer.py": {
+    "hash": "43a1861136482b9a750dfe9d84fe5b89",
+    "result": [
+      [
+        "analyze_file_ruby"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Ruby analyzer using regex patterns.\nProvides 80-85% accuracy for Ruby code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "split",
+          "startswith",
+          "append",
+          "lstrip",
+          "copy",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "len",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "require_pattern",
+          "class_pattern",
+          "module_pattern",
+          "def_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "indent_level",
+          "current_indent",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "indent_level",
+          "require_match",
+          "req",
+          "class_match",
+          "current_class",
+          "in_class",
+          "indent_level",
+          "module_match",
+          "module_name",
+          "def_match",
+          "method_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\rust_analyzer.py": {
+    "hash": "9d8359b53ace005311ec44ce9873e5f6",
+    "result": [
+      [
+        "analyze_file_rust"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Rust analyzer using regex patterns (no Rust compiler required).\nProvides 80-85% accuracy for Rust code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "startswith",
+          "append",
+          "join",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "items",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "use_pattern",
+          "fn_pattern",
+          "struct_pattern",
+          "impl_pattern",
+          "trait_pattern",
+          "enum_pattern",
+          "method_pattern",
+          "struct_methods",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "use_match",
+          "use_path",
+          "struct_match",
+          "struct_name",
+          "impl_match",
+          "impl_name",
+          "current_impl",
+          "in_impl",
+          "brace_count",
+          "trait_match",
+          "trait_name",
+          "enum_match",
+          "enum_name",
+          "method_match",
+          "method_name",
+          "fn_match",
+          "func_name",
+          "doc_lines",
+          "docstring"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\swift_analyzer.py": {
+    "hash": "0341057ed99bef1d1a3b5c676d330caf",
+    "result": [
+      [
+        "analyze_file_swift"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "Enhanced Swift analyzer using regex patterns.\nProvides 80-85% accuracy for Swift code analysis.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "get_compiled_pattern",
+          "group",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "functions",
+          "classes",
+          "imports",
+          "docstring",
+          "meta",
+          "import_pattern",
+          "class_pattern",
+          "struct_pattern",
+          "protocol_pattern",
+          "extension_pattern",
+          "func_pattern",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "current_class",
+          "current_class_methods",
+          "in_class",
+          "brace_count",
+          "import_match",
+          "class_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "struct_match",
+          "current_class",
+          "in_class",
+          "brace_count",
+          "protocol_match",
+          "protocol_name",
+          "extension_match",
+          "func_match",
+          "func_name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\typescript_analyzer.py": {
+    "hash": "347c6862e6332ea45b393016de7dca02",
+    "result": [
+      [
+        "analyze_file_typescript"
+      ],
+      [],
+      [
+        "core.utils",
+        "javascript_analyzer"
+      ],
+      "Enhanced TypeScript analyzer extending JavaScript analyzer.\nHandles TypeScript-specific features: interfaces, types, generics, decorators.\nProvides 85%+ accuracy.",
+      {
+        "calls": [
+          "enumerate",
+          "count",
+          "split",
+          "append",
+          "copy",
+          "search",
+          "analyze_file_javascript",
+          "get_compiled_pattern",
+          "group",
+          "strip",
+          "match",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "source",
+          "lines",
+          "interface_pattern",
+          "type_pattern",
+          "decorator_pattern",
+          "generic_pattern",
+          "current_interface",
+          "interface_methods",
+          "in_interface",
+          "brace_count",
+          "current_interface",
+          "interface_methods",
+          "in_interface",
+          "brace_count",
+          "interface_match",
+          "interface_name",
+          "current_interface",
+          "in_interface",
+          "brace_count",
+          "method_match",
+          "type_match",
+          "decorator_match",
+          "decorator_name",
+          "generic_match",
+          "generic_params",
+          "param"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\xaml_analyzer.py": {
+    "hash": "a123c61d3e11b5f706aed9f4838a59d3",
+    "result": [
+      [
+        "analyze_file_xaml"
+      ],
+      [],
+      [
+        "core.utils"
+      ],
+      "XAML file analyzer for code-behind linking.",
+      {
+        "calls": [
+          "search",
+          "get_compiled_pattern",
+          "group",
+          "print",
+          "read_text",
+          "str"
+        ],
+        "variables": [
+          "text",
+          "pattern",
+          "x_class",
+          "match",
+          "x_class",
+          "meta"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\analyzers\\__init__.py": {
+    "hash": "8f9f5858af1c136893fa3c9a8b136d49",
+    "result": [
+      [],
+      [],
+      [],
+      "Analyzers package for language-specific file analysis.\n\nThis package contains analyzers for different programming languages\nincluding Python, C#, XAML, and a generic analyzer for other languages.",
+      {
+        "calls": [],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\api\\auth.py": {
+    "hash": "eb5397ed748ba6e37b90a15156ec37ef",
+    "result": [
+      [
+        "generate_api_key",
+        "hash_api_key",
+        "validate_api_key",
+        "create_api_key",
+        "revoke_api_key",
+        "require_api_key",
+        "decorated",
+        "get_rate_limit_for_tier"
+      ],
+      [],
+      [
+        "secrets",
+        "flask"
+      ],
+      "Authentication module for API\nHandles API key validation and management",
+      {
+        "calls": [
+          "sha256",
+          "jsonify",
+          "token_urlsafe",
+          "hash_api_key",
+          "hexdigest",
+          "encode",
+          "f",
+          "wraps",
+          "get",
+          "generate_api_key",
+          "validate_api_key",
+          "print",
+          "create_api_key"
+        ],
+        "variables": [
+          "API_KEYS",
+          "key_hash",
+          "api_key",
+          "key_hash",
+          "key_hash",
+          "api_key",
+          "user_info",
+          "key_hash",
+          "limits",
+          "DEMO_KEY"
+        ],
+        "decorators": [
+          "wraps"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\api\\server.py": {
+    "hash": "99cf14d7b0894754f2dec4a58adf7c84",
+    "result": [
+      [
+        "health_check",
+        "get_status",
+        "analyze_project",
+        "export_graph",
+        "ratelimit_handler",
+        "not_found",
+        "internal_error",
+        "run_server"
+      ],
+      [],
+      [
+        "flask",
+        "flask_cors",
+        "flask_limiter",
+        "flask_limiter.util",
+        "core.graph",
+        "core.json_exporter",
+        "api.auth"
+      ],
+      "Flask REST API Server for Architecture Visualizer\nProvides programmatic access to analysis functionality",
+      {
+        "calls": [
+          "build_graph",
+          "resolve",
+          "Limiter",
+          "Flask",
+          "get_remote_address",
+          "run_server",
+          "is_dir",
+          "exists",
+          "insert",
+          "print",
+          "export_filtered",
+          "str",
+          "JSONExporter",
+          "jsonify",
+          "route",
+          "CORS",
+          "get_json",
+          "Path",
+          "export_graph",
+          "int",
+          "get",
+          "run",
+          "errorhandler",
+          "time",
+          "limit"
+        ],
+        "variables": [
+          "app",
+          "limiter",
+          "server_start_time",
+          "analyses_completed",
+          "data",
+          "project_path",
+          "options",
+          "use_cache",
+          "exporter",
+          "json_data",
+          "filters",
+          "json_data",
+          "data",
+          "graph_data",
+          "project_path",
+          "filters",
+          "exporter",
+          "json_data",
+          "json_data"
+        ],
+        "decorators": [
+          "require_api_key"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\api\\__init__.py": {
+    "hash": "2877cb3fb5b811a6325f19a53559cf4c",
+    "result": [
+      [],
+      [],
+      [],
+      "API package for Architecture Visualizer\nProvides REST API for programmatic access",
+      {
+        "calls": [],
+        "variables": [
+          "__version__"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\architecture_analyzer.py": {
+    "hash": "4fa91c156f90539574ad3a9481e77f1f",
+    "result": [
+      [
+        "find_cycles_tarjan",
+        "strongconnect",
+        "detect_god_modules",
+        "detect_cross_language_edges",
+        "calculate_language_metrics",
+        "calculate_health_score",
+        "analyze_architecture"
+      ],
+      [],
+      [],
+      "Architecture analysis module for detecting cycles, god modules, and calculating health metrics.\nLanguage-agnostic - works on any dependency graph.",
+      {
+        "calls": [
+          "next",
+          "detect_cross_language_edges",
+          "strongconnect",
+          "pop",
+          "len",
+          "sum",
+          "append",
+          "round",
+          "max",
+          "min",
+          "sort",
+          "isinstance",
+          "detect_god_modules",
+          "items",
+          "calculate_health_score",
+          "calculate_language_metrics",
+          "find_cycles_tarjan",
+          "int",
+          "get"
+        ],
+        "variables": [
+          "nodes",
+          "adjacency",
+          "source",
+          "target",
+          "index_counter",
+          "stack",
+          "lowlinks",
+          "index",
+          "on_stack",
+          "cycles",
+          "scc",
+          "w",
+          "nodes",
+          "in_degree",
+          "out_degree",
+          "source",
+          "target",
+          "god_modules",
+          "total_connections",
+          "nodes",
+          "cross_language_edges",
+          "source_id",
+          "target_id",
+          "source_lang",
+          "target_lang",
+          "language_stats",
+          "lang",
+          "source_id",
+          "source_node",
+          "lang",
+          "score",
+          "god_ratio",
+          "orphan_ratio",
+          "cycles",
+          "cycles_flat",
+          "god_modules",
+          "orphan_count",
+          "cross_language_edges",
+          "language_metrics",
+          "total_modules",
+          "health_score",
+          "total_connections",
+          "avg_connections",
+          "most_complex"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\cache.py": {
+    "hash": "23b32e27c5e2244f50cfa85492749b66",
+    "result": [
+      [
+        "__init__",
+        "_load_cache",
+        "_save_cache",
+        "_file_hash",
+        "analyze_with_cache",
+        "save",
+        "print_stats"
+      ],
+      [
+        {
+          "name": "IncrementalAnalyzer",
+          "methods": [
+            "__init__",
+            "_load_cache",
+            "_save_cache",
+            "_file_hash",
+            "analyze_with_cache",
+            "save",
+            "print_stats"
+          ]
+        }
+      ],
+      [
+        "core.config"
+      ],
+      "Incremental caching functionality for file analysis.",
+      {
+        "calls": [
+          "list",
+          "_load_cache",
+          "Path",
+          "dumps",
+          "write_text",
+          "tuple",
+          "exists",
+          "hexdigest",
+          "_file_hash",
+          "analyze_func",
+          "print",
+          "md5",
+          "read_bytes",
+          "read_text",
+          "loads",
+          "get",
+          "str",
+          "_save_cache"
+        ],
+        "variables": [
+          "file_key",
+          "current_hash",
+          "cached",
+          "result",
+          "total",
+          "hit_rate"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\config.py": {
+    "hash": "fd48fa6f1cc800f27f4fb44a5b942c37",
+    "result": [
+      [],
+      [],
+      [],
+      "Configuration data for language-specific patterns and settings.",
+      {
+        "calls": [
+          "getenv",
+          "lower"
+        ],
+        "variables": [
+          "DEBUG_MODE",
+          "LANGUAGE_CONFIG",
+          "EXTERNAL_PREFIXES",
+          "STDLIB_EXCLUSIONS"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\config_loader.py": {
+    "hash": "d47339637076751477ddabbade7f08c1",
+    "result": [
+      [
+        "load_config",
+        "get_default_config",
+        "save_example_config"
+      ],
+      [],
+      [
+        "yaml"
+      ],
+      "Configuration file loader for YAML-based settings.",
+      {
+        "calls": [
+          "safe_load",
+          "get_default_config",
+          "Path",
+          "open",
+          "exists",
+          "dump",
+          "print",
+          "update"
+        ],
+        "variables": [
+          "config_path",
+          "user_config",
+          "config",
+          "example_config"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\discovery.py": {
+    "hash": "32f8e4bc44a3f23a9b284c632b4d002a",
+    "result": [
+      [
+        "detect_language",
+        "discover_source_files_lazy",
+        "is_trash_dir",
+        "module_name_from_path"
+      ],
+      [],
+      [
+        "config"
+      ],
+      "File discovery and language detection functionality.",
+      {
+        "calls": [
+          "relative_to",
+          "list",
+          "detect_language",
+          "Path",
+          "join",
+          "rsplit",
+          "walk",
+          "is_trash_dir",
+          "items",
+          "lower",
+          "startswith"
+        ],
+        "variables": [
+          "ext",
+          "SKIP_EXT",
+          "KNOWN_TRASH_DIRS",
+          "file_path",
+          "ext",
+          "rel",
+          "parts",
+          "parts"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\graph.py": {
+    "hash": "31c96362745ff129de44a43a4164df38",
+    "result": [
+      [
+        "build_dependency_links",
+        "build_graph"
+      ],
+      [],
+      [
+        "models",
+        "cache",
+        "discovery",
+        "matching",
+        "utils",
+        "analyzers.dispatcher",
+        "architecture_analyzer"
+      ],
+      "Graph building functionality for dependency analysis.",
+      {
+        "calls": [
+          "relative_to",
+          "defaultdict",
+          "build_dependency_links",
+          "len",
+          "sum",
+          "dict",
+          "append",
+          "save",
+          "print_stats",
+          "sorted",
+          "max",
+          "rsplit",
+          "min",
+          "print",
+          "to_dict",
+          "discover_source_files_lazy",
+          "values",
+          "str",
+          "tqdm",
+          "match_import_cached",
+          "set",
+          "split",
+          "tuple",
+          "ModuleInfo",
+          "range",
+          "replace",
+          "items",
+          "keys",
+          "basename",
+          "IncrementalAnalyzer",
+          "list",
+          "analyze_with_cache",
+          "add",
+          "module_name_from_path",
+          "analyze_file_dispatch",
+          "analyze_architecture",
+          "get"
+        ],
+        "variables": [
+          "module_names_tuple",
+          "links",
+          "link_set",
+          "connected_nodes",
+          "symbol_index",
+          "lang",
+          "meta",
+          "ns",
+          "cname",
+          "base",
+          "targets",
+          "key",
+          "ns_map",
+          "lang",
+          "meta",
+          "ns",
+          "mids",
+          "src",
+          "target",
+          "key",
+          "meta",
+          "xcls",
+          "cands",
+          "short",
+          "key",
+          "meta",
+          "calls",
+          "ns",
+          "targets",
+          "full",
+          "key",
+          "analyzer",
+          "source_files_list",
+          "lang_counts",
+          "modules",
+          "imports_by_module",
+          "stats",
+          "modules_by_file",
+          "file_index",
+          "base_path",
+          "project_name",
+          "iterator",
+          "mname",
+          "config",
+          "parts",
+          "top_group",
+          "top_group",
+          "top_group",
+          "size",
+          "file_rel",
+          "mod_info",
+          "file_no_ext",
+          "graph",
+          "architecture_metrics"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\json_exporter.py": {
+    "hash": "1dcf6af01103c1d8718df71b2ac223d4",
+    "result": [
+      [
+        "__init__",
+        "export_graph",
+        "export_analysis",
+        "export_metrics",
+        "export_filtered",
+        "save_to_file",
+        "to_string",
+        "_generate_metadata",
+        "_export_nodes",
+        "_export_links",
+        "_calculate_metrics",
+        "_detect_circular_dependencies",
+        "has_cycle",
+        "_filter_nodes"
+      ],
+      [
+        {
+          "name": "JSONExporter",
+          "methods": [
+            "__init__",
+            "export_graph",
+            "export_analysis",
+            "export_metrics",
+            "export_filtered",
+            "save_to_file",
+            "to_string",
+            "_generate_metadata",
+            "_export_nodes",
+            "_export_links",
+            "_calculate_metrics",
+            "_detect_circular_dependencies",
+            "_filter_nodes"
+          ]
+        }
+      ],
+      [],
+      "JSON Exporter for Architecture Visualizer\nExports graph data, analysis results, and metrics in JSON format.",
+      {
+        "calls": [
+          "remove",
+          "utcnow",
+          "len",
+          "_detect_circular_dependencies",
+          "_filter_nodes",
+          "append",
+          "round",
+          "isoformat",
+          "has_cycle",
+          "_export_nodes",
+          "str",
+          "set",
+          "isinstance",
+          "open",
+          "_generate_metadata",
+          "_calculate_metrics",
+          "keys",
+          "list",
+          "dumps",
+          "export_graph",
+          "add",
+          "dump",
+          "get",
+          "_export_links"
+        ],
+        "variables": [
+          "result",
+          "filtered_nodes",
+          "node_ids",
+          "filtered_links",
+          "filtered_data",
+          "nodes",
+          "languages",
+          "lang",
+          "exported",
+          "exported_node",
+          "exported",
+          "exported_link",
+          "nodes",
+          "links",
+          "total_nodes",
+          "total_links",
+          "avg_dependencies",
+          "avg_dependencies",
+          "circular_count",
+          "complexity",
+          "graph",
+          "source",
+          "target",
+          "visited",
+          "rec_stack",
+          "cycles",
+          "filtered",
+          "lang_filter",
+          "lang_filter",
+          "filtered",
+          "type_filter",
+          "filtered",
+          "pattern",
+          "filtered"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\logger.py": {
+    "hash": "ac62604d9d12cfc09144b0f99388943f",
+    "result": [
+      [
+        "setup_logger"
+      ],
+      [],
+      [],
+      "Logging configuration for the project.",
+      {
+        "calls": [
+          "setLevel",
+          "Formatter",
+          "setup_logger",
+          "StreamHandler",
+          "setFormatter",
+          "getLogger",
+          "addHandler"
+        ],
+        "variables": [
+          "logger",
+          "handler",
+          "formatter",
+          "default_logger"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\main.py": {
+    "hash": "eadd85ed284c903da837d54bdf608d86",
+    "result": [
+      [
+        "main",
+        "build_with_profile"
+      ],
+      [],
+      [
+        "webbrowser",
+        "core.utils",
+        "core.graph",
+        "ui.folder_selection",
+        "ui.visualizer",
+        "traceback",
+        "traceback"
+      ],
+      "Main entry point for the project architecture visualizer.",
+      {
+        "calls": [
+          "validate_environment",
+          "Path",
+          "build_graph",
+          "open",
+          "as_uri",
+          "resolve",
+          "exists",
+          "write_html",
+          "print_exc",
+          "print",
+          "get",
+          "build_with_profile",
+          "is_dir",
+          "save_recent_project",
+          "select_folder_console"
+        ],
+        "variables": [
+          "input_dir",
+          "source_path",
+          "output_path"
+        ],
+        "decorators": [
+          "profile_function"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\matching.py": {
+    "hash": "3fd3d6716594472e16cdbf5896d47661",
+    "result": [
+      [
+        "match_import_cached",
+        "match_import"
+      ],
+      [],
+      [
+        "config"
+      ],
+      "Import matching functionality with caching.",
+      {
+        "calls": [
+          "list",
+          "set",
+          "split",
+          "append",
+          "tuple",
+          "any",
+          "lru_cache",
+          "endswith",
+          "strip",
+          "get",
+          "replace",
+          "startswith",
+          "match_import"
+        ],
+        "variables": [
+          "candidates",
+          "clean",
+          "clean",
+          "clean",
+          "clean",
+          "clean",
+          "prefixed",
+          "clean_last"
+        ],
+        "decorators": [
+          "lru_cache"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\models.py": {
+    "hash": "9d3f027cdde34fd5702071208902f0ef",
+    "result": [
+      [
+        "__init__",
+        "to_dict"
+      ],
+      [
+        {
+          "name": "ModuleInfo",
+          "methods": [
+            "__init__",
+            "to_dict"
+          ]
+        }
+      ],
+      [],
+      "Data models for module information.",
+      {
+        "calls": [],
+        "variables": [
+          "__slots__"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\utils.py": {
+    "hash": "6c012bd6b2d31c3beea4fbeb44308f4a",
+    "result": [
+      [
+        "tqdm",
+        "get_compiled_pattern",
+        "profile_function",
+        "wrapper",
+        "validate_environment",
+        "is_safe_path"
+      ],
+      [],
+      [
+        "cProfile",
+        "pstats",
+        "tqdm"
+      ],
+      "Utility functions for regex caching, profiling, and validation.",
+      {
+        "calls": [
+          "enable",
+          "append",
+          "Stats",
+          "Path",
+          "print_stats",
+          "resolve",
+          "func",
+          "compile",
+          "is_relative_to",
+          "sort_stats",
+          "wraps",
+          "print",
+          "disable",
+          "Profile"
+        ],
+        "variables": [
+          "TQDM_AVAILABLE",
+          "TQDM_AVAILABLE",
+          "COMPILED_PATTERNS",
+          "key",
+          "profiler",
+          "result",
+          "stats",
+          "issues",
+          "base",
+          "target"
+        ],
+        "decorators": [
+          "wraps"
+        ],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\core\\__init__.py": {
+    "hash": "81162eeb016ca532983c409b7dafe537",
+    "result": [
+      [],
+      [],
+      [],
+      "Core package for the project architecture visualizer.\n\nThis package contains the core functionality including utilities, models,\ncaching, discovery, matching, and graph building.",
+      {
+        "calls": [],
+        "variables": [
+          "__version__"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\conftest.py": {
+    "hash": "3301ca60910eda4f927421af445111b7",
+    "result": [
+      [
+        "sample_python_file",
+        "sample_js_file",
+        "sample_project_dir"
+      ],
+      [],
+      [
+        "pytest"
+      ],
+      "Pytest configuration and fixtures.",
+      {
+        "calls": [
+          "mkdir",
+          "write_text"
+        ],
+        "variables": [
+          "content",
+          "file_path",
+          "content",
+          "file_path"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\test_analyzers.py": {
+    "hash": "ce72c0101905d53c6b4de830303b4986",
+    "result": [
+      [
+        "test_python_analyzer_imports",
+        "test_python_analyzer_decorators",
+        "test_python_analyzer_error_handling"
+      ],
+      [],
+      [
+        "pytest",
+        "analyzers.python_analyzer"
+      ],
+      "Tests for Python analyzer.",
+      {
+        "calls": [
+          "analyze_file_python",
+          "isinstance",
+          "write_text"
+        ],
+        "variables": [
+          "content",
+          "file_path",
+          "content",
+          "file_path",
+          "content",
+          "file_path"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\test_cache.py": {
+    "hash": "2164230d45155b82ecd389fef533abf8",
+    "result": [
+      [
+        "test_cache_initialization",
+        "test_cache_file_hash",
+        "test_cache_hit_and_miss",
+        "mock_analyze",
+        "test_cache_persistence",
+        "mock_analyze",
+        "test_cache_invalidation_on_change",
+        "mock_analyze"
+      ],
+      [],
+      [
+        "pytest",
+        "core.cache"
+      ],
+      "Tests for cache functionality.",
+      {
+        "calls": [
+          "IncrementalAnalyzer",
+          "analyze_with_cache",
+          "isinstance",
+          "save",
+          "write_text",
+          "_file_hash"
+        ],
+        "variables": [
+          "cache_file",
+          "analyzer",
+          "test_file",
+          "cache_file",
+          "analyzer",
+          "hash1",
+          "hash2",
+          "hash3",
+          "test_file",
+          "cache_file",
+          "analyzer",
+          "result1",
+          "result2",
+          "test_file",
+          "cache_file",
+          "analyzer1",
+          "analyzer2",
+          "result",
+          "test_file",
+          "cache_file",
+          "analyzer",
+          "call_count",
+          "result1",
+          "result2"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\test_discovery.py": {
+    "hash": "85a16591d47b31af76226511d9a51245",
+    "result": [
+      [
+        "test_detect_language_python",
+        "test_detect_language_javascript",
+        "test_detect_language_unknown",
+        "test_discover_source_files_basic",
+        "test_discover_excludes_trash_dirs",
+        "test_module_name_from_path",
+        "test_module_name_outside_root"
+      ],
+      [],
+      [
+        "pytest",
+        "core.discovery"
+      ],
+      "Tests for file discovery functionality.",
+      {
+        "calls": [
+          "list",
+          "detect_language",
+          "Path",
+          "write_text",
+          "module_name_from_path",
+          "any",
+          "mkdir",
+          "len",
+          "discover_source_files_lazy",
+          "str"
+        ],
+        "variables": [
+          "file_path",
+          "file_path",
+          "file_path",
+          "files",
+          "file_paths",
+          "files",
+          "file_paths",
+          "root",
+          "file_path",
+          "name",
+          "file_path",
+          "name",
+          "file_path",
+          "name",
+          "root",
+          "file_path",
+          "name"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\test_languages.py": {
+    "hash": "c87772b4038077d729aeba0cbc7158bc",
+    "result": [
+      [],
+      [],
+      [],
+      null,
+      {
+        "error": "invalid non-printable character U+FEFF (<unknown>, line 1)"
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\test_real_analysis.py": {
+    "hash": "aacfb053e9449a9208bae66bdb0f738b",
+    "result": [
+      [
+        "test_python_real_analysis",
+        "test_javascript_real_analysis",
+        "test_csharp_real_analysis",
+        "test_java_real_analysis",
+        "test_typescript_real_analysis",
+        "test_go_real_analysis",
+        "test_rust_real_analysis",
+        "test_php_real_analysis",
+        "test_ruby_real_analysis",
+        "test_all_languages_can_analyze"
+      ],
+      [],
+      [
+        "pytest",
+        "analyzers.dispatcher",
+        "core.config"
+      ],
+      "REAL integration tests - Actually analyze code in all 13 languages!",
+      {
+        "calls": [
+          "write_text",
+          "next",
+          "any",
+          "analyze_file_dispatch",
+          "len"
+        ],
+        "variables": [
+          "code",
+          "file",
+          "calc_class",
+          "code",
+          "file",
+          "code",
+          "file",
+          "class_names",
+          "code",
+          "file",
+          "code",
+          "file",
+          "code",
+          "file",
+          "code",
+          "file",
+          "code",
+          "file",
+          "code",
+          "file",
+          "languages",
+          "config"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\tests\\__init__.py": {
+    "hash": "ab8563efc2bf88dd5674014a9e5ec7f7",
+    "result": [
+      [],
+      [],
+      [],
+      "Tests package initialization.",
+      {
+        "calls": [],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\ui\\folder_selection.py": {
+    "hash": "3a52eabff16518a8483f511763e3ee2a",
+    "result": [
+      [
+        "select_folder_gui",
+        "select_folder_console",
+        "save_recent_project"
+      ],
+      [],
+      [
+        "tkinter",
+        "tkinter"
+      ],
+      "Folder selection UI components for GUI and console.",
+      {
+        "calls": [
+          "askdirectory",
+          "len",
+          "strip",
+          "input",
+          "withdraw",
+          "load",
+          "exists",
+          "Tk",
+          "min",
+          "insert",
+          "print",
+          "str",
+          "enumerate",
+          "open",
+          "attributes",
+          "dump",
+          "int",
+          "home",
+          "select_folder_gui",
+          "remove",
+          "destroy"
+        ],
+        "variables": [
+          "root",
+          "folder_path",
+          "recent_file",
+          "recent_projects",
+          "recent_projects",
+          "choice",
+          "path",
+          "proj_choice",
+          "idx",
+          "recent_file",
+          "recent_projects",
+          "recent_projects",
+          "project_path",
+          "recent_projects"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\ui\\visualizer.py": {
+    "hash": "50038888cc1de8b19fd1d07c1a323eb7",
+    "result": [
+      [
+        "write_html"
+      ],
+      [],
+      [],
+      null,
+      {
+        "calls": [
+          "Path",
+          "join",
+          "dumps",
+          "write_text",
+          "len",
+          "print",
+          "get",
+          "replace",
+          "read_text"
+        ],
+        "variables": [
+          "project_name",
+          "languages",
+          "lang_badges",
+          "base_dir",
+          "css_path",
+          "js_path",
+          "template_path",
+          "css_content",
+          "js_content",
+          "template_content",
+          "json_data",
+          "html",
+          "html",
+          "html",
+          "html",
+          "html",
+          "node_count"
+        ],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\ui\\__init__.py": {
+    "hash": "b03af56771a1a8b30f18c8f4be04111b",
+    "result": [
+      [],
+      [],
+      [],
+      "UI package for user interface components.\n\nThis package contains folder selection interfaces for both GUI and console.",
+      {
+        "calls": [],
+        "variables": [],
+        "decorators": [],
+        "async_functions": []
+      }
+    ]
+  },
+  "D:\\Projects\\In progress\\UniversalAnalyzer\\Softcurse Architecture Visualizer\\ui\\static\\js\\visualizer.js": {
+    "hash": "7474371c61fb0b52ddf8e6ec675d2ba6",
+    "result": [
+      [
+        "updateLOD",
+        "showLoadingOverlay",
+        "hideLoadingOverlay",
+        "updateLoadingProgress",
+        "renderNodesProgressively",
+        "renderBatch",
+        "getAdaptiveForceConfig",
+        "computeDAGLayout",
+        "forceCluster",
+        "force",
+        "findNeighbors",
+        "updatePerformanceDisplay",
+        "initStats",
+        "buildAdjacency",
+        "computeCentrality",
+        "getLangIndicator",
+        "updateDetails",
+        "updateMiniCard",
+        "updateAnalysisPanel",
+        "initFilters",
+        "getActiveFilters",
+        "applyFilters",
+        "getActivePreset",
+        "renderGraph",
+        "continueRenderGraph",
+        "dragStart",
+        "dragged",
+        "dragEnd",
+        "applyFocusMode",
+        "applyMultiSelectFocus",
+        "updateMultiSelectDetails",
+        "resetFocusMode",
+        "saveFocusState",
+        "restoreFocusState",
+        "exportFocusSubgraph",
+        "showNotification",
+        "init",
+        "restartSimulation"
+      ],
+      [],
+      [],
+      null,
+      {
+        "exports": [],
+        "async_functions": [],
+        "arrow_functions": []
+      }
+    ]
+  }
+}
