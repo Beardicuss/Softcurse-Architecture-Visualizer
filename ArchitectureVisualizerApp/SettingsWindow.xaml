@@ -7,7 +7,15 @@
         WindowStartupLocation="CenterOwner"
         Background="#020202"
         ResizeMode="NoResize">
-    
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="45" 
+            ResizeBorderThickness="0" 
+            GlassFrameThickness="0" 
+            CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="#fff"/>

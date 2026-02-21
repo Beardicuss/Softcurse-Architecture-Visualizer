@@ -9,6 +9,14 @@
         AllowsTransparency="True"
         ResizeMode="CanResize">
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="45" 
+            ResizeBorderThickness="8" 
+            GlassFrameThickness="0" 
+            CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <!-- Softcurse Glow Border Style -->
         <Style x:Key="GlowBorder" TargetType="Border">
