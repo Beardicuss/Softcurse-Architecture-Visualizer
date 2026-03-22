@@ -15,6 +15,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Embed icon as WPF resource so XAML Icon attribute can resolve it -->
+		<Resource Include="Assets\ui\arch.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- Copy the built Vite web app to output -->
 		<None Include="Assets\WebApp\dist\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

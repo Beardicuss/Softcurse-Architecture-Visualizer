@@ -10,6 +10,14 @@ namespace ArchitectureVisualizerApp
         public MainWindow()
         {
             InitializeComponent();
+
+            // Set window icon from file (avoids XAML pack URI issues)
+            var iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "ui", "arch.ico");
+            if (File.Exists(iconPath))
+            {
+                Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri(iconPath, UriKind.Absolute));
+            }
+
             InitializeWebView();
         }
 
