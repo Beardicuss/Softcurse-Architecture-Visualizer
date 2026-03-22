@@ -9,8 +9,8 @@ import {
 
 // ── localStorage keys ────────────────────────────────────────────────────────
 
-const LS_URL_KEY = 'gitnexus-backend-url';
-const LS_REPO_KEY = 'gitnexus-backend-repo';
+const LS_URL_KEY = 'softcurse-backend-url';
+const LS_REPO_KEY = 'softcurse-backend-repo';
 const DEFAULT_URL = 'http://localhost:4747';
 
 // ── Debounce delay ───────────────────────────────────────────────────────────

@@ -11,7 +11,7 @@ let pfs: any;
 
 const initFS = () => {
   // Create a fresh filesystem instance
-  const fsName = `gitnexus-git-${Date.now()}`;
+  const fsName = `softcurse-git-${Date.now()}`;
   fs = new LightningFS(fsName);
   pfs = fs.promises;
   return fsName;
@@ -27,13 +27,13 @@ const HOSTED_PROXY_URL = 'https://gitnexus.vercel.app/api/proxy';
  */
 const createProxiedHttp = (): typeof http => {
   const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-  
+
   return {
     request: async (config) => {
       // Use hosted proxy for localhost, local proxy for production
       const proxyBase = isDev ? HOSTED_PROXY_URL : '/api/proxy';
       const proxyUrl = `${proxyBase}?url=${encodeURIComponent(config.url)}`;
-      
+
       // Call the original http.request with the proxied URL
       return http.request({
         ...config,
@@ -53,9 +53,9 @@ const createProxiedHttp = (): typeof http => {
 export const parseGitHubUrl = (url: string): { owner: string; repo: string } | null => {
   const cleaned = url.trim().replace(/\.git$/, '');
   const match = cleaned.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-  
+
   if (!match) return null;
-  
+
   return {
     owner: match[1],
     repo: match[2],
@@ -82,7 +82,7 @@ export const cloneRepository = async (
 
   // Initialize fresh filesystem to avoid stale IndexedDB data
   const fsName = initFS();
-  
+
   const dir = `/${parsed.repo}`;
   const repoUrl = `https://github.com/${parsed.owner}/${parsed.repo}.git`;
 
@@ -90,7 +90,7 @@ export const cloneRepository = async (
     onProgress?.('cloning', 0);
 
     const httpClient = createProxiedHttp();
-    
+
     // Clone with shallow depth for speed
     await git.clone({
       fs,
@@ -115,11 +115,11 @@ export const cloneRepository = async (
 
     // Cleanup: remove the cloned repo from virtual FS to save space
     await removeDirectory(dir);
-    
+
     // Also try to clean up the IndexedDB database
     try {
       indexedDB.deleteDatabase(fsName);
-    } catch {}
+    } catch { }
 
     onProgress?.('complete', 100);
 
@@ -129,8 +129,8 @@ export const cloneRepository = async (
     try {
       await removeDirectory(dir);
       indexedDB.deleteDatabase(fsName);
-    } catch {}
-    
+    } catch { }
+
     throw error;
   }
 };
@@ -140,7 +140,7 @@ export const cloneRepository = async (
  */
 const readAllFiles = async (baseDir: string, currentDir: string): Promise<FileEntry[]> => {
   const files: FileEntry[] = [];
-  
+
   let entries: string[];
   try {
     entries = await pfs.readdir(currentDir);
@@ -199,18 +199,18 @@ const readAllFiles = async (baseDir: string, currentDir: string): Promise<FileEn
 const removeDirectory = async (dir: string): Promise<void> => {
   try {
     const entries = await pfs.readdir(dir);
-    
+
     for (const entry of entries) {
       const fullPath = `${dir}/${entry}`;
       const stat = await pfs.stat(fullPath);
-      
+
       if (stat.isDirectory()) {
         await removeDirectory(fullPath);
       } else {
         await pfs.unlink(fullPath);
       }
     }
-    
+
     await pfs.rmdir(dir);
   } catch {
     // Ignore errors during cleanup

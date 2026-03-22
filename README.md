@@ -1,6 +1,6 @@
 # Softcurse Architecture Visualizer
 
-A professional-grade code intelligence platform powered by [GitNexus](https://github.com/abhigyanpatwari/GitNexus). Analyzes and visualizes codebase architectures across **13+ programming languages** with GPU-accelerated WebGL graph rendering, AI-powered chat, impact analysis, and deep dependency tracking.
+A professional-grade code intelligence platform that analyzes and visualizes codebase architectures across **13+ programming languages** with GPU-accelerated WebGL graph rendering, AI-powered chat, impact analysis, and deep dependency tracking.
 
 Built as a WPF desktop app embedding a React + TypeScript web application via WebView2.
 
@@ -12,17 +12,17 @@ Built as a WPF desktop app embedding a React + TypeScript web application via We
 - **Impact Analysis**: Click any symbol to see what depends on it — upstream/downstream with confidence scores.
 - **Process Flow Tracing**: Trace execution paths from entry points through entire call chains.
 - **Community Detection**: Leiden algorithm auto-groups related symbols into functional clusters.
-- **Cypher Queries**: Advanced users can query the LadybugDB graph database directly.
+- **Cypher Queries**: Advanced users can query the graph database directly.
 - **File Tree Browser**: Navigate your codebase with an interactive file tree and source code viewer.
 - **Hybrid Search**: Combine BM25 text search with vector similarity for semantic code search.
 - **Wiki Generation**: Auto-generate documentation from your codebase structure.
 - **Mermaid Diagrams**: Render architecture diagrams directly in the app.
-- **Cyberpunk Theme**: Deep black (#020202), cyan (#0ff), neon blue (#08f) Softcurse aesthetic.
+- **Cyberpunk Theme**: Deep black, cyan, neon blue Softcurse aesthetic.
 
 ## Quick Start
 
 1. **Launch** `ArchitectureVisualizerApp.exe`.
-2. **Load a Project**: Drag & drop a ZIP file, enter a GitHub repo URL, or connect to a GitNexus server.
+2. **Load a Project**: Drag & drop a ZIP file or enter a GitHub repo URL.
 3. **Explore**: The interactive graph renders automatically with community clustering and dependency edges.
 4. **AI Chat**: Click the chat panel, configure your API key in ⚙️ Settings, and ask questions about your code.
 

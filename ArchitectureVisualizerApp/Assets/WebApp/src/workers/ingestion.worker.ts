@@ -19,10 +19,10 @@ import { enrichClustersBatch, ClusterMemberInfo, ClusterEnrichment } from '../co
 import { CommunityNode } from '../core/ingestion/community-processor';
 import { PipelineResult } from '../types/pipeline';
 import { buildCodebaseContext, type CodebaseContext } from '../core/llm/context-builder';
-import { 
-  buildBM25Index, 
-  searchBM25, 
-  isBM25Ready, 
+import {
+  buildBM25Index,
+  searchBM25,
+  isBM25Ready,
   getBM25Stats,
   mergeWithRRF,
   type HybridSearchResult,
@@ -164,16 +164,16 @@ const workerApi = {
     // Run the actual pipeline
     const result = await runIngestionPipeline(file, onProgress);
     currentGraphResult = result;
-    
+
     // Store file contents for grep/read tools (full content, not truncated)
     storedFileContents = result.fileContents;
-    
+
     // Build BM25 index for keyword search (instant, ~100ms)
     const bm25DocCount = buildBM25Index(storedFileContents);
     if (import.meta.env.DEV) {
       console.log(`🔍 BM25 index built: ${bm25DocCount} documents`);
     }
-    
+
     // Load graph into LadybugDB for querying (optional - gracefully degrades)
     try {
       onProgress({
@@ -312,16 +312,16 @@ const workerApi = {
     // Run the pipeline
     const result = await runPipelineFromFiles(files, onProgress);
     currentGraphResult = result;
-    
+
     // Store file contents for grep/read tools (full content, not truncated)
     storedFileContents = result.fileContents;
-    
+
     // Build BM25 index for keyword search (instant, ~100ms)
     const bm25DocCount = buildBM25Index(storedFileContents);
     if (import.meta.env.DEV) {
       console.log(`🔍 BM25 index built: ${bm25DocCount} documents`);
     }
-    
+
     // Load graph into LadybugDB for querying (optional - gracefully degrades)
     try {
       onProgress({
@@ -346,13 +346,13 @@ const workerApi = {
     } catch {
       // LadybugDB is optional - silently continue without it
     }
-    
+
     // Store clustering config for background enrichment (runs after graph loads)
     if (clusteringConfig) {
       pendingEnrichmentConfig = clusteringConfig;
       console.log('📋 Clustering config saved for background enrichment');
     }
-    
+
     // Convert to serializable format for transfer back to main thread
     return serializePipelineResult(result);
   },
@@ -408,12 +408,12 @@ const workerApi = {
       console.log('⏭️ No pending enrichment config, skipping');
       return { enriched: 0, skipped: true };
     }
-    
+
     console.log('✨ Starting background LLM enrichment...');
     try {
       await workerApi.enrichCommunities(
         pendingEnrichmentConfig,
-        onProgress ?? (() => {})
+        onProgress ?? (() => { })
       );
       pendingEnrichmentConfig = null; // Clear after running
       console.log('✅ Background enrichment completed');
@@ -496,10 +496,10 @@ const workerApi = {
     if (!isBM25Ready()) {
       throw new Error('Search index not ready. Please load a repository first.');
     }
-    
+
     // Get BM25 results (always available after ingestion)
     const bm25Results = searchBM25(query, k * 3);  // Get more for better RRF merge
-    
+
     // Get semantic results if embeddings are ready
     let semanticResults: SemanticSearchResult[] = [];
     if (isEmbeddingComplete) {
@@ -512,7 +512,7 @@ const workerApi = {
         // Semantic search failed, continue with BM25 only
       }
     }
-    
+
     // Merge with RRF
     return mergeWithRRF(bm25Results, semanticResults, k);
   },
@@ -629,7 +629,7 @@ const workerApi = {
       if (import.meta.env.DEV) {
         console.log('📛 Project name received:', { provided: projectName, resolved: resolvedProjectName });
       }
-      
+
       let codebaseContext;
       try {
         codebaseContext = await buildCodebaseContext(lbug.executeQuery, resolvedProjectName);
@@ -675,7 +675,7 @@ const workerApi = {
    * Initialize the Graph RAG agent in backend mode (HTTP-backed tools).
    * Uses HTTP wrappers instead of local LadybugDB for all tool queries.
    * @param config - Provider configuration for the LLM
-   * @param backendUrl - Base URL of the gitnexus serve backend
+   * @param backendUrl - Base URL of the softcurse serve backend
    * @param repoName - Repository name on the backend
    * @param fileContentsEntries - File contents as [path, content][] (Comlink can't transfer Maps)
    * @param projectName - Display name for the project
@@ -816,7 +816,7 @@ const workerApi = {
     }
 
     const { graph } = currentGraphResult;
-    
+
     // Filter for community nodes
     const communityNodes = graph.nodes
       .filter(n => n.label === 'Community')
@@ -834,16 +834,16 @@ const workerApi = {
 
     // Build member map: CommunityID -> Member Info
     const memberMap = new Map<string, ClusterMemberInfo[]>();
-    
+
     // Initialize map
     communityNodes.forEach(c => memberMap.set(c.id, []));
-    
+
     // Find all MEMBER_OF edges
     graph.relationships.forEach(rel => {
       if (rel.type === 'MEMBER_OF') {
         const communityId = rel.targetId;
         const memberId = rel.sourceId; // MEMBER_OF goes Member -> Community
-        
+
         if (memberMap.has(communityId)) {
           // Find member node details
           const memberNode = graph.nodes.find(n => n.id === memberId);
@@ -897,42 +897,42 @@ const workerApi = {
     // Update LadybugDB with new data
     try {
       const lbug = await getLbugAdapter();
-        
+
       onProgress(enrichments.size, enrichments.size); // Done
-      
+
       // Update one by one via Cypher (simplest for now)
       for (const [id, enrichment] of enrichments.entries()) {
-         // Escape strings for Cypher - replace backslash first, then quotes
-         const escapeCypher = (str: string) => str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-         
-         const keywordsStr = JSON.stringify(enrichment.keywords);
-         const descStr = escapeCypher(enrichment.description);
-         const nameStr = escapeCypher(enrichment.name);
-         const escapedId = escapeCypher(id);
-         
-         const query = `
+        // Escape strings for Cypher - replace backslash first, then quotes
+        const escapeCypher = (str: string) => str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+
+        const keywordsStr = JSON.stringify(enrichment.keywords);
+        const descStr = escapeCypher(enrichment.description);
+        const nameStr = escapeCypher(enrichment.name);
+        const escapedId = escapeCypher(id);
+
+        const query = `
            MATCH (c:Community {id: "${escapedId}"})
            SET c.label = "${nameStr}", 
                c.keywords = ${keywordsStr}, 
                c.description = "${descStr}",
                c.enrichedBy = "llm"
          `;
-         
-         await lbug.executeQuery(query);
+
+        await lbug.executeQuery(query);
       }
 
     } catch (err) {
       console.error('Failed to update LadybugDB with enrichment:', err);
     }
-    
+
     // Convert Map to Record for serialization
     const enrichmentsRecord: Record<string, ClusterEnrichment> = {};
     for (const [id, val] of enrichments.entries()) {
       enrichmentsRecord[id] = val;
     }
-     
+
     return { enrichments: enrichmentsRecord, tokensUsed };
-  
+
   },
 };
 

@@ -16,8 +16,8 @@ interface ProcessFlowModalProps {
     isFullScreen?: boolean;
 }
 
-// Initialize mermaid with cyan/purple theme matching GitNexus
-// Initialize mermaid with cyan/purple theme matching GitNexus
+// Initialize mermaid with cyan/purple theme matching Softcurse
+// Initialize mermaid with cyan/purple theme matching Softcurse
 mermaid.initialize({
     startOnLoad: false,
     suppressErrorRendering: true, // Try to suppress if supported
@@ -56,16 +56,16 @@ export const ProcessFlowModal = ({ process, onClose, onFocusInGraph, isFullScree
     const containerRef = useRef<HTMLDivElement>(null);
     const diagramRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    
+
     // Full process map gets higher default zoom (667%) and max zoom (3000%)
     const defaultZoom = isFullScreen ? 6.67 : 1;
     const maxZoom = isFullScreen ? 30 : 10;
-    
+
     const [zoom, setZoom] = useState(defaultZoom);
     const [pan, setPan] = useState({ x: 0, y: 0 });
     const [isPanning, setIsPanning] = useState(false);
     const [panStart, setPanStart] = useState({ x: 0, y: 0 });
-    
+
     // Reset zoom when switching between full screen and regular mode
     useEffect(() => {
         setZoom(defaultZoom);

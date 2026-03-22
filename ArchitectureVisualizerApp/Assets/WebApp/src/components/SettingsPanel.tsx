@@ -338,7 +338,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   className="w-full px-4 py-3 bg-elevated border border-border-subtle rounded-xl text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all font-mono text-sm"
                 />
                 <p className="text-xs text-text-muted">
-                  Run <code className="px-1 py-0.5 bg-elevated rounded">gitnexus serve</code> to start the local server
+                  Run <code className="px-1 py-0.5 bg-elevated rounded">softcurse serve</code> to start the local server
                 </p>
               </div>
             </div>

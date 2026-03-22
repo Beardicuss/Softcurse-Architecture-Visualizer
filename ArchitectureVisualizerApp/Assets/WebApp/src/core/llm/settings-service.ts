@@ -19,7 +19,7 @@ import {
   ProviderConfig,
 } from './types';
 
-const STORAGE_KEY = 'gitnexus-llm-settings';
+const STORAGE_KEY = 'softcurse-llm-settings';
 
 /**
  * Load settings from localStorage
@@ -30,9 +30,9 @@ export const loadSettings = (): LLMSettings => {
     if (!stored) {
       return DEFAULT_LLM_SETTINGS;
     }
-    
+
     const parsed = JSON.parse(stored) as Partial<LLMSettings>;
-    
+
     // Merge with defaults to handle new fields
     return {
       ...DEFAULT_LLM_SETTINGS,
@@ -206,7 +206,7 @@ export const setActiveProvider = (provider: LLMProvider): LLMSettings => {
  */
 export const getActiveProviderConfig = (): ProviderConfig | null => {
   const settings = loadSettings();
-  
+
   switch (settings.activeProvider) {
     case 'openai':
       if (!settings.openai?.apiKey) {
@@ -216,7 +216,7 @@ export const getActiveProviderConfig = (): ProviderConfig | null => {
         provider: 'openai',
         ...settings.openai,
       } as OpenAIConfig;
-      
+
     case 'azure-openai':
       if (!settings.azureOpenAI?.apiKey || !settings.azureOpenAI?.endpoint) {
         return null;
@@ -225,7 +225,7 @@ export const getActiveProviderConfig = (): ProviderConfig | null => {
         provider: 'azure-openai',
         ...settings.azureOpenAI,
       } as AzureOpenAIConfig;
-      
+
     case 'gemini':
       if (!settings.gemini?.apiKey) {
         return null;
@@ -234,7 +234,7 @@ export const getActiveProviderConfig = (): ProviderConfig | null => {
         provider: 'gemini',
         ...settings.gemini,
       } as GeminiConfig;
-      
+
     case 'anthropic':
       if (!settings.anthropic?.apiKey) {
         return null;
@@ -243,13 +243,13 @@ export const getActiveProviderConfig = (): ProviderConfig | null => {
         provider: 'anthropic',
         ...settings.anthropic,
       } as AnthropicConfig;
-      
+
     case 'ollama':
       return {
         provider: 'ollama',
         ...settings.ollama,
       } as OllamaConfig;
-      
+
     case 'openrouter':
       if (!settings.openrouter?.apiKey || settings.openrouter.apiKey.trim() === '') {
         return null;

@@ -9,13 +9,10 @@ This guide explains how to use the visualizer to explore, analyze, and understan
 
 ### Loading a Project
 
-You have three ways to load a project:
-
 | Method | How |
 |---|---|
 | **ZIP Upload** | Drag & drop a `.zip` file onto the DropZone |
 | **GitHub URL** | Paste a GitHub repository URL (e.g., `https://github.com/user/repo`) |
-| **GitNexus Server** | Connect to a running `gitnexus serve` instance |
 
 ## 2. Exploring the Graph
 

@@ -70,7 +70,7 @@ export async function fetchRepoInfo(baseUrl: string, repoName?: string): Promise
     throw new Error(`Server returned ${response.status}: ${response.statusText}`);
   }
   const data = await response.json();
-  // npm gitnexus@1.3.3 returns "path"; git HEAD returns "repoPath"
+  // npm softcurse@1.3.3 returns "path"; git HEAD returns "repoPath"
   return { ...data, repoPath: data.repoPath ?? data.path };
 }
 

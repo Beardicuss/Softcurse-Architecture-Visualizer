@@ -28,7 +28,7 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
 
   // Server tab state
   const [serverUrl, setServerUrl] = useState(() =>
-    localStorage.getItem('gitnexus-server-url') || ''
+    localStorage.getItem('softcurse-server-url') || ''
   );
   const [isConnecting, setIsConnecting] = useState(false);
   const [serverProgress, setServerProgress] = useState<{
@@ -133,7 +133,7 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
     }
 
     // Persist URL to localStorage
-    localStorage.setItem('gitnexus-server-url', serverUrl);
+    localStorage.setItem('softcurse-server-url', serverUrl);
 
     setError(null);
     setIsConnecting(true);
@@ -453,7 +453,7 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
               Connect to Server
             </h2>
             <p className="text-sm text-text-secondary text-center mb-6">
-              Load a pre-built knowledge graph from a running GitNexus server
+              Load a pre-built knowledge graph from a running Softcurse server
             </p>
 
             {/* Inputs */}
@@ -537,9 +537,8 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
               <div className="mt-4">
                 <div className="h-2 bg-elevated rounded-full overflow-hidden">
                   <div
-                    className={`h-full bg-accent transition-all duration-300 ease-out ${
-                      serverProgressPercent === null ? 'animate-pulse' : ''
-                    }`}
+                    className={`h-full bg-accent transition-all duration-300 ease-out ${serverProgressPercent === null ? 'animate-pulse' : ''
+                      }`}
                     style={{
                       width: serverProgressPercent !== null
                         ? `${serverProgressPercent}%`

@@ -121,7 +121,7 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
           <div className="w-7 h-7 flex items-center justify-center bg-gradient-to-br from-accent to-node-interface rounded-md shadow-glow text-white text-sm font-bold">
             ◇
           </div>
-          <span className="font-semibold text-[15px] tracking-tight">GitNexus</span>
+          <span className="font-semibold text-[15px] tracking-tight">Softcurse</span>
         </div>
 
         {/* Project badge / Repo selector dropdown */}
@@ -238,7 +238,7 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
       <div className="flex items-center gap-2">
         {/* GitHub Star Button */}
         <a
-          href="https://github.com/abhigyanpatwari/GitNexus"
+          href="https://github.com/Beardicuss/Softcurse-Architecture-Visualizer"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg text-white text-sm font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group"
