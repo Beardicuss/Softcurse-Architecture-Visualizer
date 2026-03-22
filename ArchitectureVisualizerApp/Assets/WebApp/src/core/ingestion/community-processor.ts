@@ -44,18 +44,26 @@ export interface CommunityDetectionResult {
 // ============================================================================
 
 export const COMMUNITY_COLORS = [
-  '#ef4444', // red
-  '#f97316', // orange
-  '#eab308', // yellow
-  '#22c55e', // green
-  '#06b6d4', // cyan
-  '#3b82f6', // blue
-  '#8b5cf6', // violet
-  '#d946ef', // fuchsia
-  '#ec4899', // pink
-  '#f43f5e', // rose
-  '#14b8a6', // teal
-  '#84cc16', // lime
+  '#00ffff', // Cyan
+  '#ff00ff', // Magenta
+  '#00ff66', // Neon Green
+  '#ff3366', // Neon Red-Pink
+  '#ffcc00', // Gold
+  '#3399ff', // Sky Blue
+  '#ff6600', // Vivid Orange
+  '#cc66ff', // Lavender
+  '#00ffcc', // Mint
+  '#ff0099', // Hot Pink
+  '#66ff33', // Lime
+  '#ff3300', // Scarlet
+  '#33ccff', // Light Cyan
+  '#ffee00', // Electric Yellow
+  '#9933ff', // Electric Purple
+  '#00cc99', // Jade
+  '#ff6699', // Salmon Pink
+  '#00aaff', // Cerulean
+  '#ff9933', // Amber
+  '#33ff99', // Sea Green
 ];
 
 export const getCommunityColor = (communityIndex: number): string => {
@@ -81,7 +89,7 @@ export const processCommunities = async (
   // Step 1: Build a graphology graph from the knowledge graph
   // We only include symbol nodes (Function, Class, Method) and CALLS edges
   const graph = buildGraphologyGraph(knowledgeGraph);
-  
+
   if (graph.order === 0) {
     // No nodes to cluster
     return {
@@ -147,7 +155,7 @@ const buildGraphologyGraph = (knowledgeGraph: KnowledgeGraph): Graph => {
 
   // Symbol types that should be clustered
   const symbolTypes = new Set<NodeLabel>(['Function', 'Class', 'Method', 'Interface']);
-  
+
   // Add symbol nodes
   knowledgeGraph.nodes.forEach(node => {
     if (symbolTypes.has(node.label)) {
@@ -162,7 +170,7 @@ const buildGraphologyGraph = (knowledgeGraph: KnowledgeGraph): Graph => {
   // Add CALLS edges (primary clustering signal)
   // We can also include EXTENDS/IMPLEMENTS for OOP clustering
   const clusteringRelTypes = new Set(['CALLS', 'EXTENDS', 'IMPLEMENTS']);
-  
+
   knowledgeGraph.relationships.forEach(rel => {
     if (clusteringRelTypes.has(rel.type)) {
       // Only add edge if both nodes exist in our symbol graph
@@ -194,7 +202,7 @@ const createCommunityNodes = (
 ): CommunityNode[] => {
   // Group node IDs by community
   const communityMembers = new Map<number, string[]>();
-  
+
   Object.entries(communities).forEach(([nodeId, commNum]) => {
     if (!communityMembers.has(commNum)) {
       communityMembers.set(commNum, []);
@@ -212,13 +220,13 @@ const createCommunityNodes = (
 
   // Create community nodes - SKIP SINGLETONS (isolated nodes)
   const communityNodes: CommunityNode[] = [];
-  
+
   communityMembers.forEach((memberIds, commNum) => {
     // Skip singleton communities - they're just isolated nodes
     if (memberIds.length < 2) return;
-    
+
     const heuristicLabel = generateHeuristicLabel(memberIds, nodePathMap, graph, commNum);
-    
+
     communityNodes.push({
       id: `comm_${commNum}`,
       label: heuristicLabel,
@@ -249,11 +257,11 @@ const generateHeuristicLabel = (
 ): string => {
   // Collect folder names from file paths
   const folderCounts = new Map<string, number>();
-  
+
   memberIds.forEach(nodeId => {
     const filePath = nodePathMap.get(nodeId) || '';
     const parts = filePath.split('/').filter(Boolean);
-    
+
     // Get the most specific folder (parent directory)
     if (parts.length >= 2) {
       const folder = parts[parts.length - 2];
@@ -267,7 +275,7 @@ const generateHeuristicLabel = (
   // Find most common folder
   let maxCount = 0;
   let bestFolder = '';
-  
+
   folderCounts.forEach((count, folder) => {
     if (count > maxCount) {
       maxCount = count;
@@ -304,16 +312,16 @@ const generateHeuristicLabel = (
  */
 const findCommonPrefix = (strings: string[]): string => {
   if (strings.length === 0) return '';
-  
+
   const sorted = strings.slice().sort();
   const first = sorted[0];
   const last = sorted[sorted.length - 1];
-  
+
   let i = 0;
   while (i < first.length && first[i] === last[i]) {
     i++;
   }
-  
+
   return first.substring(0, i);
 };
 

@@ -24,14 +24,14 @@
   --color-accent: #0ff;
   --color-accent-dim: #08f;
 
-  /* Node colors — Cyberpunk palette */
-  --color-node-file: #08f;
-  --color-node-folder: #0ff;
-  --color-node-class: #f0e040;
-  --color-node-function: #0f8;
-  --color-node-interface: #f08;
-  --color-node-import: #08f;
-  --color-node-method: #0ff;
+  /* Node colors — Softcurse Cyberpunk neon palette */
+  --color-node-file: #0099ff;
+  --color-node-folder: #00ffcc;
+  --color-node-class: #ffcc00;
+  --color-node-function: #00ff66;
+  --color-node-interface: #ff3399;
+  --color-node-import: #335577;
+  --color-node-method: #00ccaa;
 
   /* Fonts — Consolas primary */
   --font-sans: 'Consolas', 'Outfit', system-ui, sans-serif;
