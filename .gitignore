@@ -41,3 +41,12 @@ output/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Node.js / WebApp
+node_modules/
+ArchitectureVisualizerApp/Assets/WebApp/dist/
+ArchitectureVisualizerApp/Assets/WebApp/.cache/
+package-lock.json
+
+# GitNexus reference clone
+GitNexus-ref/

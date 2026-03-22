@@ -14,8 +14,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- Copy all Python files to output -->
-		<None Include="Assets\**\*.*">
+		<!-- Copy the built Vite web app to output -->
+		<None Include="Assets\WebApp\dist\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Assets\WebApp\dist\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</None>
+		<!-- Copy legacy Python assets (keep for backward compatibility) -->
+		<None Include="Assets\Python\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

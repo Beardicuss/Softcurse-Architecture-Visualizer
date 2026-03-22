@@ -1,140 +1,54 @@
 ﻿<Window x:Class="ArchitectureVisualizerApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Softcurse · Architecture Analyzer" 
-        Height="700" Width="500"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="Softcurse · Architecture Visualizer" 
+        Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
-        Background="#000000"
+        Background="#020202"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="CanResize">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
-            CaptionHeight="45" 
+            CaptionHeight="40" 
             ResizeBorderThickness="8" 
             GlassFrameThickness="0" 
             CornerRadius="0"/>
     </WindowChrome.WindowChrome>
 
-    <Window.Resources>
-        <!-- Softcurse Glow Border Style -->
-        <Style x:Key="GlowBorder" TargetType="Border">
-            <Setter Property="BorderBrush" Value="#00F6FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#00F6FF" BlurRadius="12" ShadowDepth="0" Opacity="0.5"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Card Style -->
-        <Style x:Key="Card" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#020202" Offset="0"/>
-                        <GradientStop Color="#0a0a0a" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="BorderBrush" Value="#0ff"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#08f" BlurRadius="15" ShadowDepth="0" Opacity="0.3"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Button Style -->
-        <Style x:Key="SoftcurseButton" TargetType="Button">
-            <Setter Property="Background" Value="#020202"/>
-            <Setter Property="Foreground" Value="#0ff"/>
-            <Setter Property="BorderBrush" Value="#0ff"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="15,8"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <Border.Effect>
-                                <DropShadowEffect Color="#08f" BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
-                            </Border.Effect>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#111"/>
-                                <Setter Property="BorderBrush" Value="#08f"/>
-                                <Setter Property="Foreground" Value="#fff"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Metric Card Style -->
-        <Style x:Key="MetricCard" TargetType="Border">
-            <Setter Property="Background" Value="#020202"/>
-            <Setter Property="BorderBrush" Value="#08f"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Padding" Value="15,10"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#08f" BlurRadius="10" ShadowDepth="0" Opacity="0.3"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-
     <Grid>
-        <!-- Background Gradient -->
         <Grid.Background>
-            <RadialGradientBrush GradientOrigin="0.5,0.3" Center="0.5,0.3" RadiusX="0.8" RadiusY="0.8">
-                <GradientStop Color="#0a0a0a" Offset="0"/>
-                <GradientStop Color="#050505" Offset="0.6"/>
-                <GradientStop Color="#020202" Offset="1"/>
-            </RadialGradientBrush>
+            <SolidColorBrush Color="#020202"/>
         </Grid.Background>
 
-        <!-- Outer Frame -->
-        <Border Style="{StaticResource GlowBorder}" Margin="8">
-            <Grid Background="#000000">
+        <!-- Outer Glow Frame -->
+        <Border BorderBrush="#0ff" BorderThickness="1" Margin="4">
+            <Border.Effect>
+                <DropShadowEffect Color="#0ff" BlurRadius="12" ShadowDepth="0" Opacity="0.5"/>
+            </Border.Effect>
+            
+            <Grid Background="#020202">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>  <!-- Title Bar -->
+                    <RowDefinition Height="*"/>   <!-- WebView2 Content -->
                 </Grid.RowDefinitions>
 
-                <!-- Header -->
+                <!-- Title Bar -->
                 <Border Grid.Row="0" 
-                        BorderBrush="#0ff" 
+                        BorderBrush="#08f" 
                         BorderThickness="0,0,0,1" 
-                        Padding="15,10"
-                        Background="#050505">
+                        Background="#050505"
+                        Padding="15,0">
                     <Grid>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="SOFTCURSE · ARCHITECTURE ANALYZER" 
+                            <TextBlock Text="SOFTCURSE · ARCHITECTURE VISUALIZER" 
                                        FontFamily="Consolas"
-                                       FontSize="14" 
+                                       FontSize="13" 
                                        FontWeight="Bold" 
-                                       Foreground="#0ff">
+                                       Foreground="#0ff"
+                                       VerticalAlignment="Center">
                                 <TextBlock.Effect>
                                     <DropShadowEffect Color="#08f" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
                                 </TextBlock.Effect>
@@ -143,9 +57,12 @@
                         
                         <!-- Window Controls -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
-                            <Button Content="_" Click="Minimize_Click" Width="30" Height="25" Margin="0,0,5,0" 
+                            <Button Content="⚙" Click="Settings_Click" Width="30" Height="25" Margin="0,0,10,0" 
+                                    Background="Transparent" BorderThickness="0" Foreground="#08f" FontFamily="Consolas" FontSize="14"
+                                    ToolTip="Settings"/>
+                            <Button Content="_" Click="Minimize_Click" Width="30" Height="25" Margin="0,0,3,0" 
                                     Background="Transparent" BorderThickness="0" Foreground="#0ff" FontFamily="Consolas" FontSize="14"/>
-                            <Button Content="□" Click="Maximize_Click" Width="30" Height="25" Margin="0,0,5,0" 
+                            <Button Content="□" Click="Maximize_Click" Width="30" Height="25" Margin="0,0,3,0" 
                                     Background="Transparent" BorderThickness="0" Foreground="#0ff" FontFamily="Consolas" FontSize="14"/>
                             <Button Content="X" Click="Close_Click" Width="30" Height="25" 
                                     Background="Transparent" BorderThickness="0" Foreground="#f00" FontFamily="Consolas" FontSize="14"/>
@@ -153,258 +70,10 @@
                     </Grid>
                 </Border>
 
-                <!-- Main Content -->
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
-                    <StackPanel>
-                        
-                        <!-- Project Control Card -->
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,20">
-                            <StackPanel>
-                                <TextBlock Text="PROJECT CONTROL" 
-                                           FontFamily="Consolas"
-                                           FontSize="11" 
-                                           Foreground="#0ff"
-                                           Margin="0,0,0,15"/>
-                                
-                                <!-- Project Path Display -->
-                                <Border Background="#050505" 
-                                        BorderBrush="#08f" 
-                                        BorderThickness="1" 
-                                        CornerRadius="4" 
-                                        Padding="12,8"
-                                        Margin="0,0,0,15">
-                                    <TextBlock x:Name="projectPathText" 
-                                               Text="No project selected" 
-                                               FontFamily="Consolas"
-                                               FontSize="10"
-                                               Foreground="#fff"
-                                               TextWrapping="Wrap"/>
-                                </Border>
-
-                                <!-- Action Buttons -->
-                                <UniformGrid Rows="2" Columns="2" Margin="0,15,0,0">
-                                    <Button Content="📁 SELECT" 
-                                            Style="{StaticResource SoftcurseButton}"
-                                            Click="SelectProject_Click"
-                                            ToolTip="Choose a project root directory to analyze"
-                                            Margin="0,0,5,5"/>
-                                    <Button x:Name="analyzeButton"
-                                            Content="🔍 ANALYZE" 
-                                            Style="{StaticResource SoftcurseButton}"
-                                            IsEnabled="False"
-                                            Click="Analyze_Click"
-                                            ToolTip="Launch the PyTorch GPU accelerated graph builder backend"
-                                            Margin="5,0,0,5"/>
-                                    <Button x:Name="previewButton"
-                                            Content="👁️ PREVIEW" 
-                                            Style="{StaticResource SoftcurseButton}"
-                                            IsEnabled="False"
-                                            Click="Preview_Click"
-                                            ToolTip="Open the interactive WebGL graph projection map"
-                                            Margin="0,5,5,0"/>
-                                    <Button x:Name="settingsButton"
-                                            Content="⚙️ SETTINGS" 
-                                            Style="{StaticResource SoftcurseButton}"
-                                            Click="Settings_Click"
-                                            ToolTip="Configure custom file exclusions and traversal depths"
-                                            Margin="5,5,0,0"/>
-                                </UniformGrid>
-
-                                <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                                    <CheckBox x:Name="useCacheCheckbox"
-                                              Content="Use Cache" 
-                                              IsChecked="True"
-                                              Foreground="#0ff"
-                                              FontFamily="Consolas"
-                                              FontSize="10"
-                                              ToolTip="Avoid re-parsing unmodified files"
-                                              Margin="0,0,15,0"/>
-                                              
-                                    <CheckBox x:Name="profileCheckbox"
-                                              Content="Profile Analysis" 
-                                              IsChecked="False"
-                                              Foreground="#0ff"
-                                              FontFamily="Consolas"
-                                              FontSize="10"
-                                              ToolTip="Dump execution time statistics to the UI log"/>
-                                </StackPanel>
-                                <!-- API Server Control -->
-                                <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                                    <ToggleButton x:Name="apiServerButton"
-                                                  Content="START API"
-                                                  Click="ApiServer_Click"
-                                                  Width="100"
-                                                  Height="25"
-                                                  FontSize="10"
-                                                  Background="#020202"
-                                                  Foreground="#0ff"
-                                                  BorderBrush="#0ff"
-                                                  FontFamily="Consolas"/>
-                                    
-                                    <Ellipse x:Name="apiStatusIndicator"
-                                             Width="8" Height="8"
-                                             Fill="#333333"
-                                             Margin="10,0,5,0"/>
-                                    
-                                    <TextBlock x:Name="apiStatusText"
-                                               Text="OFFLINE"
-                                               Foreground="#888"
-                                               FontFamily="Consolas"
-                                               FontSize="10"
-                                               VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Metrics Card -->
-                        <Border x:Name="statsPanel" 
-                                Style="{StaticResource Card}"
-                                Visibility="Collapsed"
-                                Margin="0,0,0,20">
-                            <StackPanel>
-                                <TextBlock Text="ANALYSIS METRICS" 
-                                           FontFamily="Consolas"
-                                           FontSize="11" 
-                                           Foreground="#0ff"
-                                           Margin="0,0,0,15"/>
-                                
-                                <UniformGrid Columns="3">
-                                    <!-- Files Metric -->
-                                    <Border Style="{StaticResource MetricCard}" Margin="0,0,5,0">
-                                        <StackPanel>
-                                            <TextBlock x:Name="totalFilesText" 
-                                                       Text="0" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="28" 
-                                                       FontWeight="Bold" 
-                                                       Foreground="#08f"
-                                                       HorizontalAlignment="Center"/>
-                                            <TextBlock Text="FILES" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="9" 
-                                                       Foreground="#999"
-                                                       HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Border>
-
-                                    <!-- Links Metric -->
-                                    <Border Style="{StaticResource MetricCard}" Margin="5,0,5,0">
-                                        <StackPanel>
-                                            <TextBlock x:Name="totalLinksText" 
-                                                       Text="0" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="28" 
-                                                       FontWeight="Bold" 
-                                                       Foreground="#08f"
-                                                       HorizontalAlignment="Center"/>
-                                            <TextBlock Text="LINKS" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="9" 
-                                                       Foreground="#999"
-                                                       HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Border>
-
-                                    <!-- Health Score Metric -->
-                                    <Border Style="{StaticResource MetricCard}" Margin="5,0,0,0">
-                                        <StackPanel>
-                                            <TextBlock x:Name="healthScoreText" 
-                                                       Text="--" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="28" 
-                                                       FontWeight="Bold" 
-                                                       Foreground="#0ff"
-                                                       HorizontalAlignment="Center"/>
-                                            <TextBlock Text="HEALTH" 
-                                                       FontFamily="Consolas"
-                                                       FontSize="9" 
-                                                       Foreground="#999"
-                                                       HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Border>
-                                </UniformGrid>
-
-                                <!-- Languages -->
-                                <StackPanel Margin="0,15,0,0">
-                                    <TextBlock Text="LANGUAGES:" 
-                                               FontFamily="Consolas"
-                                               FontSize="10" 
-                                               Foreground="#999"
-                                               Margin="0,0,0,5"/>
-                                    <TextBlock x:Name="languagesText" 
-                                               Text="None" 
-                                               FontFamily="Consolas"
-                                               FontSize="11"
-                                               Foreground="#0ff"
-                                               TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Analysis Log Card -->
-                        <Border Style="{StaticResource Card}">
-                            <StackPanel>
-                                <TextBlock Text="ANALYSIS LOG" 
-                                           FontFamily="Consolas"
-                                           FontSize="11" 
-                                           Foreground="#0ff"
-                                           Margin="0,0,0,10"/>
-                                
-                                <Border Background="#050505" 
-                                        BorderBrush="#08f" 
-                                        BorderThickness="1" 
-                                        CornerRadius="4" 
-                                        Padding="12"
-                                        Height="150">
-                                        
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <TextBlock x:Name="analysisLogText" 
-                                                   FontFamily="Consolas"
-                                                   FontSize="10"
-                                                   Foreground="#0ff"
-                                                   TextWrapping="Wrap"
-                                                   Text="Ready - Select a project to begin"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </StackPanel>
-                        </Border>
-
-                    </StackPanel>
-                </ScrollViewer>
-
-                <!-- Footer -->
-                <Border Grid.Row="2" 
-                        BorderBrush="#08f" 
-                        BorderThickness="0,1,0,0" 
-                        Padding="20,10"
-                        Background="#020202">
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="statusText" 
-                                       Text="Ready" 
-                                       FontFamily="Consolas"
-                                       FontSize="10"
-                                       Foreground="#0ff"/>
-                            <ProgressBar x:Name="progressBar" 
-                                         Width="100" 
-                                         Height="4"
-                                         Margin="15,0,0,0"
-                                         Visibility="Collapsed"
-                                         IsIndeterminate="True"
-                                         Foreground="#0ff"
-                                         Background="#0a0a0a"/>
-                        </StackPanel>
-                        
-                        <TextBlock HorizontalAlignment="Right"
-                                   FontFamily="Consolas"
-                                   FontSize="9"
-                                   Foreground="#0ff">
-                            <Run Text="Dante Berezinsky"/>
-                            <Run Text=" · " Foreground="#888"/>
-                            <Run Text="Softcurse Corp." Foreground="#08f"/>
-                        </TextBlock>
-                    </Grid>
-                </Border>
+                <!-- WebView2 — Full GitNexus Visualization -->
+                <wv2:WebView2 x:Name="webView" 
+                              Grid.Row="1"
+                              DefaultBackgroundColor="Transparent"/>
             </Grid>
         </Border>
     </Grid>
