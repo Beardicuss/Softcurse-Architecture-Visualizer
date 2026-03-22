@@ -7,15 +7,15 @@ import { EmbeddingStatus } from './EmbeddingStatus';
 
 // Color mapping for node types in search results
 const NODE_TYPE_COLORS: Record<string, string> = {
-  Folder: '#6366f1',
-  File: '#3b82f6',
-  Function: '#10b981',
-  Class: '#f59e0b',
-  Method: '#14b8a6',
-  Interface: '#ec4899',
-  Variable: '#64748b',
-  Import: '#475569',
-  Type: '#a78bfa',
+  Folder: '#00ffcc',
+  File: '#0099ff',
+  Function: '#00ff66',
+  Class: '#ffcc00',
+  Method: '#00ccaa',
+  Interface: '#ff3399',
+  Variable: '#556688',
+  Import: '#335577',
+  Type: '#cc66ff',
 };
 
 interface HeaderProps {
@@ -118,8 +118,8 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
       <div className="flex items-center gap-4">
         {/* Logo */}
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 flex items-center justify-center bg-gradient-to-br from-accent to-node-interface rounded-md shadow-glow text-white text-sm font-bold">
-            ◇
+          <div className="w-7 h-7 flex items-center justify-center rounded-md overflow-hidden shadow-glow">
+            <img src="/arch.png" alt="Softcurse" className="w-full h-full object-cover" />
           </div>
           <span className="font-semibold text-[15px] tracking-tight">Softcurse</span>
         </div>
