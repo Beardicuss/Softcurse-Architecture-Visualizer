@@ -1,53 +1,85 @@
 # Softcurse Architecture Visualizer
 
-A powerful, hybrid WPF/Python application that analyzes and visualizes codebase architectures across multiple languages (C#, Python, JavaScript, XML, XAML). Features GPU-accelerated node layouts, real-time dependency tracking, cycle detection, and interactive UI.
+A professional-grade code intelligence platform powered by [GitNexus](https://github.com/abhigyanpatwari/GitNexus). Analyzes and visualizes codebase architectures across **13+ programming languages** with GPU-accelerated WebGL graph rendering, AI-powered chat, impact analysis, and deep dependency tracking.
+
+Built as a WPF desktop app embedding a React + TypeScript web application via WebView2.
 
 ## Features
 
-- **Multi-Language Support**: Automatically scans `.cs`, `.py`, `.js`, `.xaml`, and `.xml`.
-- **Advanced Architecture Analysis**:
-  - Automatically identifies "God Modules" (modules with excessively high in/out degree).
-  - Detects architectural cycles and cyclic dependencies.
-  - Computes global health and maintainability scores.
-- **GPU Acceleration**: Utilizes PyTorch (CUDA/ROCm) if available to compute complex force-directed graph layouts thousands of times faster than CPU alone. Falls back to highly optimized CPU threading.
-- **Background API Server**: A standalone Flask API (`api_server.py`) offloads heavy JSON generation from the main UI thread.
-- **Interactive Visualizer**: Custom Javascript DAG implementation allowing user interactions, filters, language grouping, and node searches.
-- **Configuration Engine**: Use `.visualizer.yml` to set project-specific ignore directories, deep exclusion rules, and limits.
-- **Performance Profiling**: Built-in `cProfile` hooks to benchmark file I/O operations and build optimization strategies directly mapped to the UI logs.
+- **13+ Language Support**: C, C++, C#, Go, Java, JavaScript, PHP, Python, Ruby, Rust, Swift, TypeScript, TSX — all parsed via Tree-sitter WASM.
+- **Sigma.js WebGL Graph**: GPU-accelerated rendering for 10,000+ node graphs with ForceAtlas2 layout and Leiden community clustering.
+- **AI Chat Agent**: Ask questions about your codebase architecture using Google Gemini, OpenAI, Anthropic, or local Ollama models.
+- **Impact Analysis**: Click any symbol to see what depends on it — upstream/downstream with confidence scores.
+- **Process Flow Tracing**: Trace execution paths from entry points through entire call chains.
+- **Community Detection**: Leiden algorithm auto-groups related symbols into functional clusters.
+- **Cypher Queries**: Advanced users can query the LadybugDB graph database directly.
+- **File Tree Browser**: Navigate your codebase with an interactive file tree and source code viewer.
+- **Hybrid Search**: Combine BM25 text search with vector similarity for semantic code search.
+- **Wiki Generation**: Auto-generate documentation from your codebase structure.
+- **Mermaid Diagrams**: Render architecture diagrams directly in the app.
+- **Cyberpunk Theme**: Deep black (#020202), cyan (#0ff), neon blue (#08f) Softcurse aesthetic.
 
 ## Quick Start
 
-1. **Launch the Application**: Run `ArchitectureVisualizerApp.exe`.
-2. **Select Project**: Click `📁 SELECT` to pick a source code directory.
-3. **Analyze**: Click `🔍 ANALYZE` or optionally start the API server with `START API`.
-4. **Preview**: After the JSON is generated, the `👁️ PREVIEW` button opens the interactive graph map.
-5. **Observe Logs**: The metrics panel automatically updates with file counts, isolated modules, graph cycles, and the global architecture health score.
+1. **Launch** `ArchitectureVisualizerApp.exe`.
+2. **Load a Project**: Drag & drop a ZIP file, enter a GitHub repo URL, or connect to a GitNexus server.
+3. **Explore**: The interactive graph renders automatically with community clustering and dependency edges.
+4. **AI Chat**: Click the chat panel, configure your API key in ⚙️ Settings, and ask questions about your code.
 
-## Command Line Interface
+## AI Configuration
 
-You can launch the visualizer directly from your terminal or CI/CD pipelines to pre-load configurations.
+The app supports multiple LLM providers for the AI chat feature:
 
+| Provider | Setup |
+|---|---|
+| **Google Gemini** (recommended) | Free tier at [aistudio.google.com](https://aistudio.google.com/) |
+| **Ollama** (local) | Install from [ollama.com](https://ollama.com/), no API key needed |
+| **OpenAI** | Requires API key from [platform.openai.com](https://platform.openai.com/) |
+| **Anthropic** | Requires API key from [console.anthropic.com](https://console.anthropic.com/) |
+| **OpenRouter** | Multi-model access at [openrouter.ai](https://openrouter.ai/) |
+
+Configure via ⚙️ Settings in the title bar. API keys are stored locally and never sent anywhere except the LLM provider.
+
+## Development
+
+### Prerequisites
+- .NET 8.0 SDK
+- Node.js 18+
+
+### Build the Web App
 ```powershell
-# Auto-select a project, disable cache, enable profiling, and automatically trigger analysis
-.\ArchitectureVisualizerApp.exe --path "C:\Code\MyProject" --no-cache --profile --auto-analyze
+cd ArchitectureVisualizerApp/Assets/WebApp
+npm install
+npm run build
 ```
 
-### Supported Flags:
-- `--path <dir>`: Pre-load a project directory.
-- `--cache`: Use incremental AST caching (Default).
-- `--no-cache`: Force a complete structural re-evaluation of every file.
-- `--profile`: Output raw `cProfile` stats into the application analysis log.
-- `--auto-analyze`: Begin architecture scanning immediately upon application startup.
+### Build the Desktop App
+```powershell
+cd ArchitectureVisualizerApp
+dotnet build
+dotnet run
+```
 
-## Requirements
+### Publish Installer
+```powershell
+dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true -o publish
+# Then compile analyzer.iss with Inno Setup
+```
 
-The WPF Application manages its own local Python instance for analysis. If you wish to use the GPU layout accelerator, ensure you have PyTorch installed:
+## Tech Stack
 
-- NVIDIA: `pip install torch`
-- AMD: `pip install torch-rocm`
-
-Otherwise, standard compilation requires the included `Assets/Python/requirements.txt` which bundles `Flask`, `PyYAML`, and standard AST parsers.
+| Layer | Technology |
+|---|---|
+| Desktop Shell | WPF + WebView2 (.NET 8) |
+| Web App | Vite + React + TypeScript |
+| Graph Rendering | Sigma.js + graphology + ForceAtlas2 |
+| Code Parsing | Tree-sitter WASM (13 languages) |
+| Graph Database | LadybugDB WASM |
+| AI Agent | LangChain (multi-provider) |
+| Community Detection | Leiden Algorithm |
+| Search | MiniSearch (BM25) + HuggingFace Embeddings |
+| Installer | Inno Setup |
 
 ## License
 
-Softcurse Proprietary - All Rights Reserved.
+Softcurse Proprietary — All Rights Reserved.

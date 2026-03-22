@@ -1,51 +1,99 @@
-# Softcurse Architecture Visualizer - User Guide
+# Softcurse Architecture Visualizer — User Guide
 
-This guide explains how to effectively use the visualizer to explore and diagnose your code structural dependencies.
+This guide explains how to use the visualizer to explore, analyze, and understand your codebase architecture.
 
 ## 1. Getting Started
 
 1. Open **ArchitectureVisualizerApp.exe**.
-2. Click **📁 SELECT** in the PROJECT CONTROL panel.
-3. Browse to the root of your application (e.g., `C:/Src/MyProject`).
-4. Wait for the file-discovery stats to appear in the log.
+2. You'll see the **DropZone** — the project input screen.
 
-## 2. Running an Analysis
+### Loading a Project
 
-You have two methods to run an analysis:
+You have three ways to load a project:
 
-### Quick Analysis (Recommended)
-Click **🔍 ANALYZE**. The application will launch a background Python process using `export_json.py`, track its progress via standard error, and output `analysis_<guid>.json` into your Temp folder.
+| Method | How |
+|---|---|
+| **ZIP Upload** | Drag & drop a `.zip` file onto the DropZone |
+| **GitHub URL** | Paste a GitHub repository URL (e.g., `https://github.com/user/repo`) |
+| **GitNexus Server** | Connect to a running `gitnexus serve` instance |
 
-### API Mode (For remote hosts or detached servers)
-Click **START API**. This launches `api_server.py` as a local Flask instance on port `5000`. You can then hit the analyze endpoint asynchronously without freezing your local UI thread.
+## 2. Exploring the Graph
 
-## 3. Controlling Performance
+After loading, the interactive knowledge graph renders automatically.
 
-If your project is huge (1000+ files), analysis can take minutes.
-- **Use Cache**: Keeps an incremental abstract syntax tree of previous runs. Only re-parses modified files.
-- **Profile Analysis**: Check this to output `cProfile` statistics into the user console block. It benchmarks all AST components.
+- **Pan**: Click and drag the canvas background.
+- **Zoom**: Scroll the mouse wheel.
+- **Select Node**: Click any node to see its details in the right panel.
+- **Community Colors**: Nodes are automatically colored by functional community (Leiden algorithm).
+- **Edge Types**: Lines represent dependencies — imports, calls, extends, and implements.
 
-## 4. Visualizing Data
+### Graph Controls
 
-After analyzing, hit **👁️ PREVIEW**.
-You will be greeted with an interactive D3.js/Vis.js node graph.
-- **Zoom / Pan**: Scroll your mouse wheel or drag the canvas.
-- **Drag Nodes**: Left click and drag any architectural node.
-- **Filters**: On the left panel, you can filter by `Language` (e.g., Hide all `XML` config files).
-- **Edge Weight**: Edges denote imports. Thicker edges indicate stronger coupling between those two files.
-- **Isolates**: Check "Hide Isolated Nodes" to remove files that import nothing and are imported by nothing.
+- **File Tree** (left panel): Browse your codebase folder structure. Click a file to focus it in the graph.
+- **Right Panel**: Shows node details, code references, and the AI chat tab.
+- **Status Bar** (bottom): Shows indexing progress and graph statistics.
 
-## 5. Interpreting Metrics & Health
+## 3. AI Chat
 
-The metrics panel will highlight your architecture score out of 100.
-- **Green (80-100)**: Excellent modularity. Few cyclic imports. High separation of concerns.
-- **Orange (50-79)**: Warning. Start refactoring tight couplings.
-- **Red (0-49)**: Danger. You likely have massive "God Modules" or widespread cycle loops. The log will explicitly name your God Modules (files with 10+ dependents).
+The AI chat lets you ask natural language questions about your codebase architecture.
 
-## 6. Advanced Configuration
+### Setup
+1. Click the **⚙️** icon in the title bar.
+2. Select your AI provider (Google Gemini recommended — free tier).
+3. Paste your API key and click Save.
 
-Click **⚙️ SETTINGS** to manually adjust the `.visualizer.yml` rulebook.
-You can:
-- Increase or decrease maximum nested folder depth limits.
-- Add folders to `exclude_dirs` (e.g., `node_modules`, `bin`, `.git`).
-- Exclude file extensions from AST parsing.
+### Example Questions
+- "What depends on the UserService class?"
+- "Show me the execution flow for authentication"
+- "What would break if I rename this function?"
+- "Find all functions related to database access"
+- "Which modules have the highest coupling?"
+
+The AI agent uses **Graph RAG** — it queries the knowledge graph directly, so it understands your entire codebase structure, not just individual files.
+
+## 4. Impact Analysis
+
+Click any symbol node to see its **360° context**:
+
+- **Incoming**: What calls/imports this symbol (upstream dependencies).
+- **Outgoing**: What this symbol calls/imports (downstream dependencies).
+- **Processes**: Execution flows that pass through this symbol.
+- **Confidence Scores**: How confident the analysis is about each relationship.
+
+## 5. Cypher Queries
+
+For advanced analysis, use the **Query** button to write direct Cypher queries against the graph database.
+
+Example queries:
+```cypher
+-- Find all functions in a file
+MATCH (f:File {name: 'main.ts'})-[:CodeRelation {type: 'DEFINES'}]->(fn:Function)
+RETURN fn.name, fn.startLine
+
+-- Find what imports a specific file
+MATCH (f:File)-[:CodeRelation {type: 'IMPORTS'}]->(target:File {name: 'utils.ts'})
+RETURN f.name, f.filePath
+
+-- Find the most connected nodes
+MATCH (n)-[r:CodeRelation]-()
+RETURN n.name, labels(n)[0] AS type, count(r) AS connections
+ORDER BY connections DESC
+LIMIT 10
+```
+
+## 6. Supported Languages
+
+The Tree-sitter WASM parsers support deep analysis for:
+
+C, C++, C#, Go, Java, JavaScript, PHP, Python, Ruby, Rust, Swift, TypeScript, TSX
+
+Each language gets full import resolution, call chain tracing, class inheritance detection, and constructor inference.
+
+## 7. Settings
+
+Click **⚙️** in the title bar to configure:
+
+- **AI Provider**: Choose between Google Gemini, OpenAI, Anthropic, Ollama, OpenRouter, or MiniMax.
+- **Model Selection**: Pick the specific model for each provider.
+- **Temperature**: Control AI response creativity (lower = more precise).
+- **Intelligent Clustering**: Enable LLM-powered semantic cluster naming.
