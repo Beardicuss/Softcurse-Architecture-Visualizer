@@ -6,6 +6,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Assets\ui\arch.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,10 +20,12 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Assets\WebApp\dist\%(RecursiveDir)%(Filename)%(Extension)</Link>
 		</None>
-		<!-- Copy legacy Python assets (keep for backward compatibility) -->
-		<None Include="Assets\Python\**\*.*">
+		<!-- Copy UI assets (icons) to output -->
+		<None Include="Assets\ui\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Assets\ui\%(RecursiveDir)%(Filename)%(Extension)</Link>
 		</None>
 	</ItemGroup>
 
 </Project>
+
