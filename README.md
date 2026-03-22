@@ -15,6 +15,9 @@
   <img src="https://img.shields.io/badge/React-18-0088FF?style=flat-square&logo=react&labelColor=020202" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.4-0088FF?style=flat-square&logo=typescript&labelColor=020202" alt="TypeScript" />
   <img src="https://img.shields.io/badge/license-proprietary-FF0066?style=flat-square&labelColor=020202" alt="License" />
+  <br/>
+  <a href="https://softcurse-website.pages.dev/"><img src="https://img.shields.io/badge/🌐_Website-softcurse-00FFFF?style=flat-square&labelColor=020202" alt="Website" /></a>
+  <a href="https://github.com/Beardicuss/Softcurse-Architecture-Visualizer"><img src="https://img.shields.io/badge/GitHub-Repository-0088FF?style=flat-square&logo=github&labelColor=020202" alt="GitHub" /></a>
 </p>
 
 ---
@@ -199,4 +202,4 @@ ArchitectureVisualizerApp/
 
 **Softcurse Proprietary** — All Rights Reserved.
 
-Developed by **Dante Berezinsky** · [Softcurse LAB.](https://github.com/Beardicuss)
+Developed by **Dante Berezinsky** · [Softcurse LAB.](https://softcurse-website.pages.dev/)
