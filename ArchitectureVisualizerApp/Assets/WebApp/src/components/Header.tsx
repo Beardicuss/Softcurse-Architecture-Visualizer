@@ -124,7 +124,7 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
             <div className="w-7 h-7 flex items-center justify-center rounded-md overflow-hidden shadow-glow">
               <img src="/arch.png" alt="Softcurse" className="w-full h-full object-cover" />
             </div>
-            <span className="font-semibold text-[15px] tracking-tight">Softcurse</span>
+            <span className="font-semibold text-base tracking-tight">Softcurse</span>
           </div>
 
           {/* Project badge / Repo selector dropdown */}
@@ -244,7 +244,7 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
             href="https://github.com/Beardicuss/Softcurse-Architecture-Visualizer"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg text-white text-sm font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group"
+            className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-[#00cccc] to-[#ff0099] hover:from-[#00eeff] hover:to-[#ff33aa] rounded-lg text-white text-sm font-medium shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,255,255,0.5)] hover:-translate-y-0.5 transition-all duration-200 group"
           >
             <Github className="w-4 h-4" />
             <span className="hidden sm:inline">Star if cool</span>
