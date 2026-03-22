@@ -202,4 +202,4 @@ ArchitectureVisualizerApp/
 
 **Softcurse Proprietary** — All Rights Reserved.
 
-Developed by **Dante Berezinsky** · [Softcurse LAB.](https://softcurse-website.pages.dev/)
+Developed by **Dante Berezinsky** · [Softcurse LAB.](https://softcurse-website.pages.dev/)

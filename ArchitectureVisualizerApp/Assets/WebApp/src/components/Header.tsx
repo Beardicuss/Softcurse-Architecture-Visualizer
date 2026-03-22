@@ -284,7 +284,7 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
           `}
         >
           <Sparkles className="w-4 h-4" />
-          <span>Nexus AI</span>
+          <span>Softcurse AI</span>
         </button>
       </div>
     </header>
