@@ -1,8 +1,9 @@
 import { useState, useCallback, useRef, DragEvent } from 'react';
-import { Upload, FileArchive, Github, Loader2, ArrowRight, Key, Eye, EyeOff, Globe, X } from 'lucide-react';
+import { Upload, FileArchive, Github, Loader2, ArrowRight, Key, Eye, EyeOff, Globe, X, FolderOpen } from 'lucide-react';
 import { cloneRepository, parseGitHubUrl } from '../services/git-clone';
 import { connectToServer, type ConnectToServerResult } from '../services/server-connection';
 import { FileEntry } from '../services/zip';
+import { readDirectoryFromPicker, readDirectoryFromDrop } from '../services/directory-reader';
 
 interface DropZoneProps {
   onFileSelect: (file: File) => void;
@@ -18,7 +19,7 @@ function formatBytes(bytes: number): string {
 
 export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZoneProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [activeTab, setActiveTab] = useState<'zip' | 'github' | 'server'>('zip');
+  const [activeTab, setActiveTab] = useState<'zip' | 'github' | 'server' | 'folder'>('zip');
   const [githubUrl, setGithubUrl] = useState('');
   const [githubToken, setGithubToken] = useState('');
   const [showToken, setShowToken] = useState(false);
@@ -37,6 +38,11 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
     total: number | null;
   }>({ phase: '', downloaded: 0, total: null });
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Folder tab state
+  const [isFolderDragging, setIsFolderDragging] = useState(false);
+  const [isReadingFolder, setIsReadingFolder] = useState(false);
+  const [folderProgress, setFolderProgress] = useState({ message: '', percent: 0 });
 
   const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -65,6 +71,90 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
       }
     }
   }, [onFileSelect]);
+
+  // Folder tab drag handlers
+  const handleFolderDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsFolderDragging(true);
+  }, []);
+
+  const handleFolderDragLeave = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsFolderDragging(false);
+  }, []);
+
+  const handleFolderDrop = useCallback(async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsFolderDragging(false);
+    setError(null);
+
+    const items = e.dataTransfer.items;
+    if (!items || items.length === 0) return;
+
+    // Check if any dropped item is a directory
+    const firstEntry = items[0].webkitGetAsEntry?.();
+    if (!firstEntry?.isDirectory) {
+      setError('Please drop a folder, not files');
+      return;
+    }
+
+    setIsReadingFolder(true);
+    setFolderProgress({ message: 'Scanning folder...', percent: 0 });
+
+    try {
+      const files = await readDirectoryFromDrop(
+        items,
+        (message, percent) => setFolderProgress({ message, percent })
+      );
+
+      if (files.length === 0) {
+        setError('No supported source files found in this folder');
+        return;
+      }
+
+      if (onGitClone) {
+        onGitClone(files);
+      }
+    } catch (err) {
+      console.error('Folder read failed:', err);
+      setError(err instanceof Error ? err.message : 'Failed to read folder');
+    } finally {
+      setIsReadingFolder(false);
+    }
+  }, [onGitClone]);
+
+  const handleFolderBrowse = async () => {
+    setError(null);
+    setIsReadingFolder(true);
+    setFolderProgress({ message: 'Waiting for folder selection...', percent: 0 });
+
+    try {
+      const files = await readDirectoryFromPicker(
+        (message, percent) => setFolderProgress({ message, percent })
+      );
+
+      if (files.length === 0) {
+        setError('No supported source files found in this folder');
+        return;
+      }
+
+      if (onGitClone) {
+        onGitClone(files);
+      }
+    } catch (err: any) {
+      if (err?.name === 'AbortError') {
+        // User cancelled the picker
+        return;
+      }
+      console.error('Folder read failed:', err);
+      setError(err instanceof Error ? err.message : 'Failed to read folder');
+    } finally {
+      setIsReadingFolder(false);
+    }
+  };
 
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -233,6 +323,20 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
           >
             <Globe className="w-4 h-4" />
             Server
+          </button>
+          <button
+            onClick={() => { setActiveTab('folder'); setError(null); }}
+            className={`
+              flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg
+              text-sm font-medium transition-all duration-200
+              ${activeTab === 'folder'
+                ? 'bg-accent text-white shadow-md'
+                : 'text-text-secondary hover:text-text-primary hover:bg-elevated'
+              }
+            `}
+          >
+            <FolderOpen className="w-4 h-4" />
+            Folder
           </button>
         </div>
 
@@ -564,6 +668,90 @@ export const DropZone = ({ onFileSelect, onGitClone, onServerConnect }: DropZone
               </span>
             </div>
           </div>
+        )}
+
+        {/* Folder Tab */}
+        {activeTab === 'folder' && (
+          <>
+            <div
+              className={`
+                relative p-16
+                bg-surface border-2 border-dashed rounded-3xl
+                transition-all duration-300 cursor-pointer
+                ${isFolderDragging
+                  ? 'border-accent bg-elevated scale-105 shadow-glow'
+                  : isReadingFolder
+                    ? 'border-accent/50 bg-elevated/50'
+                    : 'border-border-default hover:border-accent/50 hover:bg-elevated/50 animate-breathe'
+                }
+              `}
+              onDragOver={handleFolderDragOver}
+              onDragLeave={handleFolderDragLeave}
+              onDrop={handleFolderDrop}
+              onClick={() => !isReadingFolder && handleFolderBrowse()}
+            >
+              {/* Icon */}
+              <div className={`
+                mx-auto w-20 h-20 mb-6
+                flex items-center justify-center
+                bg-gradient-to-br from-[#00ffcc] to-[#0099ff]
+                rounded-2xl shadow-glow
+                transition-transform duration-300
+                ${isFolderDragging ? 'scale-110' : ''}
+              `}>
+                {isReadingFolder ? (
+                  <Loader2 className="w-10 h-10 text-white animate-spin" />
+                ) : isFolderDragging ? (
+                  <Upload className="w-10 h-10 text-white" />
+                ) : (
+                  <FolderOpen className="w-10 h-10 text-white" />
+                )}
+              </div>
+
+              {/* Text */}
+              <h2 className="text-xl font-semibold text-text-primary text-center mb-2">
+                {isReadingFolder
+                  ? folderProgress.message
+                  : isFolderDragging
+                    ? 'Drop folder here!'
+                    : 'Open a project folder'
+                }
+              </h2>
+              <p className="text-sm text-text-secondary text-center mb-6">
+                {isReadingFolder
+                  ? 'Processing files from your project...'
+                  : 'Drag & drop a folder or click to browse'
+                }
+              </p>
+
+              {/* Progress bar */}
+              {isReadingFolder && (
+                <div className="mb-4">
+                  <div className="h-2 bg-elevated rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-accent transition-all duration-300 ease-out"
+                      style={{ width: `${folderProgress.percent}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Hints */}
+              {!isReadingFolder && (
+                <div className="flex items-center justify-center gap-3 text-xs text-text-muted">
+                  <span className="px-3 py-1.5 bg-elevated border border-border-subtle rounded-md">
+                    Local folder
+                  </span>
+                  <span className="px-3 py-1.5 bg-elevated border border-border-subtle rounded-md">
+                    13 languages
+                  </span>
+                  <span className="px-3 py-1.5 bg-elevated border border-border-subtle rounded-md">
+                    Zero upload
+                  </span>
+                </div>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
