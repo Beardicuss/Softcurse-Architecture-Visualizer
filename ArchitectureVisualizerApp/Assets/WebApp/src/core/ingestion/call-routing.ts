@@ -83,7 +83,7 @@ const MAX_PARENT_DEPTH = 50;
  * @param callNode   - The tree-sitter `call` AST node
  * @returns A discriminated union describing the call's semantic role
  */
-export function routeRubyCall(calledName: string, callNode: any): RubyCallRouting {
+function routeRubyCall(calledName: string, callNode: any): RubyCallRouting {
   // ── require / require_relative → import ─────────────────────────────────
   if (calledName === 'require' || calledName === 'require_relative') {
     const argList = callNode.childForFieldName?.('arguments');
