@@ -247,10 +247,15 @@ def build_graph(root_dir: Path, use_cache=False, enable_profiling=False, config_
             funcs, classes, imports, docstring, meta = analyze_file_dispatch(file_path, lang, config)
 
         parts = mname.split(".")
-        if len(parts) > 2:
-            top_group = parts[1]
-        elif len(parts) == 2:
-            top_group = parts[1]
+        # Skip boring path segments that don't convey grouping meaning
+        boring = {'src', 'lib', 'app', 'main', 'index', 'mod', 'root', 'pkg', 'dist', 'build'}
+        meaningful = [p for p in parts if p.lower() not in boring and p]
+        if len(meaningful) >= 2:
+            top_group = meaningful[-2]   # parent folder of the leaf module
+        elif len(meaningful) == 1:
+            top_group = meaningful[0]
+        elif len(parts) >= 2:
+            top_group = parts[-2]
         else:
             top_group = "core"
 

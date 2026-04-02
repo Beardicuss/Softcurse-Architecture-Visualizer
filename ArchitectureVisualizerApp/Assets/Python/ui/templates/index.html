@@ -4,14 +4,18 @@
 <meta charset="UTF-8">
 <title>{{PROJECT_NAME}} Architecture</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 {{CSS}}
 </style>
 </head>
 <body>
+
+<!-- ── TOPBAR ─────────────────────────────── -->
 <div class="topbar">
   <div class="topbar-left">
-    <h1>{{PROJECT_NAME}} Architecture</h1>
+    <h1>{{PROJECT_NAME}}</h1>
     {{LANG_BADGES}}
   </div>
   <div class="controls">
@@ -22,17 +26,17 @@
         <span id="hop-icon">1</span>-Hop
       </button>
       <label class="slider-label">Intensity:</label>
-      <input type="range" id="focus-intensity" class="focus-slider" 
+      <input type="range" id="focus-intensity" class="focus-slider"
              min="0" max="100" value="85" step="5">
       <span id="intensity-value" class="intensity-display">85%</span>
     </div>
-    <button id="dag-toggle" class="focus-btn" title="Toggle DAG Layout">
-      📊 DAG Layout
-    </button>
+    <button id="dag-toggle" class="focus-btn" title="Toggle DAG Layout">DAG Layout</button>
     <span id="perf-mode" class="perf-badge">OPTIMIZED</span>
     <input type="text" id="search" class="search-box" placeholder="Search modules…">
   </div>
 </div>
+
+<!-- ── LEFT SIDEBAR ───────────────────────── -->
 <div class="sidebar">
   <div class="panel">
     <h2>Overview</h2>
@@ -40,30 +44,30 @@
       <div class="stat-item"><div class="stat-label">Modules</div><div class="stat-value" id="stat-files">—</div></div>
       <div class="stat-item"><div class="stat-label">Functions</div><div class="stat-value" id="stat-functions">—</div></div>
       <div class="stat-item"><div class="stat-label">Classes</div><div class="stat-value" id="stat-classes">—</div></div>
-      <div class="stat-item"><div class="stat-label">Dependencies</div><div class="stat-value" id="stat-deps">—</div></div>
+      <div class="stat-item"><div class="stat-label">Deps</div><div class="stat-value" id="stat-deps">—</div></div>
     </div>
-    <div style="margin-top:8px;">
+    <div style="margin-top:12px;">
       <div class="detail-title">Languages</div>
       <div id="lang-filters" class="filters"></div>
     </div>
-    <div style="margin-top:8px;">
+    <div style="margin-top:10px;">
       <div class="detail-title">Groups</div>
       <div id="group-filters" class="filters"></div>
     </div>
-    <div style="margin-top:8px;">
+    <div style="margin-top:10px;">
       <div class="detail-title">Advanced Filters</div>
       <div style="margin-top:6px;">
-        <label class="slider-label" style="font-size:10px;">Min Connections: <span id="complexity-value">0</span></label>
-        <input type="range" id="complexity-slider" class="focus-slider" 
-               min="0" max="50" value="0" step="1" style="width:100%;">
+        <label class="slider-label" style="font-size:9px;">Min Connections: <span id="complexity-value">0</span></label>
+        <input type="range" id="complexity-slider" class="focus-slider"
+               min="0" max="50" value="0" step="1" style="width:100%;margin-top:4px;">
       </div>
-      <div style="margin-top:6px;">
-        <div class="detail-title" style="font-size:10px;margin-bottom:4px;">Quick Presets</div>
+      <div style="margin-top:8px;">
+        <div class="detail-title" style="margin-bottom:6px;">Quick Presets</div>
         <div class="filters">
-          <button class="filter-pill" id="preset-hotspots" data-preset="hotspots">🔥 Hotspots</button>
-          <button class="filter-pill" id="preset-core" data-preset="core">⭐ Core</button>
-          <button class="filter-pill" id="preset-leaves" data-preset="leaves">🍃 Leaves</button>
-          <button class="filter-pill" id="preset-isolated" data-preset="isolated">🏝️ Isolated</button>
+          <button class="filter-pill" id="preset-hotspots" data-preset="hotspots">Hotspots</button>
+          <button class="filter-pill" id="preset-core" data-preset="core">Core</button>
+          <button class="filter-pill" id="preset-leaves" data-preset="leaves">Leaves</button>
+          <button class="filter-pill" id="preset-isolated" data-preset="isolated">Isolated</button>
         </div>
       </div>
     </div>
@@ -75,6 +79,8 @@
     </div>
   </div>
 </div>
+
+<!-- ── RIGHT SIDEBAR ──────────────────────── -->
 <div class="rightbar">
   <div class="panel">
     <h2>File Card</h2>
@@ -89,27 +95,188 @@
     </div>
   </div>
 </div>
+
+<!-- ── GRAPH ───────────────────────────────── -->
 <div id="graph-container">
-  <div id="graph"></div>
-  <div id="loading-overlay" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(2,6,23,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-    <div style="color:#38bdf8;font-size:18px;font-weight:600;margin-bottom:12px;">Loading Graph...</div>
-    <div style="color:#64748b;font-size:12px;">Rendering <span id="loading-progress">0</span> nodes</div>
-    <div style="width:200px;height:4px;background:#1e293b;border-radius:2px;margin-top:12px;overflow:hidden;">
-      <div id="loading-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#38bdf8,#f97316);transition:width 0.3s;"></div>
+  <!-- Animated packet canvas sits behind the SVG -->
+  <canvas id="bg-canvas"     style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;display:block;"></canvas>
+  <canvas id="packet-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;display:block;"></canvas>
+  <div id="graph" style="position:relative;z-index:1;background:transparent;"></div>
+  <div id="loading-overlay" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(5,8,16,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+    <div style="font-family:'Space Mono',monospace;color:#00ffc8;font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;">Rendering Graph</div>
+    <div style="font-family:'Space Mono',monospace;color:rgba(200,255,232,0.45);font-size:10px;letter-spacing:1px;">
+      Processing <span id="loading-progress">0</span> nodes
+    </div>
+    <div style="width:200px;height:2px;background:rgba(0,255,200,0.1);margin-top:14px;overflow:hidden;">
+      <div id="loading-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#00aaff,#00ffc8);transition:width 0.3s;box-shadow:0 0 8px rgba(0,255,200,0.6);"></div>
     </div>
   </div>
 </div>
+
 <div id="tooltip" class="tooltip"></div>
+
 <div class="legend" id="legend">
   <div class="legend-title">Legend</div>
   <div id="legend-content"></div>
 </div>
+
 <div class="perf-info">
-  <strong>Performance Mode:</strong> <span id="perf-status">Initializing...</span>
+  <strong>Mode:</strong> <span id="perf-status">Initializing...</span>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
 const data = {{DATA}};
+
+// ══════════════════════════════════════════════
+//  BACKGROUND CANVAS (grid + glow) — z-index 0
+// ══════════════════════════════════════════════
+(function initBgCanvas() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize() {
+    const c = document.getElementById('graph-container');
+    canvas.width = c.offsetWidth; canvas.height = c.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  function drawBg() {
+    requestAnimationFrame(drawBg);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#050810';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Grid
+    const g = 40;
+    ctx.strokeStyle = 'rgba(0,255,200,0.1)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= canvas.width; x += g) { ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); }
+    for (let y = 0; y <= canvas.height; y += g) { ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); }
+    ctx.stroke();
+    // Radial glow
+    const grd = ctx.createRadialGradient(canvas.width/2,canvas.height/2,0,canvas.width/2,canvas.height/2,Math.max(canvas.width,canvas.height)*0.55);
+    grd.addColorStop(0,'rgba(0,255,200,0.06)');
+    grd.addColorStop(1,'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+  }
+  drawBg();
+})();
+
+// ══════════════════════════════════════════════
+//  PACKET CANVAS (animated dots) — z-index 2
+// ══════════════════════════════════════════════
+(function initPacketCanvas() {
+  const canvas = document.getElementById('packet-canvas');
+  const ctx = canvas.getContext('2d');
+  let packets = [];
+  let graphNodes = null;
+  let graphLinks = null; // actual edges from D3 simulation
+
+  function resize() {
+    const c = document.getElementById('graph-container');
+    canvas.width  = c.offsetWidth;
+    canvas.height = c.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+
+  class Packet {
+    constructor(ax, ay, bx, by, color) {
+      this.ax = ax; this.ay = ay;
+      this.bx = bx; this.by = by;
+      this.progress = 0;
+      this.speed = 0.008 + Math.random() * 0.012;
+      this.color = color || (Math.random() > 0.4 ? '#00ffc8' : '#ff6b35');
+      this.size  = 3.5 + Math.random() * 2.5;
+    }
+    update() { this.progress += this.speed; return this.progress >= 1; }
+    draw(ctx) {
+      const p = this.progress;
+      const x = this.ax + (this.bx - this.ax) * p;
+      const y = this.ay + (this.by - this.ay) * p;
+      const rgba = this.color === '#00ffc8' ? 'rgba(0,255,200,' : 'rgba(255,107,53,';
+      // Trail
+      for (let i = 1; i <= 5; i++) {
+        const tp = Math.max(0, p - this.speed * i * 5);
+        const tx = this.ax + (this.bx - this.ax) * tp;
+        const ty = this.ay + (this.by - this.ay) * tp;
+        ctx.beginPath();
+        ctx.arc(tx, ty, this.size * (1 - i * 0.16), 0, Math.PI * 2);
+        ctx.fillStyle = rgba + (0.5 - i * 0.08) + ')';
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(x, y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 16;
+      ctx.shadowColor = this.color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  let frame = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+
+    // background drawn by bg-canvas
+
+    // Spawn packets every 15 frames along actual graph edges
+    if (frame % 15 === 0 && graphNodes && graphNodes.length > 1) {
+      const cont = document.getElementById('graph-container');
+      const svg  = cont.querySelector('svg');
+      if (svg) {
+        const svgRect  = svg.getBoundingClientRect();
+        const contRect = cont.getBoundingClientRect();
+        const ox = svgRect.left - contRect.left;
+        const oy = svgRect.top  - contRect.top;
+        const t  = (typeof currentTransform !== 'undefined') ? currentTransform : {x:0, y:0, k:1};
+
+        const toCanvas = (node) => ({
+          x: node.x * t.k + t.x + ox,
+          y: node.y * t.k + t.y + oy
+        });
+
+        // Spawn along real edges if available, else random pairs
+        const spawnCount = 5;
+        for (let k = 0; k < spawnCount; k++) {
+          let a, b, color = '#00ffc8';
+          if (graphLinks && graphLinks.length > 0) {
+            const link = graphLinks[Math.floor(Math.random() * graphLinks.length)];
+            a = link.source; b = link.target;
+            // cross-language edges get orange packets
+            if (a.language && b.language && a.language !== b.language) color = '#ff6b35';
+          } else {
+            a = graphNodes[Math.floor(Math.random() * graphNodes.length)];
+            do { b = graphNodes[Math.floor(Math.random() * graphNodes.length)]; } while (b === a);
+          }
+          if (!a || !b || a.x == null || b.x == null) continue;
+          const pa = toCanvas(a), pb = toCanvas(b);
+          packets.push(new Packet(pa.x, pa.y, pb.x, pb.y, color));
+        }
+        if (packets.length > 120) packets.splice(0, packets.length - 120);
+      }
+    }
+
+    packets = packets.filter(p => {
+      p.draw(ctx);
+      return !p.update();
+    });
+  }
+  animate();
+
+  // Called by visualizer.js after simulation ticks
+  window.setPacketNodes = function(nodes, links) {
+    graphNodes = nodes;
+    if (links) graphLinks = links;
+  };
+})();
+</script>
+<script>
 {{JS}}
 </script>
 </body>

@@ -57,10 +57,10 @@ function updateLOD(zoomLevel) {
   if (nodeSelection) {
     if (zoomLevel < LOD_THRESHOLDS.simplifyNodes) {
       // Hide node strokes for performance
-      nodeSelection.selectAll('circle').attr('stroke-width', 0);
+      nodeSelection.selectAll('.node-core').attr('stroke-width', 0);
     } else {
       // Restore node strokes
-      nodeSelection.selectAll('circle').attr('stroke-width', d => {
+      nodeSelection.selectAll('.node-core').attr('stroke-width', d => {
         if (d.in_cycle || d.is_god_module) return 3;
         return 2;
       });
@@ -119,42 +119,40 @@ function getAdaptiveForceConfig(nodeCount, manualMode = null) {
         nodeCount > 50 ? "medium" : "balanced"
   );
 
-  // Base configuration (Balanced)
+  // Force config — used AFTER smart pre-layout, just smooths overlaps
+  // Pre-layout does the heavy lifting, so we can use gentle forces
   const config = {
     mode: selectedMode,
-    chargeStrength: -300,      // Strong repulsion for good spacing
-    linkDistance: 100,         // Comfortable distance
-    linkStrength: 0.6,         // Flexible links
-    alphaDecay: 0.02,          // Slow decay for better stabilization
-    velocityDecay: 0.4,        // Low friction for movement
-    centerStrength: 0.05,      // Weak center pull
-    collisionRadius: 15        // Good buffer between nodes
+    chargeStrength: -400,
+    linkDistance: 80,
+    linkStrength: 0.05,   // very weak — pre-layout already placed nodes correctly
+    alphaDecay: 0.025,
+    velocityDecay: 0.45,
+    centerStrength: 0.0,  // no center pull — let groups stay where pre-layout put them
+    collisionRadius: 28
   };
 
   if (selectedMode === "medium") {
-    config.chargeStrength = -250;
-    config.linkDistance = 135;
-    config.linkStrength = 0.65;
-    config.alphaDecay = 0.025;
-    config.velocityDecay = 0.45;
-    config.centerStrength = 0.06;
-    config.collisionRadius = 12;
+    config.chargeStrength = -350;
+    config.linkDistance = 90;
+    config.linkStrength = 0.06;
+    config.alphaDecay = 0.03;
+    config.velocityDecay = 0.48;
+    config.collisionRadius = 22;
   } else if (selectedMode === "large") {
-    config.chargeStrength = -150;
-    config.linkDistance = 165;
-    config.linkStrength = 0.75;
-    config.alphaDecay = 0.04;
-    config.velocityDecay = 0.55;
-    config.centerStrength = 0.1;
-    config.collisionRadius = 8;
+    config.chargeStrength = -280;
+    config.linkDistance = 100;
+    config.linkStrength = 0.07;
+    config.alphaDecay = 0.035;
+    config.velocityDecay = 0.5;
+    config.collisionRadius = 16;
   } else if (selectedMode === "extreme") {
-    config.chargeStrength = -80;
-    config.linkDistance = 200;
-    config.linkStrength = 0.85;
-    config.alphaDecay = 0.08;
-    config.velocityDecay = 0.65;
-    config.centerStrength = 0.15;
-    config.collisionRadius = 4;
+    config.chargeStrength = -200;
+    config.linkDistance = 110;
+    config.linkStrength = 0.08;
+    config.alphaDecay = 0.05;
+    config.velocityDecay = 0.55;
+    config.collisionRadius = 10;
   }
 
   return config;
@@ -712,6 +710,92 @@ function getActivePreset() {
   return null;
 }
 
+
+// ============================================================
+// SMART PRE-LAYOUT — ring-of-rings by group
+// Places nodes by group so related nodes cluster but groups are
+// spread across the canvas. Force sim then just smooths overlaps.
+// ============================================================
+function computeSmartLayout(nodes, links, width, height) {
+  // Build degree map
+  const degree = {};
+  nodes.forEach(n => { degree[n.id] = 0; });
+  links.forEach(l => {
+    const s = typeof l.source === 'string' ? l.source : l.source.id;
+    const t = typeof l.target === 'string' ? l.target : l.target.id;
+    if (degree[s] !== undefined) degree[s]++;
+    if (degree[t] !== undefined) degree[t]++;
+  });
+
+  // Group nodes — if too few groups (< 3), subdivide by language+group combo
+  const rawGroupMap = {};
+  nodes.forEach(n => {
+    const g = n.group || 'default';
+    if (!rawGroupMap[g]) rawGroupMap[g] = [];
+    rawGroupMap[g].push(n);
+  });
+
+  // If one group has > 60% of all nodes, groups are too homogeneous
+  // Subdivide that group by language or by first letter of node id
+  const groupMap = {};
+  const totalNodes = nodes.length;
+  Object.entries(rawGroupMap).forEach(([gk, gnodes]) => {
+    if (gnodes.length / totalNodes > 0.6 && gnodes.length > 6) {
+      // Too many in one group — subdivide by language
+      const byLang = {};
+      gnodes.forEach(n => {
+        const key = gk + '.' + (n.language || 'unknown');
+        if (!byLang[key]) byLang[key] = [];
+        byLang[key].push(n);
+      });
+      Object.assign(groupMap, byLang);
+    } else {
+      groupMap[gk] = gnodes;
+    }
+  });
+
+  const groupKeys = Object.keys(groupMap);
+  const numGroups = groupKeys.length;
+  const cx = width / 2;
+  const cy = height / 2;
+
+  // Radius for group centers — use 38% of shorter dimension
+  // Scale outer ring with number of groups so they don't overlap
+  const outerR = Math.min(width, height) * Math.min(0.45, 0.25 + numGroups * 0.015);
+
+  groupKeys.forEach((gk, gi) => {
+    const groupNodes = groupMap[gk];
+    // Angle for this group's center on the outer ring
+    const gAngle = (gi / numGroups) * 2 * Math.PI - Math.PI / 2;
+    const gcx = cx + outerR * Math.cos(gAngle);
+    const gcy = cy + outerR * Math.sin(gAngle);
+
+    // Radius for nodes within this group — scale with group size
+    // Shrink group radius when many groups compete for space
+    const spacePerGroup = (2 * Math.PI * outerR) / numGroups;
+    const maxInner = spacePerGroup * 0.42;
+    const innerR = Math.min(maxInner, 18 + Math.sqrt(groupNodes.length) * 18);
+
+    // Sort by degree desc so high-degree nodes go to center of group
+    groupNodes.sort((a, b) => (degree[b.id] || 0) - (degree[a.id] || 0));
+
+    groupNodes.forEach((n, ni) => {
+      if (groupNodes.length === 1) {
+        n.x = gcx;
+        n.y = gcy;
+      } else {
+        const nAngle = (ni / groupNodes.length) * 2 * Math.PI;
+        const r = innerR * (0.7 + Math.random() * 0.6);
+        n.x = gcx + r * Math.cos(nAngle);
+        n.y = gcy + r * Math.sin(nAngle);
+      }
+      // PIN position — simulation only resolves overlaps, can't drag nodes back
+      n.fx = n.x;
+      n.fy = n.y;
+    });
+  });
+}
+
 function renderGraph(data) {
   const container = document.getElementById("graph");
   const rect = container.getBoundingClientRect();
@@ -737,14 +821,50 @@ function continueRenderGraph(data, container, width, height) {
 
   mainSvg = d3.select("#graph").append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .style("background", "transparent");
+
+  // ── OmniSwarm glow filters ─────────────────────────────────
+  const defs = mainSvg.append("defs");
+
+  // Cyan glow filter
+  const glowCyan = defs.append("filter").attr("id", "glow-cyan").attr("x", "-50%").attr("y", "-50%").attr("width", "200%").attr("height", "200%");
+  glowCyan.append("feGaussianBlur").attr("stdDeviation", "3").attr("result", "blur");
+  const mergeCyan = glowCyan.append("feMerge");
+  mergeCyan.append("feMergeNode").attr("in", "blur");
+  mergeCyan.append("feMergeNode").attr("in", "blur");
+  mergeCyan.append("feMergeNode").attr("in", "SourceGraphic");
+
+  // Orange glow filter
+  const glowOrange = defs.append("filter").attr("id", "glow-orange").attr("x", "-50%").attr("y", "-50%").attr("width", "200%").attr("height", "200%");
+  glowOrange.append("feGaussianBlur").attr("stdDeviation", "4").attr("result", "blur");
+  const mergeOrange = glowOrange.append("feMerge");
+  mergeOrange.append("feMergeNode").attr("in", "blur");
+  mergeOrange.append("feMergeNode").attr("in", "blur");
+  mergeOrange.append("feMergeNode").attr("in", "SourceGraphic");
+
+  // Node glow filter (per-color, soft)
+  const glowNode = defs.append("filter").attr("id", "glow-node").attr("x", "-80%").attr("y", "-80%").attr("width", "260%").attr("height", "260%");
+  glowNode.append("feGaussianBlur").attr("stdDeviation", "5").attr("result", "blur");
+  const mergeNode = glowNode.append("feMerge");
+  mergeNode.append("feMergeNode").attr("in", "blur");
+  mergeNode.append("feMergeNode").attr("in", "blur");
+  mergeNode.append("feMergeNode").attr("in", "SourceGraphic");
+
+  // Link glow filter
+  const glowLink = defs.append("filter").attr("id", "glow-link").attr("x", "-20%").attr("y", "-20%").attr("width", "140%").attr("height", "140%");
+  glowLink.append("feGaussianBlur").attr("stdDeviation", "1.5").attr("result", "blur");
+  const mergeLink = glowLink.append("feMerge");
+  mergeLink.append("feMergeNode").attr("in", "blur");
+  mergeLink.append("feMergeNode").attr("in", "SourceGraphic");
+  // ────────────────────────────────────────────────────────────
 
   mainGroup = mainSvg.append("g");
 
   const groups = [...new Set(data.nodes.map(n => n.group))];
   const colorGroup = d3.scaleOrdinal()
     .domain(groups)
-    .range(["#38bdf8", "#f97316", "#22c55e", "#e11d48", "#a855f7", "#eab308", "#14b8a6", "#f59e0b"]);
+    .range(["#00ffc8", "#ff6b35", "#00aaff", "#ff2d78", "#a855f7", "#eab308", "#14b8a6", "#f59e0b"]);
 
   const legendContent = document.getElementById("legend-content");
   legendContent.innerHTML = groups.map(g => `
@@ -768,20 +888,21 @@ function continueRenderGraph(data, container, width, height) {
       const source = typeof d.source === 'string' ? data.nodes.find(n => n.id === d.source) : d.source;
       const target = typeof d.target === 'string' ? data.nodes.find(n => n.id === d.target) : d.target;
       if (source && target && source.language !== target.language) {
-        return "#0ff";  // Cyan for cross-language
+        return "#00ffc8"; // Cyan cross-language
       }
-      return "#08f";
+      return "rgba(0,170,255,0.5)";
     })
-    .attr("stroke-width", d => d.value || 1)
+    .attr("stroke-width", 1.2)
     .attr("stroke-dasharray", d => {
       const source = typeof d.source === 'string' ? data.nodes.find(n => n.id === d.source) : d.source;
       const target = typeof d.target === 'string' ? data.nodes.find(n => n.id === d.target) : d.target;
       if (source && target && source.language !== target.language) {
-        return "5,5";  // Dotted for cross-language
+        return "5,4";
       }
       return "0";
     })
-    .attr("opacity", 0.4);
+    .attr("opacity", 0.5)
+    .attr("filter", "url(#glow-link)");
 
   nodeSelection = mainGroup.append("g")
     .selectAll("g")
@@ -795,15 +916,54 @@ function continueRenderGraph(data, container, width, height) {
         .on("end", dragEnd)
     );
 
+  // ── OmniSwarm node rendering: halo ring + glowing core + center dot ──
+  // Outer halo — large, very low opacity, same color as node
   nodeSelection.append("circle")
+    .attr("class", "node-halo")
     .attr("r", d => {
-      const baseSiz = 5;
       const degree = d.degree || 1;
-      return Math.min(baseSiz + Math.sqrt(degree) * 2, 15);
+      return Math.min(7 + Math.sqrt(degree) * 2.5, 22) * 3.5;
     })
-    .attr("fill", d => d.disconnected ? "#08f" : colorGroup(d.group))
-    .attr("stroke", "#020202")
-    .attr("stroke-width", 2);
+    .attr("fill", d => {
+      const color = d.disconnected ? "#00ffc8" : colorGroup(d.group);
+      return color;
+    })
+    .attr("opacity", 0.06)
+    .attr("stroke", "none");
+
+  // Mid glow ring — medium, low opacity
+  nodeSelection.append("circle")
+    .attr("class", "node-glow-ring")
+    .attr("r", d => {
+      const degree = d.degree || 1;
+      return Math.min(7 + Math.sqrt(degree) * 2.5, 22) * 1.8;
+    })
+    .attr("fill", d => {
+      const color = d.disconnected ? "#00ffc8" : colorGroup(d.group);
+      return color;
+    })
+    .attr("opacity", 0.12)
+    .attr("stroke", "none")
+    .attr("filter", "url(#glow-node)");
+
+  // Core node — solid, bright, glowing
+  nodeSelection.append("circle")
+    .attr("class", "node-core")
+    .attr("r", d => {
+      const degree = d.degree || 1;
+      return Math.min(7 + Math.sqrt(degree) * 2.5, 22);
+    })
+    .attr("fill", d => d.disconnected ? "rgba(0,255,200,0.3)" : colorGroup(d.group))
+    .attr("stroke", d => d.disconnected ? "rgba(0,255,200,0.5)" : colorGroup(d.group))
+    .attr("stroke-width", 1.5)
+    .attr("filter", "url(#glow-node)");
+
+  // Center dark dot — OmniSwarm signature
+  nodeSelection.append("circle")
+    .attr("class", "node-center")
+    .attr("r", 2)
+    .attr("fill", "#050810")
+    .attr("opacity", 0.8);
 
   nodeSelection.append("text")
     .text(d => d.id.split(".").slice(-1)[0])
@@ -821,7 +981,7 @@ function continueRenderGraph(data, container, width, height) {
       const degree = d.degree || 1;
       return degree > 10 ? "600" : "400";
     })
-    .attr("fill", "#0ff")
+    .attr("fill", "#00ffc8")
     .attr("font-family", "Consolas, monospace")
     .style("opacity", d => {
       const degree = d.degree || 1;
@@ -922,7 +1082,7 @@ function continueRenderGraph(data, container, width, height) {
   // Initialize nodes with random positions to prevent clustering at startup
   const centerX = width / 2;
   const centerY = height / 2;
-  const radius = Math.min(width, height) / 3;
+  const radius = Math.min(width, height) * 0.45;
 
   // Check if DAG layout mode is active
   if (currentLayoutMode === 'dag') {
@@ -935,24 +1095,26 @@ function continueRenderGraph(data, container, width, height) {
       node.fy = null;
     });
 
-    // Distribute nodes in a circle initially
-    data.nodes.forEach((node, i) => {
-      const angle = (i / nodeCount) * 2 * Math.PI;
-      const r = radius * Math.sqrt(Math.random());
-      node.x = centerX + r * Math.cos(angle);
-      node.y = centerY + r * Math.sin(angle);
-    });
+    // Smart pre-layout: place nodes by group in ring-of-rings pattern
+    computeSmartLayout(data.nodes, data.links, width, height);
   }
 
   simulation = d3.forceSimulation(data.nodes)
     .force("link", d3.forceLink(data.links)
       .id(d => d.id)
-      .distance(forceConfig.linkDistance)
+      .distance(l => {
+        // Longer distance for high-degree nodes — spreads hubs outward
+        const s = typeof l.source === 'object' ? l.source : data.nodes.find(n => n.id === l.source);
+        const t = typeof l.target === 'object' ? l.target : data.nodes.find(n => n.id === l.target);
+        const degS = s ? (s.degree || 1) : 1;
+        const degT = t ? (t.degree || 1) : 1;
+        const hubFactor = 1 + Math.sqrt(Math.max(degS, degT)) * 0.4;
+        return forceConfig.linkDistance * hubFactor;
+      })
       .strength(forceConfig.linkStrength))
     .force("charge", d3.forceManyBody()
       .strength(forceConfig.chargeStrength))
-    .force("center", d3.forceCenter(width / 2, height / 2)
-      .strength(forceConfig.centerStrength || 0.05))
+    .force("center", null) // disabled — smart pre-layout handles positioning
     .force("collision", d3.forceCollide()
       .radius(d => {
         const baseSiz = 5;
@@ -962,9 +1124,9 @@ function continueRenderGraph(data, container, width, height) {
       })
       .strength(nodeCount > 200 ? 0.5 : 0.8)
       .iterations(nodeCount > 200 ? 1 : 2))
-    .force("cluster", currentLayoutMode === 'dag' ? null : forceCluster())
-    .alphaDecay(forceConfig.alphaDecay)
-    .velocityDecay(forceConfig.velocityDecay);
+    .force("cluster", null) // cluster force disabled — causes node collapse
+    .alphaDecay(0.08)     // stop fast — pre-layout did the work
+    .velocityDecay(0.6);  // high friction so nodes don't drift
 
   // Check for pre-calculated layout (GPU)
   if (data.layout_precalculated) {
@@ -1080,13 +1242,22 @@ function continueRenderGraph(data, container, width, height) {
 
     // Hide loading overlay when simulation completes
     hideLoadingOverlay();
+
+    // Wire up packet canvas with stabilized node positions
+    if (typeof window.setPacketNodes === 'function') {
+      window.setPacketNodes(data.nodes, data.links);
+    }
   });
 
-  // Count frames for performance analysis
+  // Count frames + keep packet canvas updated every tick (live positions)
   const originalTick = simulation.on("tick");
   simulation.on("tick", function () {
     frameCount++;
     if (originalTick) originalTick.apply(this, arguments);
+    // Feed live node positions to packet canvas on every tick
+    if (typeof window.setPacketNodes === 'function') {
+      window.setPacketNodes(data.nodes, data.links);
+    }
   });
 
 
@@ -1097,7 +1268,7 @@ function continueRenderGraph(data, container, width, height) {
 // ============================================================
 
 function dragStart(event, d) {
-  if (!event.active && simulation) simulation.alphaTarget(0.3).restart();
+  // Release pin so node can be dragged freely
   d.fx = d.x;
   d.fy = d.y;
 }
@@ -1108,9 +1279,9 @@ function dragged(event, d) {
 }
 
 function dragEnd(event, d) {
-  if (!event.active && simulation) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
+  // Re-pin at new position after drag
+  d.fx = event.x;
+  d.fy = event.y;
 }
 
 // Helper function to apply focus mode for a single node
@@ -1122,9 +1293,9 @@ function applyFocusMode(node) {
   // Apply styling
   nodeSelection
     .style("opacity", n => result.neighbors.has(n.id) ? 1 : unfocusedOpacity)
-    .select("circle")
-    .attr("stroke", n => n.id === node.id ? "#f97316" : "#020617")
-    .attr("stroke-width", n => n.id === node.id ? 3 : 2);
+    .select(".node-core")
+    .attr("stroke", n => n.id === node.id ? "#ff6b35" : colorGroup(n.group))
+    .attr("stroke-width", n => n.id === node.id ? 3 : 1.5);
 
   nodeSelection.select("text")
     .style("opacity", n => result.neighbors.has(n.id) ? 1 : unfocusedOpacity);
@@ -1134,7 +1305,7 @@ function applyFocusMode(node) {
     .attr("stroke", l => {
       const s = typeof l.source === "string" ? l.source : l.source.id;
       const t = typeof l.target === "string" ? l.target : l.target.id;
-      return (s === node.id || t === node.id) ? "#f97316" : "#334155";
+      return (s === node.id || t === node.id) ? "#ff6b35" : "rgba(0,255,200,0.08)";
     })
     .attr("stroke-width", l => result.links.has(l) ? 2 : 1);
 
@@ -1168,16 +1339,16 @@ function applyMultiSelectFocus() {
   // Apply styling
   nodeSelection
     .style("opacity", n => allConnected.has(n.id) ? 1 : unfocusedOpacity)
-    .select("circle")
-    .attr("stroke", n => selectedNodes.has(n.id) ? "#f97316" : "#020617")
-    .attr("stroke-width", n => selectedNodes.has(n.id) ? 3 : 2);
+    .select(".node-core")
+    .attr("stroke", n => selectedNodes.has(n.id) ? "#ff6b35" : colorGroup(n.group))
+    .attr("stroke-width", n => selectedNodes.has(n.id) ? 3 : 1.5);
 
   nodeSelection.select("text")
     .style("opacity", n => allConnected.has(n.id) ? 1 : unfocusedOpacity);
 
   linkSelection
     .style("opacity", l => allLinks.has(l) ? 0.8 : 0.05)
-    .attr("stroke", "#f97316")
+    .attr("stroke", "#ff6b35")
     .attr("stroke-width", l => allLinks.has(l) ? 2 : 1);
 
   // Show controls
@@ -1228,9 +1399,9 @@ function resetFocusMode() {
   // Reset all nodes and links to normal state
   nodeSelection
     .style("opacity", 1)
-    .select("circle")
-    .attr("stroke", "#020617")
-    .attr("stroke-width", 2);
+    .select(".node-core")
+    .attr("stroke", d => colorGroup(d.group))
+    .attr("stroke-width", 1.5);
 
   // Restore smart label visibility
   nodeSelection.select("text")
@@ -1247,9 +1418,9 @@ function resetFocusMode() {
       const source = typeof d.source === 'string' ? data.nodes.find(n => n.id === d.source) : d.source;
       const target = typeof d.target === 'string' ? data.nodes.find(n => n.id === d.target) : d.target;
       if (source && target && source.language !== target.language) {
-        return "#38bdf8";
+        return "rgba(0,255,200,0.15)";
       }
-      return "#334155";
+      return "rgba(0,255,200,0.15)";
     })
     .attr("stroke-width", d => d.value || 1);
 
@@ -1587,8 +1758,8 @@ function restartSimulation() {
 
   // Update simulation parameters
   simulation
-    .alphaDecay(forceConfig.alphaDecay)
-    .velocityDecay(forceConfig.velocityDecay);
+    .alphaDecay(0.08)     // stop fast — pre-layout did the work
+    .velocityDecay(0.6);  // high friction so nodes don't drift
 
   // Restart simulation with full alpha for smooth transition
   simulation.alpha(1).restart();

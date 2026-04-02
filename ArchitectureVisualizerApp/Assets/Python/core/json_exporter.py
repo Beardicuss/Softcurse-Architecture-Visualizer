@@ -180,12 +180,23 @@ class JSONExporter:
         for node in nodes:
             node_id = node.get('id', '')
             
-            # Calculate group from module path
-            # e.g., "Project.core.utils" -> "core"
-            # e.g., "Project.analyzers.python" -> "analyzers"
+            # Calculate group from module path — use deepest meaningful segment
+            # Strategy: use the second-to-last part of the dotted path,
+            # which corresponds to the immediate parent folder.
+            # e.g., "proj.src.components.Button" -> "components"
+            # e.g., "proj.src.utils"             -> "src"  (parent is src)
+            # e.g., "proj.src"                   -> "proj"
+            # e.g., "Button"                     -> "root"
             parts = node_id.split('.')
-            if len(parts) > 1:
-                group = parts[1] if len(parts) > 2 else parts[0]
+            # Skip common boring segments that add no grouping value
+            boring = {'src', 'lib', 'app', 'main', 'index', 'mod', 'root', 'pkg'}
+            meaningful = [p for p in parts if p.lower() not in boring and p]
+            if len(meaningful) >= 2:
+                group = meaningful[-2]   # parent of the leaf
+            elif len(meaningful) == 1:
+                group = meaningful[0]
+            elif len(parts) >= 2:
+                group = parts[-2]        # fallback: raw second-to-last
             else:
                 group = 'root'
             
@@ -193,6 +204,7 @@ class JSONExporter:
                 'id': node.get('id', ''),
                 'name': node.get('name', ''),
                 'path': node.get('path', ''),
+                'file': node.get('path', node.get('file', '')),  # visualizer.js expects 'file'
                 'language': node.get('language', 'unknown'),
                 'type': node.get('type', 'file'),
                 'group': group,  # Add group field

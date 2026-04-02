@@ -30,6 +30,11 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Assets\ui\%(RecursiveDir)%(Filename)%(Extension)</Link>
 		</None>
+		<!-- Copy Python assets to output -->
+		<None Include="Assets\Python\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Assets\Python\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</None>
 	</ItemGroup>
 
 </Project>
