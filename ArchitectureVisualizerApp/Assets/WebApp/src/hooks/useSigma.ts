@@ -70,6 +70,8 @@ interface UseSigmaReturn {
   isLayoutRunning: boolean;
   startLayout: () => void;
   stopLayout: () => void;
+  isDagLayout: boolean;
+  applyDagLayout: () => void;
   selectedNode: string | null;
   setSelectedNode: (nodeId: string | null) => void;
   refreshHighlights: () => void;
@@ -77,38 +79,36 @@ interface UseSigmaReturn {
 
 // Noverlap for final cleanup - minimal since it starts with good positions
 const NOVERLAP_SETTINGS = {
-  maxIterations: 20,  // Reduced - less cleanup needed
-  ratio: 1.1,
-  margin: 10,
-  expansion: 1.05,
+  maxIterations: 100,
+  ratio: 1.2,
+  margin: 18,
+  expansion: 1.1,
 };
 
-// ForceAtlas2 settings - FAST convergence since nodes start near their parents
+// ForceAtlas2 settings — spread nodes across canvas, avoid ring artifact
 const getFA2Settings = (nodeCount: number) => {
-  const isSmall = nodeCount < 500;
-  const isMedium = nodeCount >= 500 && nodeCount < 2000;
-  const isLarge = nodeCount >= 2000 && nodeCount < 10000;
-  
+  const isSmall  = nodeCount < 500;
+  const isMedium = nodeCount >= 500  && nodeCount < 2000;
+  const isLarge  = nodeCount >= 2000 && nodeCount < 10000;
+
   return {
-    // Lower gravity allows folders to stay spread out
-    gravity: isSmall ? 0.8 : isMedium ? 0.5 : isLarge ? 0.3 : 0.15,
-    
-    // Higher scaling ratio = more spread out overall
-    scalingRatio: isSmall ? 15 : isMedium ? 30 : isLarge ? 60 : 100,
-    
-    // LOW slowDown = FASTER movement (converges quicker)
-    slowDown: isSmall ? 1 : isMedium ? 2 : isLarge ? 3 : 5,
-    
-    // Barnes-Hut for performance - use it even on smaller graphs
+    // Strong gravity pulls nodes toward center, scaling ratio pushes them apart
+    // Balance: higher scaling = more spread, higher gravity = tighter center
+    gravity: isSmall ? 0.5 : isMedium ? 0.3 : isLarge ? 0.2 : 0.1,
+    strongGravityMode: true,
+
+    // High scaling = wide spread; increase for bigger perimeter
+    scalingRatio: isSmall ? 25 : isMedium ? 45 : isLarge ? 70 : 110,
+
+    slowDown: isSmall ? 3 : isMedium ? 5 : isLarge ? 8 : 12,
+
     barnesHutOptimize: nodeCount > 200,
-    barnesHutTheta: isLarge ? 0.8 : 0.6,  // Higher = faster but less accurate
-    
-    // These help with clustering while keeping spread
-    strongGravityMode: false,
+    barnesHutTheta: 0.5,
+
     outboundAttractionDistribution: true,
     linLogMode: false,
     adjustSizes: true,
-    edgeWeightInfluence: 1,
+    edgeWeightInfluence: 0.5,
   };
 };
 
@@ -137,6 +137,7 @@ export const useSigma = (options: UseSigmaOptions = {}): UseSigmaReturn => {
   const animationFrameRef = useRef<number | null>(null);
   const [isLayoutRunning, setIsLayoutRunning] = useState(false);
   const [selectedNode, setSelectedNodeState] = useState<string | null>(null);
+  const [isDagLayout, setIsDagLayout] = useState(false);
 
   useEffect(() => {
     highlightedRef.current = options.highlightedNodeIds || new Set();
@@ -492,6 +493,63 @@ export const useSigma = (options: UseSigmaOptions = {}): UseSigmaReturn => {
     };
   }, []);
 
+
+  // DAG (hierarchical) layout — topological sort by node depth
+  const applyDagLayout = useCallback(() => {
+    const graph = graphRef.current;
+    if (!graph || graph.order === 0) return;
+
+    // Stop any running FA2
+    if (layoutRef.current) { layoutRef.current.kill(); layoutRef.current = null; }
+    if (layoutTimeoutRef.current) { clearTimeout(layoutTimeoutRef.current); layoutTimeoutRef.current = null; }
+
+    // Build in-degree map and adjacency
+    const inDeg: Record<string, number> = {};
+    const outgoing: Record<string, string[]> = {};
+    graph.forEachNode(n => { inDeg[n] = 0; outgoing[n] = []; });
+    graph.forEachEdge((_, __, s, t) => {
+      inDeg[t] = (inDeg[t] || 0) + 1;
+      (outgoing[s] = outgoing[s] || []).push(t);
+    });
+
+    // Kahn's topological sort into layers
+    const layers: string[][] = [];
+    const nodeLayer: Record<string, number> = {};
+    let queue = Object.keys(inDeg).filter(n => inDeg[n] === 0);
+    while (queue.length > 0) {
+      layers.push([...queue]);
+      const next: string[] = [];
+      queue.forEach(n => {
+        nodeLayer[n] = layers.length - 1;
+        (outgoing[n] || []).forEach(child => {
+          inDeg[child]--;
+          if (inDeg[child] === 0) next.push(child);
+        });
+      });
+      queue = next;
+    }
+    // Cycle nodes go in final layer
+    graph.forEachNode(n => {
+      if (nodeLayer[n] === undefined) { nodeLayer[n] = layers.length; if (!layers[layers.length]) layers.push([]); layers[layers.length - 1].push(n); }
+    });
+
+    // Position nodes
+    const W = 4000, H = 3000;
+    const layerH = H / (layers.length + 1);
+    layers.forEach((layer, li) => {
+      const nodeW = W / (layer.length + 1);
+      layer.forEach((n, ni) => {
+        graph.setNodeAttribute(n, 'x', -W/2 + nodeW * (ni + 1));
+        graph.setNodeAttribute(n, 'y', -H/2 + layerH * (li + 1));
+      });
+    });
+
+    sigmaRef.current?.getCamera().animatedReset({ duration: 400 });
+    sigmaRef.current?.refresh();
+    setIsDagLayout(true);
+    setIsLayoutRunning(false);
+  }, []);
+
   // Run ForceAtlas2 layout
   const runLayout = useCallback((graph: Graph<SigmaNodeAttributes, SigmaEdgeAttributes>) => {
     const nodeCount = graph.order;
@@ -632,6 +690,8 @@ export const useSigma = (options: UseSigmaOptions = {}): UseSigmaReturn => {
     isLayoutRunning,
     startLayout,
     stopLayout,
+    isDagLayout,
+    applyDagLayout,
     selectedNode,
     setSelectedNode,
     refreshHighlights,

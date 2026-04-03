@@ -1,5 +1,5 @@
-import { useEffect, useCallback, useMemo, useState, forwardRef, useImperativeHandle } from 'react';
-import { ZoomIn, ZoomOut, Maximize2, Focus, RotateCcw, Play, Pause, Lightbulb, LightbulbOff } from 'lucide-react';
+import { useEffect, useCallback, useMemo, useState, useRef, forwardRef, useImperativeHandle } from 'react';
+import { ZoomIn, ZoomOut, Maximize2, Focus, RotateCcw, Play, Pause, Lightbulb, LightbulbOff, GitBranch, Shuffle } from 'lucide-react';
 import { useSigma } from '../hooks/useSigma';
 import { useAppState } from '../hooks/useAppState';
 import { knowledgeGraphToGraphology, filterGraphByDepth, SigmaNodeAttributes, SigmaEdgeAttributes } from '../lib/graph-adapter';
@@ -29,6 +29,9 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
     animatedNodes,
   } = useAppState();
   const [hoveredNodeName, setHoveredNodeName] = useState<string | null>(null);
+  const bgCanvasRef = useRef<HTMLCanvasElement>(null);
+  const packetCanvasRef = useRef<HTMLCanvasElement>(null);
+  const packetsRef = useRef<Array<{ax:number,ay:number,bx:number,by:number,progress:number,speed:number,color:string,size:number}>>([]);
 
   const effectiveHighlightedNodeIds = useMemo(() => {
     if (!isAIHighlightsEnabled) return highlightedNodeIds;
@@ -86,6 +89,8 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
     isLayoutRunning,
     startLayout,
     stopLayout,
+    isDagLayout,
+    applyDagLayout,
     selectedNode: sigmaSelectedNode,
     setSelectedNode: setSigmaSelectedNode,
   } = useSigma({
@@ -171,25 +176,155 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
     resetZoom();
   }, [setSelectedNode, setSigmaSelectedNode, resetZoom]);
 
+
+  // ── OmniSwarm background canvas: grid + radial glow ──────────────────────
+  useEffect(() => {
+    const canvas = bgCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d')!;
+    let raf: number;
+    const draw = () => {
+      const w = canvas.offsetWidth, h = canvas.offsetHeight;
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      ctx.clearRect(0, 0, w, h);
+      // Background
+      ctx.fillStyle = '#050810';
+      ctx.fillRect(0, 0, w, h);
+      // Grid
+      const g = 40;
+      ctx.strokeStyle = 'rgba(0,255,200,0.07)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += g) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+      for (let y = 0; y <= h; y += g) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+      ctx.stroke();
+      // Radial glow
+      const grd = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, Math.max(w, h) * 0.55);
+      grd.addColorStop(0, 'rgba(0,255,200,0.05)');
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, w, h);
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // ── OmniSwarm packet animation: dots moving along graph edges ────────────
+  useEffect(() => {
+    const canvas = packetCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d')!;
+    let raf: number;
+    let frame = 0;
+
+    // Convert graph-space coords to canvas pixels using sigma's framedGraphToViewport
+    const toPixel = (gx: number, gy: number) => {
+      const sigma = sigmaRef.current;
+      if (!sigma) return null;
+      try {
+        return sigma.framedGraphToViewport({ x: gx, y: gy });
+      } catch {
+        return null;
+      }
+    };
+
+    const animate = () => {
+      raf = requestAnimationFrame(animate);
+      frame++;
+      // Size canvas to match its rendered size
+      const w = canvas.parentElement?.clientWidth || canvas.offsetWidth;
+      const h = canvas.parentElement?.clientHeight || canvas.offsetHeight;
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      ctx.clearRect(0, 0, w, h);
+
+      // Spawn packets every 12 frames along real edges
+      if (frame % 12 === 0) {
+        const sigma = sigmaRef.current;
+        const g = sigma?.getGraph();
+        if (sigma && g && g.order > 1) {
+          const edges = g.edges();
+          if (edges.length > 0) {
+            for (let k = 0; k < 5; k++) {
+              const edge = edges[Math.floor(Math.random() * edges.length)];
+              const [s, t] = g.extremities(edge);
+              // Use raw graph attributes — FA2 writes x/y directly here
+              const sA = g.getNodeAttributes(s);
+              const tA = g.getNodeAttributes(t);
+              if (!sA || !tA) continue;
+              const sp = toPixel(sA.x, sA.y);
+              const tp = toPixel(tA.x, tA.y);
+              if (!sp || !tp) continue;
+              // Guard: skip if layout hasn't spread nodes yet
+              if (Math.hypot(sp.x - tp.x, sp.y - tp.y) < 15) continue;
+              // Guard: skip if off-canvas
+              if (sp.x < -100 || sp.x > w + 100 || tp.x < -100 || tp.x > w + 100) continue;
+              const color = Math.random() > 0.4 ? '#00ffc8' : '#ff6b35';
+              packetsRef.current.push({
+                ax: sp.x, ay: sp.y,
+                bx: tp.x, by: tp.y,
+                progress: 0,
+                speed: 0.007 + Math.random() * 0.011,
+                color,
+                size: 3.5 + Math.random() * 2.5,
+              });
+            }
+            if (packetsRef.current.length > 120) packetsRef.current.splice(0, packetsRef.current.length - 120);
+          }
+        }
+      }
+
+      // Draw packets with glow trail
+      packetsRef.current = packetsRef.current.filter(p => {
+        const x = p.ax + (p.bx - p.ax) * p.progress;
+        const y = p.ay + (p.by - p.ay) * p.progress;
+        const rgba = p.color === '#00ffc8' ? 'rgba(0,255,200,' : 'rgba(255,107,53,';
+        for (let i = 1; i <= 5; i++) {
+          const tp2 = Math.max(0, p.progress - p.speed * i * 5);
+          const tx = p.ax + (p.bx - p.ax) * tp2;
+          const ty = p.ay + (p.by - p.ay) * tp2;
+          ctx.beginPath();
+          ctx.arc(tx, ty, p.size * (1 - i * 0.16), 0, Math.PI * 2);
+          ctx.fillStyle = rgba + (0.4 - i * 0.07) + ')';
+          ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        p.progress += p.speed;
+        return p.progress < 1;
+      });
+    };
+
+    animate();
+    return () => cancelAnimationFrame(raf);
+  }, [sigmaRef]);
+
   return (
-    <div className="relative w-full h-full bg-void">
-      {/* Background gradient */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.03) 0%, transparent 70%),
-              linear-gradient(to bottom, #06060a, #0a0a10)
-            `
-          }}
-        />
-      </div>
+    <div className="relative w-full h-full" style={{background: '#050810'}}>
+      {/* OmniSwarm background: grid + radial glow on canvas */}
+      <canvas
+        ref={bgCanvasRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{zIndex: 0, width: '100%', height: '100%'}}
+      />
 
       {/* Sigma container */}
       <div
         ref={containerRef}
         className="sigma-container w-full h-full cursor-grab active:cursor-grabbing"
+        style={{position: 'relative', zIndex: 1}}
+      />
+
+      {/* Packet animation canvas — ON TOP of Sigma */}
+      <canvas
+        ref={packetCanvasRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{zIndex: 2, width: '100%', height: '100%'}}
       />
 
       {/* Hovered node tooltip - only show when NOT selected */}
@@ -287,6 +422,24 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
           ) : (
             <Play className="w-4 h-4" />
           )}
+        </button>
+
+        {/* Divider */}
+        <div className="h-px bg-border-subtle my-1" />
+
+        {/* DAG / Force layout toggle */}
+        <button
+          onClick={isDagLayout ? startLayout : applyDagLayout}
+          className={`
+            w-9 h-9 flex items-center justify-center border rounded-md transition-all
+            ${isDagLayout
+              ? 'bg-cyan-500/20 border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30'
+              : 'bg-elevated border-border-subtle text-text-secondary hover:bg-hover hover:text-text-primary'
+            }
+          `}
+          title={isDagLayout ? 'Switch to Force Layout' : 'Switch to DAG (Hierarchical) Layout'}
+        >
+          {isDagLayout ? <Shuffle className="w-4 h-4" /> : <GitBranch className="w-4 h-4" />}
         </button>
       </div>
 
