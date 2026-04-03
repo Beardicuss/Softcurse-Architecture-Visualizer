@@ -7,7 +7,7 @@ import {
   fetchOpenRouterModels,
   fetchOllamaModels,
 } from '../core/llm/settings-service';
-import type { LLMSettings, LLMProvider } from '../core/llm/types';
+import type { LLMProvider, LLMSettings, ProviderConfig } from '../core/llm/types';
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -260,7 +260,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
       setOllamaModels(models);
       // Auto-select first model if none selected
       if (models.length > 0) {
-        setSettings(prev => ({
+        setSettings((prev: LLMSettings) => ({
           ...prev,
           ollama: { ...prev.ollama!, model: prev.ollama?.model || models[0] }
         }));
@@ -288,7 +288,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
   }, [settings.ollama?.baseUrl, settings.activeProvider, checkOllamaConnection]);
 
   const handleProviderChange = (provider: LLMProvider) => {
-    setSettings(prev => ({ ...prev, activeProvider: provider }));
+    setSettings((prev: LLMSettings) => ({ ...prev, activeProvider: provider }));
   };
 
   const handleSave = () => {
@@ -303,7 +303,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
   };
 
   const toggleApiKeyVisibility = (key: string) => {
-    setShowApiKey(prev => ({ ...prev, [key]: !prev[key] }));
+    setShowApiKey((prev: Record<string, boolean>) => ({ ...prev, [key]: !prev[key] }));
   };
 
   if (!isOpen) return null;
@@ -413,7 +413,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['openai'] ? 'text' : 'password'}
                     value={settings.openai?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       openai: { ...prev.openai!, apiKey: e.target.value }
                     }))}
@@ -446,7 +446,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="text"
                   value={settings.openai?.model ?? 'gpt-5.2-chat'}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     openai: { ...prev.openai!, model: e.target.value }
                   }))}
@@ -463,7 +463,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="url"
                   value={settings.openai?.baseUrl ?? ''}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     openai: { ...prev.openai!, baseUrl: e.target.value }
                   }))}
@@ -489,7 +489,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['gemini'] ? 'text' : 'password'}
                     value={settings.gemini?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       gemini: { ...prev.gemini!, apiKey: e.target.value }
                     }))}
@@ -522,7 +522,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="text"
                   value={settings.gemini?.model ?? 'gemini-2.0-flash'}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     gemini: { ...prev.gemini!, model: e.target.value }
                   }))}
@@ -545,7 +545,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['anthropic'] ? 'text' : 'password'}
                     value={settings.anthropic?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       anthropic: { ...prev.anthropic!, apiKey: e.target.value }
                     }))}
@@ -578,7 +578,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="text"
                   value={settings.anthropic?.model ?? 'claude-sonnet-4-20250514'}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     anthropic: { ...prev.anthropic!, model: e.target.value }
                   }))}
@@ -601,7 +601,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['azure'] ? 'text' : 'password'}
                     value={settings.azureOpenAI?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       azureOpenAI: { ...prev.azureOpenAI!, apiKey: e.target.value }
                     }))}
@@ -626,7 +626,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="url"
                   value={settings.azureOpenAI?.endpoint ?? ''}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     azureOpenAI: { ...prev.azureOpenAI!, endpoint: e.target.value }
                   }))}
@@ -640,7 +640,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="text"
                   value={settings.azureOpenAI?.deploymentName ?? ''}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     azureOpenAI: { ...prev.azureOpenAI!, deploymentName: e.target.value }
                   }))}
@@ -655,7 +655,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type="text"
                     value={settings.azureOpenAI?.model ?? 'gpt-4o'}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       azureOpenAI: { ...prev.azureOpenAI!, model: e.target.value }
                     }))}
@@ -669,7 +669,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type="text"
                     value={settings.azureOpenAI?.apiVersion ?? '2024-08-01-preview'}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       azureOpenAI: { ...prev.azureOpenAI!, apiVersion: e.target.value }
                     }))}
@@ -723,7 +723,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type="url"
                     value={settings.ollama?.baseUrl ?? 'http://localhost:11434'}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       ollama: { ...prev.ollama!, baseUrl: e.target.value }
                     }))}
@@ -765,7 +765,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 ) : ollamaModels.length > 0 ? (
                   <select
                     value={settings.ollama?.model ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       ollama: { ...prev.ollama!, model: e.target.value }
                     }))}
@@ -780,7 +780,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type="text"
                     value={settings.ollama?.model ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       ollama: { ...prev.ollama!, model: e.target.value }
                     }))}
@@ -810,7 +810,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['openrouter'] ? 'text' : 'password'}
                     value={settings.openrouter?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       openrouter: { ...prev.openrouter!, apiKey: e.target.value }
                     }))}
@@ -842,7 +842,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <label className="text-sm font-medium text-text-secondary">Model</label>
                 <OpenRouterModelCombobox
                   value={settings.openrouter?.model ?? ''}
-                  onChange={(model) => setSettings(prev => ({
+                  onChange={(model) => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     openrouter: { ...prev.openrouter!, model }
                   }))}
@@ -877,7 +877,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   <input
                     type={showApiKey['minimax'] ? 'text' : 'password'}
                     value={settings.minimax?.apiKey ?? ''}
-                    onChange={e => setSettings(prev => ({
+                    onChange={e => setSettings((prev: LLMSettings) => ({
                       ...prev,
                       minimax: { ...prev.minimax!, apiKey: e.target.value }
                     }))}
@@ -910,7 +910,7 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                 <input
                   type="text"
                   value={settings.minimax?.model ?? 'MiniMax-M2.5'}
-                  onChange={e => setSettings(prev => ({
+                  onChange={e => setSettings((prev: LLMSettings) => ({
                     ...prev,
                     minimax: { ...prev.minimax!, model: e.target.value }
                   }))}

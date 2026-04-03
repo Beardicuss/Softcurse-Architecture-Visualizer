@@ -352,14 +352,18 @@ QUERY PATTERNS:
    MATCH (f:File {name: 'index.ts'})-[r:CodeRelation]-(m)
    RETURN m.name, r.type
 
-TOOLING NOTE (for execute_vector_cypher):
-- Write Cypher containing {{QUERY_VECTOR}} where the vector should go.
-- The tool will replace {{QUERY_VECTOR}} with CAST([..] AS FLOAT[384]).
-
-NOTES:
-- Use proper table names: File, Folder, Function, Class, Interface, Method, CodeElement
-- Use CodeRelation with type property: [:CodeRelation {type: 'DEFINES'}]
-- For vector search, join CodeEmbedding.nodeId to the appropriate table's id
-- Use LIMIT to avoid returning too many results
+// TOOLING NOTE (for execute_vector_cypher):
+// - Write Cypher containing {{QUERY_VECTOR}} where the vector should go.
+// - The tool will replace {{QUERY_VECTOR}} with CAST([..] AS FLOAT[384]).
+//
+// NOTES:
+// - Use proper table names: File, Folder, Function, Class, Interface, Method, CodeElement
+// - Use CodeRelation with type property: [:CodeRelation {type: 'DEFINES'}]
+// - For vector search, join CodeEmbedding.nodeId to the appropriate table's id
+// - Use LIMIT to avoid returning too many results
 `;
 
+export interface AgentMessage {
+  role: 'user' | 'assistant' | 'system' | 'tool';
+  content: string;
+}

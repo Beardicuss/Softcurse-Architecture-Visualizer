@@ -8,6 +8,8 @@ import { ToolCallCard } from './ToolCallCard';
 import { isProviderConfigured } from '../core/llm/settings-service';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { ProcessesPanel } from './ProcessesPanel';
+import type { MessageStep } from '../core/llm/types';
+
 export const RightPanel = () => {
   const {
     isRightPanelOpen,
@@ -345,7 +347,7 @@ export const RightPanel = () => {
                           {/* Render steps in order (reasoning, tool calls, content interleaved) */}
                           {message.steps && message.steps.length > 0 ? (
                             <div className="space-y-4">
-                              {message.steps.map((step, index) => (
+                              {message.steps.map((step: MessageStep, index: number) => (
                                 <div key={step.id}>
                                   {step.type === 'reasoning' && step.content && (
                                     <div className="text-text-secondary text-sm italic border-l-2 border-text-muted/30 pl-3 mb-3">

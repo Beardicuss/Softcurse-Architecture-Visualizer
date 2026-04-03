@@ -565,7 +565,7 @@ export const AppStateProvider = ({ children }: { children: ReactNode }) => {
 
   // LLM methods
   const updateLLMSettings = useCallback((updates: Partial<LLMSettings>) => {
-    setLLMSettings(prev => {
+    setLLMSettings((prev: LLMSettings) => {
       const next = { ...prev, ...updates };
       saveSettings(next);
       return next;
