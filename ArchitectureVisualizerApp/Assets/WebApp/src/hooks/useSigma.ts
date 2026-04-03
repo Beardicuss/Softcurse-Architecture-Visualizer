@@ -94,13 +94,13 @@ const getFA2Settings = (nodeCount: number) => {
   return {
     // Strong gravity pulls nodes toward center, scaling ratio pushes them apart
     // Balance: higher scaling = more spread, higher gravity = tighter center
-    gravity: isSmall ? 0.5 : isMedium ? 0.3 : isLarge ? 0.2 : 0.1,
+    gravity: isSmall ? 0.15 : isMedium ? 0.08 : isLarge ? 0.04 : 0.02,
     strongGravityMode: true,
 
     // High scaling = wide spread; increase for bigger perimeter
-    scalingRatio: isSmall ? 25 : isMedium ? 45 : isLarge ? 70 : 110,
+    scalingRatio: isSmall ? 60 : isMedium ? 100 : isLarge ? 160 : 240,
 
-    slowDown: isSmall ? 3 : isMedium ? 5 : isLarge ? 8 : 12,
+    slowDown: isSmall ? 4 : isMedium ? 6 : isLarge ? 10 : 15,
 
     barnesHutOptimize: nodeCount > 200,
     barnesHutTheta: 0.5,

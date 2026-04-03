@@ -356,3 +356,21 @@ export const fetchOpenRouterModels = async (): Promise<Array<{ id: string; name:
   }
 };
 
+/**
+ * Auto-discover models from local Ollama instance
+ */
+export const fetchOllamaModels = async (baseUrl: string = 'http://localhost:11434'): Promise<string[]> => {
+  try {
+    const response = await fetch(`${baseUrl}/api/tags`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    });
+    if (!response.ok) return [];
+    const data = await response.json();
+    // Ollama /api/tags returns { models: [{ name: 'llama3.1:8b', size, ... }] }
+    return (data.models ?? []).map((m: { name: string }) => m.name).sort();
+  } catch {
+    return [];
+  }
+};

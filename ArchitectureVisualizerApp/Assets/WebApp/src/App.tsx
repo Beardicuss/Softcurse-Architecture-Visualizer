@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { AppStateProvider, useAppState } from './hooks/useAppState';
 import { DropZone } from './components/DropZone';
 import { LoadingOverlay } from './components/LoadingOverlay';
@@ -44,6 +44,12 @@ const AppContent = () => {
   } = useAppState();
 
   const graphCanvasRef = useRef<GraphCanvasHandle>(null);
+  const [isDagLayout, setIsDagLayout] = useState(false);
+  const handleToggleLayout = useCallback(() => {
+    setIsDagLayout(prev => !prev);
+    // Forward toggle to GraphCanvas via ref
+    graphCanvasRef.current?.toggleLayout?.();
+  }, []);
 
   const handleFileSelect = useCallback(async (file: File) => {
     const projectName = file.name.replace('.zip', '');
@@ -280,7 +286,7 @@ const AppContent = () => {
   // Exploring view
   return (
     <div className="flex flex-col h-screen bg-void overflow-hidden">
-      <Header onFocusNode={handleFocusNode} availableRepos={availableRepos} onSwitchRepo={switchRepo} />
+      <Header onFocusNode={handleFocusNode} availableRepos={availableRepos} onSwitchRepo={switchRepo} isDagLayout={isDagLayout} onToggleLayout={handleToggleLayout} />
 
       <main className="flex-1 flex min-h-0">
         {/* Left Panel - File Tree */}

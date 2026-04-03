@@ -305,7 +305,7 @@ export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   const [isCodePanelOpen, setCodePanelOpen] = useState(false);
   const [codeReferenceFocus, setCodeReferenceFocus] = useState<CodeReferenceFocus | null>(null);
 
-    const normalizePath = useCallback((p: string) => {
+  const normalizePath = useCallback((p: string) => {
     return p.replace(/\\/g, '/').replace(/^\.?\//, '');
   }, []);
 

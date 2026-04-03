@@ -149,7 +149,7 @@ export const DEFAULT_LLM_SETTINGS: LLMSettings = {
   },
   ollama: {
     baseUrl: 'http://localhost:11434',
-    model: 'llama3.2',
+    model: '',  // auto-discovered from running Ollama instance
     temperature: 0.1,
   },
   openrouter: {

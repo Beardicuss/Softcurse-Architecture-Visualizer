@@ -5,6 +5,7 @@ import {
   saveSettings,
   getProviderDisplayName,
   fetchOpenRouterModels,
+  fetchOllamaModels,
 } from '../core/llm/settings-service';
 import type { LLMSettings, LLMProvider } from '../core/llm/types';
 
@@ -191,23 +192,33 @@ const OpenRouterModelCombobox = ({ value, onChange, models, isLoading, onLoadMod
  */
 const checkOllamaStatus = async (baseUrl: string): Promise<{ ok: boolean; error: string | null }> => {
   try {
+    // Ollama requires OLLAMA_ORIGINS=* env var to allow browser requests.
+    // Use no-cors to at least verify the server is reachable, then try cors for data.
     const response = await fetch(`${baseUrl}/api/tags`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     if (!response.ok) {
-      if (response.status === 0 || response.status === 404) {
-        return { ok: false, error: 'Cannot connect to Ollama. Make sure it\'s running with `ollama serve`' };
-      }
-      return { ok: false, error: `Ollama API error: ${response.status}` };
+      return { ok: false, error: `Ollama API error: HTTP ${response.status}` };
     }
 
     return { ok: true, error: null };
-  } catch (error) {
+  } catch (error: any) {
+    // CORS error (most common) — Ollama is running but missing OLLAMA_ORIGINS
+    if (error?.message?.includes('CORS') || error?.message?.includes('fetch') || error instanceof TypeError) {
+      return {
+        ok: false,
+        error: 'CORS blocked. Set OLLAMA_ORIGINS=* env var before starting Ollama (see run-ollama.ps1)',
+      };
+    }
     return {
       ok: false,
-      error: 'Cannot connect to Ollama. Make sure it\'s running with `ollama serve`'
+      error: 'Cannot reach Ollama at ' + baseUrl + '. Is it running?',
     };
   }
 };
@@ -219,6 +230,8 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
   // Ollama connection state
   const [ollamaError, setOllamaError] = useState<string | null>(null);
   const [isCheckingOllama, setIsCheckingOllama] = useState(false);
+  const [ollamaModels, setOllamaModels] = useState<string[]>([]);
+  const [isLoadingOllamaModels, setIsLoadingOllamaModels] = useState(false);
   // OpenRouter models state
   const [openRouterModels, setOpenRouterModels] = useState<Array<{ id: string; name: string }>>([]);
   const [isLoadingModels, setIsLoadingModels] = useState(false);
@@ -232,14 +245,28 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
     }
   }, [isOpen]);
 
-  // Check Ollama connection when provider is selected or base URL changes
+  // Check Ollama connection + auto-discover models
   const checkOllamaConnection = useCallback(async (baseUrl: string) => {
     setIsCheckingOllama(true);
+    setIsLoadingOllamaModels(true);
     setOllamaError(null);
 
     const { error } = await checkOllamaStatus(baseUrl);
     setIsCheckingOllama(false);
     setOllamaError(error);
+
+    if (!error) {
+      const models = await fetchOllamaModels(baseUrl);
+      setOllamaModels(models);
+      // Auto-select first model if none selected
+      if (models.length > 0) {
+        setSettings(prev => ({
+          ...prev,
+          ollama: { ...prev.ollama!, model: prev.ollama?.model || models[0] }
+        }));
+      }
+    }
+    setIsLoadingOllamaModels(false);
   }, []);
 
   // Load OpenRouter models
@@ -730,18 +757,42 @@ export const SettingsPanel = ({ isOpen, onClose, onSettingsSaved, backendUrl, is
                   </div>
                 )}
 
-                <input
-                  type="text"
-                  value={settings.ollama?.model ?? ''}
-                  onChange={e => setSettings(prev => ({
-                    ...prev,
-                    ollama: { ...prev.ollama!, model: e.target.value }
-                  }))}
-                  placeholder="e.g., llama3.2, mistral, codellama"
-                  className="w-full px-4 py-3 bg-elevated border border-border-subtle rounded-xl text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all font-mono text-sm"
-                />
+                {isLoadingOllamaModels ? (
+                  <div className="flex items-center gap-2 px-4 py-3 bg-elevated border border-border-subtle rounded-xl text-text-muted text-sm">
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    Discovering models...
+                  </div>
+                ) : ollamaModels.length > 0 ? (
+                  <select
+                    value={settings.ollama?.model ?? ''}
+                    onChange={e => setSettings(prev => ({
+                      ...prev,
+                      ollama: { ...prev.ollama!, model: e.target.value }
+                    }))}
+                    className="w-full px-4 py-3 bg-elevated border border-border-subtle rounded-xl text-text-primary focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all font-mono text-sm"
+                  >
+                    <option value="">Select a model...</option>
+                    {ollamaModels.map(m => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={settings.ollama?.model ?? ''}
+                    onChange={e => setSettings(prev => ({
+                      ...prev,
+                      ollama: { ...prev.ollama!, model: e.target.value }
+                    }))}
+                    placeholder="e.g., llama3.2, mistral, codellama"
+                    className="w-full px-4 py-3 bg-elevated border border-border-subtle rounded-xl text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all font-mono text-sm"
+                  />
+                )}
                 <p className="text-xs text-text-muted">
-                  Pull a model with <code className="px-1 py-0.5 bg-elevated rounded">ollama pull llama3.2</code>
+                  {ollamaModels.length > 0
+                    ? `${ollamaModels.length} model${ollamaModels.length !== 1 ? 's' : ''} found on your Ollama instance`
+                    : <>Pull a model with <code className="px-1 py-0.5 bg-elevated rounded">ollama pull llama3.2</code></>
+                  }
                 </p>
               </div>
             </div>

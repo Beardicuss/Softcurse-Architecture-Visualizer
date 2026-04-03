@@ -87,6 +87,9 @@ An integrated LangChain agent leverages **Graph RAG** (Retrieval-Augmented Gener
 | **OpenRouter** | 100+ models from multiple providers | Pay-per-token |
 | **MiniMax** | `MiniMax-M2.5` | Paid API |
 
+> [!IMPORTANT]
+> **Ollama Setup:** To allow connection from this application, you MUST set the `OLLAMA_ORIGINS` environment variable to `https://softcurse.local` (or `*`) and restart Ollama. This allows the secure virtual host to communicate with the local API.
+
 Configure in the app via **⚙️ Settings** → select provider → paste API key → save.
 
 ---

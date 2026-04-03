@@ -8,6 +8,7 @@ import Graph from 'graphology';
 
 export interface GraphCanvasHandle {
   focusNode: (nodeId: string) => void;
+  toggleLayout: () => void;
 }
 
 export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
@@ -106,7 +107,6 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
   // Expose focusNode to parent via ref
   useImperativeHandle(ref, () => ({
     focusNode: (nodeId: string) => {
-      // Also update app state so the selection syncs properly
       if (graph) {
         const node = graph.nodes.find(n => n.id === nodeId);
         if (node) {
@@ -115,8 +115,15 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
         }
       }
       focusNode(nodeId);
-    }
-  }), [focusNode, graph, setSelectedNode, openCodePanel]);
+    },
+    toggleLayout: () => {
+      if (isDagLayout) {
+        startLayout();
+      } else {
+        applyDagLayout();
+      }
+    },
+  }), [focusNode, graph, setSelectedNode, openCodePanel, isDagLayout, startLayout, applyDagLayout]);
 
   // Update Sigma graph when KnowledgeGraph changes
   useEffect(() => {
@@ -238,8 +245,8 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
       if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
       ctx.clearRect(0, 0, w, h);
 
-      // Spawn packets every 12 frames along real edges
-      if (frame % 12 === 0) {
+      // Spawn packets every 8 frames along real edges
+      if (frame % 8 === 0) {
         const sigma = sigmaRef.current;
         const g = sigma?.getGraph();
         if (sigma && g && g.order > 1) {
@@ -256,9 +263,8 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
               const tp = toPixel(tA.x, tA.y);
               if (!sp || !tp) continue;
               // Guard: skip if layout hasn't spread nodes yet
-              if (Math.hypot(sp.x - tp.x, sp.y - tp.y) < 15) continue;
-              // Guard: skip if off-canvas
-              if (sp.x < -100 || sp.x > w + 100 || tp.x < -100 || tp.x > w + 100) continue;
+              if (Math.hypot(sp.x - tp.x, sp.y - tp.y) < 5) continue;
+              // coords from framedGraphToViewport are already in canvas space
               const color = Math.random() > 0.4 ? '#00ffc8' : '#ff6b35';
               packetsRef.current.push({
                 ax: sp.x, ay: sp.y,
@@ -269,7 +275,7 @@ export const GraphCanvas = forwardRef<GraphCanvasHandle>((_, ref) => {
                 size: 3.5 + Math.random() * 2.5,
               });
             }
-            if (packetsRef.current.length > 120) packetsRef.current.splice(0, packetsRef.current.length - 120);
+            if (packetsRef.current.length > 150) packetsRef.current.splice(0, packetsRef.current.length - 150);
           }
         }
       }

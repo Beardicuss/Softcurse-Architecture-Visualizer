@@ -25,9 +25,10 @@ namespace ArchitectureVisualizerApp
         {
             try
             {
-                // Initialize WebView2 with user data folder in temp
+                // Initialize WebView2 with environment options to allow mixed content (HTTPS -> HTTP)
+                var options = new CoreWebView2EnvironmentOptions { AdditionalBrowserArguments = "--allow-running-insecure-content" };
                 var userDataFolder = Path.Combine(Path.GetTempPath(), "SoftcurseVisualizer");
-                var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder);
+                var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, options);
                 await webView.EnsureCoreWebView2Async(env);
 
                 // Configure WebView2 settings

@@ -1,4 +1,4 @@
-import { Search, Settings, HelpCircle, Sparkles, Github, Star, ChevronDown } from 'lucide-react';
+import { Search, Settings, HelpCircle, Sparkles, ChevronDown, GitBranch, Shuffle } from 'lucide-react';
 import { useAppState } from '../hooks/useAppState';
 import type { RepoSummary } from '../services/server-connection';
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
@@ -23,9 +23,11 @@ interface HeaderProps {
   onFocusNode?: (nodeId: string) => void;
   availableRepos?: RepoSummary[];
   onSwitchRepo?: (repoName: string) => void;
+  isDagLayout?: boolean;
+  onToggleLayout?: () => void;
 }
 
-export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: HeaderProps) => {
+export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo, isDagLayout = false, onToggleLayout }: HeaderProps) => {
   const {
     projectName,
     graph,
@@ -239,18 +241,21 @@ export const Header = ({ onFocusNode, availableRepos = [], onSwitchRepo }: Heade
 
         {/* Right section */}
         <div className="flex items-center gap-2">
-          {/* GitHub Star Button */}
-          <a
-            href="https://github.com/Beardicuss/Softcurse-Architecture-Visualizer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-[#00cccc] to-[#ff0099] hover:from-[#00eeff] hover:to-[#ff33aa] rounded-lg text-white text-sm font-medium shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,255,255,0.5)] hover:-translate-y-0.5 transition-all duration-200 group"
+          {/* DAG / Force layout toggle */}
+          <button
+            onClick={onToggleLayout}
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
+              isDagLayout
+                ? 'bg-cyan-500/20 border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30 shadow-[0_0_12px_rgba(0,255,200,0.2)]'
+                : 'bg-surface border-border-subtle text-text-secondary hover:bg-hover hover:text-text-primary hover:border-accent/40'
+            }`}
+            title={isDagLayout ? 'Switch to Force Layout' : 'Switch to DAG Hierarchical Layout'}
           >
-            <Github className="w-4 h-4" />
-            <span className="hidden sm:inline">Star if cool</span>
-            <Star className="w-3.5 h-3.5 group-hover:fill-yellow-300 group-hover:text-yellow-300 transition-all" />
-            <span className="hidden sm:inline">✨</span>
-          </a>
+            {isDagLayout
+              ? <><Shuffle className="w-4 h-4" /><span className="hidden sm:inline">Force Layout</span></>
+              : <><GitBranch className="w-4 h-4" /><span className="hidden sm:inline">DAG Layout</span></>
+            }
+          </button>
 
           {/* Stats */}
           {graph && (
