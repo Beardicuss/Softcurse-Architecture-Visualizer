@@ -10,20 +10,20 @@ export const LoadingOverlay = ({ progress }: LoadingOverlayProps) => {
       {/* Background gradient effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-node-interface/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-accent-dim/10 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Pulsing orb */}
       <div className="relative mb-10">
-        <div className="w-28 h-28 bg-gradient-to-br from-accent to-node-interface rounded-full animate-pulse-glow" />
-        <div className="absolute inset-0 w-28 h-28 bg-gradient-to-br from-accent to-node-interface rounded-full blur-xl opacity-50" />
+        <div className="w-28 h-28 bg-gradient-to-br from-accent to-accent-dim rounded-full animate-pulse-glow" />
+        <div className="absolute inset-0 w-28 h-28 bg-gradient-to-br from-accent to-accent-dim rounded-full blur-xl opacity-50" />
       </div>
 
       {/* Progress bar */}
       <div className="w-80 mb-4">
         <div className="h-1.5 bg-elevated rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-gradient-to-r from-accent to-node-interface rounded-full transition-all duration-300 ease-out"
+          <div
+            className="h-full bg-gradient-to-r from-accent to-accent-dim rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progress.percent}%` }}
           />
         </div>
